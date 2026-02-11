@@ -153,6 +153,7 @@ app.listen(PORT, () => {
   console.log(`📥 Export:     http://localhost:${PORT}/api/export`);
   console.log(`💚 Health:     http://localhost:${PORT}/api/health`);
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  console.log(`⏰ Deploy timestamp: ${new Date().toISOString()}`);
   console.log('');
   
   // Check configuration
