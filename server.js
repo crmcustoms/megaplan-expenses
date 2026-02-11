@@ -45,7 +45,8 @@ app.get('/api/export', exportHandler);
 // GitHub Webhook для автоматического деплоя
 // Webhook слушает push события в main ветке и запускает git pull + docker restart
 app.post('/api/deploy', (req, res) => {
-  console.log('📨 Webhook received');
+  const timestamp = new Date().toISOString();
+  console.log(`📨 Webhook received at ${timestamp}`);
   console.log('Body keys:', Object.keys(req.body));
   console.log('Ref:', req.body.ref);
 
