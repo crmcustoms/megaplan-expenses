@@ -218,7 +218,7 @@ module.exports = async (req, res) => {
       });
     }
 
-    console.log(`[${new Date().toISOString()}] Exporting expenses for deal ${dealId}...`);
+    console.log(`[${new Date().toISOString()}] 📊 Exporting expenses for deal ${dealId} - webhook deployment active`);
     
     // 1. Get deal info
     const deal = await megaplanRequest(`/deal/${dealId}`);
