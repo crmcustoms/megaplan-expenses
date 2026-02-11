@@ -3,23 +3,20 @@
 
 const axios = require('axios');
 
-// Custom field ID для "Расходы Сумма Итого"
-const FIELD_EXPENSES_TOTAL = process.env.FIELD_EXPENSES_TOTAL || '1000061';
+// Custom field name for "Расходы Сумма Итого"
+const FIELD_EXPENSES_TOTAL = 'Category1000061CustomFieldRashodiSummaItogo';
 
-// Megaplan API base URL
+// Megaplan API configuration
 const MEGAPLAN_ACCOUNT = process.env.MEGAPLAN_ACCOUNT || 'likhtman';
 const MEGAPLAN_API_URL = `https://${MEGAPLAN_ACCOUNT}.megaplan.ru/api/v3`;
+const MEGAPLAN_BEARER_TOKEN = process.env.MEGAPLAN_BEARER_TOKEN || '';
 
-// Credentials for Megaplan API
-const MEGAPLAN_LOGIN = process.env.MEGAPLAN_LOGIN;
-const MEGAPLAN_PASSWORD = process.env.MEGAPLAN_PASSWORD;
-
-// Create axios instance with auth
+// Create axios instance with Bearer token auth
 const megaplanAPI = axios.create({
   baseURL: MEGAPLAN_API_URL,
-  auth: {
-    username: MEGAPLAN_LOGIN,
-    password: MEGAPLAN_PASSWORD
+  headers: {
+    'Authorization': `Bearer ${MEGAPLAN_BEARER_TOKEN}`,
+    'Content-Type': 'application/json'
   },
   timeout: 10000
 });
@@ -49,7 +46,11 @@ module.exports = async (req, res) => {
     // Make API request to update deal
     const response = await megaplanAPI.put(`/deal/${dealId}`, updatePayload);
 
-    console.log(`✅ Successfully updated deal ${dealId}`);
+    console.log(`✅ Successfully updated deal ${dealId}`, {
+      status: response.status,
+      dealId: dealId,
+      fieldValue: fieldValue
+    });
 
     res.json({
       success: true,
@@ -59,12 +60,18 @@ module.exports = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Error updating deal field:', error.message);
+    console.error('Error updating deal field:', {
+      message: error.message,
+      status: error.response?.status,
+      data: error.response?.data,
+      code: error.code
+    });
 
     // Don't fail the whole request if update fails - it's not critical
     res.status(200).json({
       success: false,
       error: error.message,
+      apiError: error.response?.data,
       note: 'Field update failed but request continues'
     });
   }

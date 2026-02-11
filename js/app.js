@@ -74,6 +74,8 @@ async function loadExpenses(dealId) {
 
 async function updateDealExpensesTotal(dealId, totalAmount) {
   try {
+    console.log('Updating deal field with total:', { dealId, totalAmount });
+
     const response = await fetch(API_ENDPOINTS.updateDealField, {
       method: 'POST',
       headers: {
@@ -85,8 +87,13 @@ async function updateDealExpensesTotal(dealId, totalAmount) {
       })
     });
 
+    const data = await response.json();
+    console.log('Deal field update response:', data);
+
     if (!response.ok) {
-      console.warn('Не удалось обновить поле сделки:', response.statusText);
+      console.warn('Не удалось обновить поле сделки:', data);
+    } else {
+      console.log('✅ Deal field updated successfully');
     }
   } catch (error) {
     console.warn('Ошибка при обновлении поля сделки:', error);
