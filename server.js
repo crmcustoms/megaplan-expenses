@@ -10,6 +10,7 @@ const { exec } = require('child_process');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const DEPLOY_TIMESTAMP = new Date().toISOString();
 
 // ===========================
 // MIDDLEWARE
@@ -97,9 +98,10 @@ app.post('/api/deploy', (req, res) => {
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ 
+  res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
+    deployTimestamp: DEPLOY_TIMESTAMP,
     env: {
       megaplanAccount: process.env.MEGAPLAN_ACCOUNT || 'not configured',
       hasLogin: !!process.env.MEGAPLAN_LOGIN,
