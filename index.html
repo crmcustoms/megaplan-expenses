@@ -21,6 +21,29 @@
         📊 Расходы по проекту "<span id="dealName">...</span>"
       </h1>
 
+      <!-- Dashboard Cards -->
+      <div class="dashboard">
+        <div class="card card-primary">
+          <div class="card-header">💰 Общая сумма</div>
+          <div class="card-value" id="totalExpenses">₽0.00</div>
+          <div class="card-subtext">всех расходов</div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">🌍 По валютам</div>
+          <div id="currencySummary" class="currency-summary">
+            <!-- Будет заполнено JS -->
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">📈 Топ категории</div>
+          <div id="topCategories" class="top-list">
+            <!-- Будет заполнено JS -->
+          </div>
+        </div>
+      </div>
+
       <!-- Table Wrapper -->
       <div class="table-scroll">
         <table id="expensesTable">

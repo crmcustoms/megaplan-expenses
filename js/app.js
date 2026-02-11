@@ -51,10 +51,11 @@ async function loadExpenses(dealId) {
     }
     
     // Відобразити дані
+    renderDashboard(data.expenses, data.total);
     renderTable(data.expenses);
     document.getElementById('dealName').textContent = data.dealName || 'Без названия';
     document.getElementById('totalAmount').textContent = formatNumber(data.total || 0);
-    
+
     showContent(true);
     
   } catch (error) {
@@ -103,6 +104,64 @@ function renderTable(expenses) {
     `;
     tbody.appendChild(row);
   });
+}
+
+// ===========================
+// DASHBOARD RENDERING
+// ===========================
+
+function renderDashboard(expenses, total) {
+  // 1. Общая сумма
+  document.getElementById('totalExpenses').textContent = `₽${formatNumber(total)}`;
+
+  // 2. Суммирование по валютам
+  const currencyMap = {};
+  expenses.forEach(exp => {
+    const currency = exp.currency || 'RUB';
+    if (!currencyMap[currency]) {
+      currencyMap[currency] = 0;
+    }
+    currencyMap[currency] += exp.finalCost;
+  });
+
+  const currencyHtml = Object.entries(currencyMap)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([currency, amount]) => `
+      <div class="currency-item">
+        <span class="currency-label">${currency}</span>
+        <span class="currency-value">${formatNumber(amount)}</span>
+      </div>
+    `)
+    .join('');
+
+  document.getElementById('currencySummary').innerHTML = currencyHtml || '<div class="currency-item">Нет данных</div>';
+
+  // 3. Топ категории
+  const categoryMap = {};
+  expenses.forEach(exp => {
+    const category = exp.category || 'Без категории';
+    if (!categoryMap[category]) {
+      categoryMap[category] = { count: 0, total: 0 };
+    }
+    categoryMap[category].count += 1;
+    categoryMap[category].total += exp.finalCost;
+  });
+
+  const topCategories = Object.entries(categoryMap)
+    .sort((a, b) => b[1].total - a[1].total)
+    .slice(0, 5);
+
+  const categoriesHtml = topCategories
+    .map(([category, data]) => `
+      <div class="category-item">
+        <span class="category-label">${category}</span>
+        <span class="category-value">${formatNumber(data.total)}</span>
+      </div>
+    `)
+    .join('');
+
+  document.getElementById('topCategories').innerHTML = categoriesHtml || '<div class="category-item">Нет данных</div>';
 }
 
 // ===========================
