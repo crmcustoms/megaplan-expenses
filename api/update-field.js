@@ -49,8 +49,8 @@ module.exports = async (req, res) => {
       }
     };
 
-    // Make API request to update deal
-    const response = await megaplanAPI.put(`/deal/${dealId}`, updatePayload);
+    // Make API request to update deal (try POST instead of PUT)
+    const response = await megaplanAPI.post(`/deal/${dealId}`, updatePayload);
 
     console.log(`✅ Successfully updated deal ${dealId}`, {
       status: response.status,
