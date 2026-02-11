@@ -1,0 +1,163 @@
+{
+  "name": "Megaplan Expenses CSV Export",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "api/export",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-csv-trigger",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        100,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "looseTypeValidation": true,
+            "caseSensitive": true
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{$query.dealId}}",
+              "rightValue": "",
+              "operator": {
+                "name": "isEmpty",
+                "type": "string",
+                "operation": "isEmpty"
+              }
+            }
+          ]
+        }
+      },
+      "id": "if-dealid-empty-csv",
+      "name": "Is dealId empty?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        350,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": "{{$env.MEGAPLAN_EXPENSES_DATA_WORKFLOW_ID}}",
+        "args": "{\n  \"dealId\": \"{{$query.dealId}}\"\n}",
+        "options": {}
+      },
+      "id": "execute-workflow-csv",
+      "name": "Execute Get Data Workflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        600,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "function escapeCSV(value) {\n  if (value === null || value === undefined) return '';\n  const stringValue = String(value);\n  if (stringValue.includes(',') || stringValue.includes('\"') || stringValue.includes('\\n')) {\n    return `\"${stringValue.replace(/\"/g, '\"\"')}\"`;\n  }\n  return stringValue;\n}\n\nconst expenses = $json.expenses || [];\nconst total = $json.total || 0;\n\nconst headers = [\n  'deal_id',\n  'Статус',\n  'Статья расходов',\n  'Бренд',\n  'Контрагент',\n  'Тип платежа',\n  'Менеджер',\n  'Сумма',\n  'Доп.стоимость',\n  'Финальная стоимость',\n  'Справедливая стоимость',\n  'Суть',\n  'Ссылка на сделку',\n  'Создатель',\n  'Валюта',\n  'deal_name'\n];\n\nconst csvRows = [];\ncsRows.push(headers.map(h => escapeCSV(h)).join(','));\n\nexpenses.forEach(exp => {\n  const row = [\n    exp.deal_id,\n    exp.status,\n    exp.category,\n    exp.brand,\n    exp.contractor,\n    exp.paymentType,\n    exp.manager,\n    exp.amount.toFixed(2),\n    exp.additionalCost.toFixed(2),\n    exp.finalCost.toFixed(2),\n    exp.fairCost.toFixed(2),\n    exp.description,\n    exp.dealLink,\n    exp.creator,\n    exp.currency,\n    exp.deal_name\n  ];\n  csvRows.push(row.map(v => escapeCSV(v)).join(','));\n});\n\nconst totalRow = [\n  '', '', '', '', '', '', '',\n  'ИТОГО:',\n  total.toFixed(2),\n  '', '', '', '', '', ''\n];\ncsRows.push(totalRow.map(v => escapeCSV(v)).join(','));\n\nconst BOM = '\\uFEFF';\nconst csvContent = BOM + csvRows.join('\\n');\n\nreturn {\n  csv: csvContent,\n  filename: `expenses_{{$query.dealId}}_${new Date().toISOString().split('T')[0]}.csv`\n};"
+      },
+      "id": "generate-csv",
+      "name": "Generate CSV",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        850,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWithStatusCode": 200,
+        "responseHeaders": {
+          "headerParametersJson": "{\n  \"Content-Type\": \"text/csv; charset=utf-8\",\n  \"Content-Disposition\": \"attachment; filename=\\\"{{$json.filename}}\\\"\"\n}",
+          "specifyHeaders": "json"
+        },
+        "responseBody": "={{$json.csv}}"
+      },
+      "id": "respond-csv",
+      "name": "Respond with CSV",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWithStatusCode": 400,
+        "responseBody": "={\"error\": \"dealId parameter is required\"}"
+      },
+      "id": "respond-error-csv",
+      "name": "Error Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        600,
+        450
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Is dealId empty?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is dealId empty?": {
+      "main": [
+        [
+          {
+            "node": "Execute Get Data Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Get Data Workflow": {
+      "main": [
+        [
+          {
+            "node": "Generate CSV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate CSV": {
+      "main": [
+        [
+          {
+            "node": "Respond with CSV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

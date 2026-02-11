@@ -1,0 +1,156 @@
+{
+  "name": "Megaplan Get Expenses Data",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://likhtman.megaplan.ru/api/v3/deal/{{$json.dealId}}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpHeaderAuth",
+        "specifyHeaders": "json",
+        "headerParametersJson": "{\n  \"Authorization\": \"Bearer NzZkODNiOGUwMWNlMGIyMTY5NzlkMDkzOGEzOWFlOGI1MGYyNTk0YThmOWJkYWE5ZDFlMGMyNGU2YWQ2ZWI1ZA\",\n  \"Content-Type\": \"application/json\"\n}"
+      },
+      "id": "22ab5f26-5e9d-4dcc-a6f8-8c3a29b4c8d1",
+      "name": "Get Deal Info",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://likhtman.megaplan.ru/api/v3/deal/{{$json.dealId}}/linkedDeals",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpHeaderAuth",
+        "specifyHeaders": "json",
+        "headerParametersJson": "{\n  \"Authorization\": \"Bearer NzZkODNiOGUwMWNlMGIyMTY5NzlkMDkzOGEzOWFlOGI1MGYyNTk0YThmOWJkYWE5ZDFlMGMyNGU2YWQ2ZWI1ZA\",\n  \"Content-Type\": \"application/json\"\n}"
+      },
+      "id": "33bc6f37-6f9e-4edd-b7g9-9d4a40b5d9e2",
+      "name": "Get Linked Deals",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        240,
+        450
+      ]
+    },
+    {
+      "parameters": {
+        "loopOver": "=data",
+        "mode": "simple"
+      },
+      "id": "44cd7f48-7g0f-4fee-c8h0-0e5b51c6e0f3",
+      "name": "Loop Linked Deals",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 3,
+      "position": [
+        500,
+        450
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://likhtman.megaplan.ru/api/v3/deal/{{$json.id}}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpHeaderAuth",
+        "specifyHeaders": "json",
+        "headerParametersJson": "{\n  \"Authorization\": \"Bearer NzZkODNiOGUwMWNlMGIyMTY5NzlkMDkzOGEzOWFlOGI1MGYyNTk0YThmOWJkYWE5ZDFlMGMyNGU2YWQ2ZWI1ZA\",\n  \"Content-Type\": \"application/json\"\n}"
+      },
+      "id": "55de8g59-8h1g-5gff-d9i1-1f6c62d7f1g4",
+      "name": "Get Full Deal Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        700,
+        450
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// getFieldByPath function\nfunction getFieldByPath(obj, path) {\n  if (!path) return '';\n  if (path.startsWith('$.')) {\n    const pathParts = path.slice(2).split('.');\n    let value = obj;\n    for (const part of pathParts) {\n      if (value === null || value === undefined) return '';\n      value = value[part];\n    }\n    if (value && typeof value === 'object' && 'value' in value) {\n      return value.value;\n    }\n    return value || '';\n  }\n  return obj.customFields?.[path] || '';\n}\n\nconst expenseDeal = $json.data;\nconst parentDeal = $('Get Deal Info')[0].json.data;\n\nconst CUSTOM_FIELDS = {\n  status: '$.state.name',\n  category: '$.Category1000083CustomFieldStatyaRashodov',\n  brand: '$.Category1000083CustomFieldBrend',\n  contractor: '$.contractor.id',\n  paymentType: '$.Category1000083CustomFieldTipPlatezha',\n  amount: '$.Category1000083CustomFieldSumma',\n  additionalCost: '$.Category1000083CustomFieldDopStoimost',\n  finalCost: '$.Category1000083CustomFieldFinalnayaStoimost',\n  fairCost: '$.Category1000083CustomFieldSpravedlivayaStoimost',\n  currency: '$.Category1000083CustomFieldBuhgalteriyaValyuta'\n};\n\nreturn {\n  deal_id: parentDeal.id,\n  status: getFieldByPath(expenseDeal, CUSTOM_FIELDS.status),\n  category: getFieldByPath(expenseDeal, CUSTOM_FIELDS.category),\n  brand: getFieldByPath(expenseDeal, CUSTOM_FIELDS.brand),\n  contractor: expenseDeal.contractor?.name || '',\n  paymentType: getFieldByPath(expenseDeal, CUSTOM_FIELDS.paymentType),\n  manager: expenseDeal.responsible?.name || '',\n  amount: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.amount)) || 0,\n  additionalCost: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.additionalCost)) || 0,\n  finalCost: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.finalCost)) || 0,\n  fairCost: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.fairCost)) || 0,\n  description: expenseDeal.name || '',\n  dealLink: `https://likhtman.megaplan.ru/deal/${expenseDeal.id}`,\n  creator: expenseDeal.created?.by?.name || '',\n  currency: getFieldByPath(expenseDeal, CUSTOM_FIELDS.currency) || 'RUB',\n  deal_name: parentDeal.name || ''\n};"
+      },
+      "id": "66ef9h6a-9i2h-6hgg-e0j2-2g7d73e8g2h5",
+      "name": "Map Expense",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        450
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const expenses = $('Map Expense').map(item => item.json);\nconst total = expenses.reduce((sum, exp) => sum + exp.finalCost, 0);\n\nreturn {\n  dealId: $('Get Deal Info')[0].json.data.id,\n  dealName: $('Get Deal Info')[0].json.data.name,\n  expenses: expenses,\n  total: total\n};"
+      },
+      "id": "77fg0i7b-0j3i-7ihh-f1k3-3h8e84f9h3i6",
+      "name": "Aggregate Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        450
+      ]
+    }
+  ],
+  "connections": {
+    "Get Deal Info": {
+      "main": [
+        [
+          {
+            "node": "Get Linked Deals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Linked Deals": {
+      "main": [
+        [
+          {
+            "node": "Loop Linked Deals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Linked Deals": {
+      "main": [
+        [
+          {
+            "node": "Get Full Deal Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Full Deal Data": {
+      "main": [
+        [
+          {
+            "node": "Map Expense",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map Expense": {
+      "main": [
+        [
+          {
+            "node": "Aggregate Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

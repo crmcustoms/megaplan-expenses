@@ -1,0 +1,135 @@
+{
+  "name": "Megaplan Expenses JSON API",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "api/expenses",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger-1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        100,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": "{{$env.MEGAPLAN_EXPENSES_DATA_WORKFLOW_ID}}",
+        "args": "{\n  \"dealId\": \"{{$query.dealId}}\"\n}",
+        "options": {}
+      },
+      "id": "execute-workflow-1",
+      "name": "Execute Get Data Workflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        350,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWithStatusCode": 200,
+        "responseBody": "={{$json}}"
+      },
+      "id": "respond-to-webhook-1",
+      "name": "Respond with JSON",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        600,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWithStatusCode": 400,
+        "responseBody": "={\"error\": \"dealId parameter is required\"}"
+      },
+      "id": "respond-error-1",
+      "name": "Error Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        600,
+        450
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "looseTypeValidation": true,
+            "caseSensitive": true
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{$query.dealId}}",
+              "rightValue": "",
+              "operator": {
+                "name": "isEmpty",
+                "type": "string",
+                "operation": "isEmpty"
+              }
+            }
+          ]
+        }
+      },
+      "id": "if-dealid-empty",
+      "name": "Is dealId empty?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        350,
+        450
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Is dealId empty?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is dealId empty?": {
+      "main": [
+        [
+          {
+            "node": "Execute Get Data Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Get Data Workflow": {
+      "main": [
+        [
+          {
+            "node": "Respond with JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

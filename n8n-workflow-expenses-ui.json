@@ -1,0 +1,75 @@
+{
+  "name": "Megaplan Expenses UI",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "expenses",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-ui-trigger",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        100,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "html": "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Megaplan - Расходы</title>\n    <style>\n        * { margin: 0; padding: 0; box-sizing: border-box; }\n        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f7fa; color: #333; }\n        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }\n        .header { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }\n        .header h1 { font-size: 24px; margin-bottom: 10px; }\n        .header p { color: #666; }\n        .controls { display: flex; gap: 10px; margin-top: 15px; }\n        .input-group { flex: 1; }\n        .input-group label { display: block; font-size: 12px; color: #666; margin-bottom: 5px; font-weight: 600; }\n        .input-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }\n        .input-group input:focus { outline: none; border-color: #0066cc; box-shadow: 0 0 0 3px rgba(0,102,204,0.1); }\n        .btn { padding: 10px 16px; border: none; border-radius: 4px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }\n        .btn-primary { background: #0066cc; color: white; }\n        .btn-primary:hover { background: #0052a3; }\n        .btn-secondary { background: #f0f0f0; color: #333; }\n        .btn-secondary:hover { background: #e0e0e0; }\n        .loading { text-align: center; padding: 40px; color: #666; }\n        .error { background: #fee; padding: 15px; border-radius: 4px; color: #c00; margin-bottom: 20px; border: 1px solid #fcc; }\n        .success { background: #efe; padding: 15px; border-radius: 4px; color: #060; margin-bottom: 20px; border: 1px solid #cfc; }\n        .table-wrapper { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }\n        table { width: 100%; border-collapse: collapse; font-size: 13px; }\n        th { background: #f0f0f0; padding: 12px; text-align: left; font-weight: 600; border-bottom: 1px solid #ddd; }\n        td { padding: 12px; border-bottom: 1px solid #f0f0f0; }\n        tr:hover { background: #f9f9f9; }\n        .status { padding: 4px 8px; border-radius: 3px; font-size: 12px; font-weight: 600; display: inline-block; }\n        .status-ok { background: #d4edda; color: #155724; }\n        .status-pending { background: #fff3cd; color: #856404; }\n        .status-process { background: #cfe2ff; color: #084298; }\n        .status-other { background: #e2e3e5; color: #383d41; }\n        .amount { text-align: right; font-family: 'Courier New', monospace; }\n        .total-row { background: #f9f9f9; font-weight: 600; }\n        .footer { text-align: center; padding: 20px; color: #999; font-size: 12px; }\n        .link { color: #0066cc; text-decoration: none; }\n        .link:hover { text-decoration: underline; }\n    </style>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"header\">\n            <h1>📊 Megaplan Расходы</h1>\n            <p>Просмотр и экспорт расходов по проектам</p>\n            <div class=\"controls\">\n                <div class=\"input-group\">\n                    <label>ID Сделки</label>\n                    <input type=\"text\" id=\"dealId\" placeholder=\"Например: 28994\" />\n                </div>\n                <div style=\"display: flex; gap: 10px; align-items: flex-end;\">\n                    <button class=\"btn btn-primary\" onclick=\"loadExpenses()\">Загрузить</button>\n                    <button class=\"btn btn-secondary\" onclick=\"exportCSV()\" id=\"exportBtn\" disabled>Экспорт CSV</button>\n                </div>\n            </div>\n        </div>\n        <div id=\"result\"></div>\n    </div>\n\n    <script>\n        const API_URL = window.location.origin;\n        \n        function getUrlParam(name) {\n            const url = new URL(window.location);\n            return url.searchParams.get(name);\n        }\n        \n        function formatStatus(status) {\n            const statusMap = {\n                'Оплачено': 'ok',\n                'Запланировано': 'pending',\n                'В обработке': 'process'\n            };\n            const type = statusMap[status] || 'other';\n            return `<span class=\"status status-${type}\">${status}</span>`;\n        }\n        \n        function formatAmount(amount, currency) {\n            return `${parseFloat(amount).toFixed(2)} ${currency}`;\n        }\n        \n        async function loadExpenses() {\n            const dealId = document.getElementById('dealId').value;\n            if (!dealId) {\n                showError('Укажите ID сделки');\n                return;\n            }\n            \n            const resultDiv = document.getElementById('result');\n            resultDiv.innerHTML = '<div class=\"loading\">⏳ Загрузка...</div>';\n            \n            try {\n                const response = await fetch(`${API_URL}/api/expenses?dealId=${dealId}`);\n                if (!response.ok) throw new Error('Ошибка при загрузке');\n                \n                const data = await response.json();\n                renderTable(data);\n                document.getElementById('exportBtn').disabled = false;\n            } catch (error) {\n                showError('Ошибка: ' + error.message);\n            }\n        }\n        \n        function renderTable(data) {\n            const expenses = data.expenses || [];\n            const total = data.total || 0;\n            \n            let html = `\n                <div class=\"success\">\n                    ✅ Загружено <strong>${expenses.length}</strong> расходов для сделки <strong>${data.dealName}</strong>\n                </div>\n                <div class=\"table-wrapper\">\n                    <table>\n                        <thead>\n                            <tr>\n                                <th>ID</th>\n                                <th>Статус</th>\n                                <th>Статья</th>\n                                <th>Бренд</th>\n                                <th>Контрагент</th>\n                                <th>Тип платежа</th>\n                                <th>Менеджер</th>\n                                <th class=\"amount\">Сумма</th>\n                                <th class=\"amount\">Доп. стоимость</th>\n                                <th class=\"amount\">Финальная</th>\n                                <th class=\"amount\">Справедливая</th>\n                                <th>Описание</th>\n                                <th>Создатель</th>\n                                <th>Ссылка</th>\n                            </tr>\n                        </thead>\n                        <tbody>\n            `;\n            \n            expenses.forEach(exp => {\n                html += `\n                    <tr>\n                        <td>${exp.deal_id}</td>\n                        <td>${formatStatus(exp.status)}</td>\n                        <td>${exp.category}</td>\n                        <td>${exp.brand}</td>\n                        <td>${exp.contractor}</td>\n                        <td>${exp.paymentType}</td>\n                        <td>${exp.manager}</td>\n                        <td class=\"amount\">${formatAmount(exp.amount, exp.currency)}</td>\n                        <td class=\"amount\">${formatAmount(exp.additionalCost, exp.currency)}</td>\n                        <td class=\"amount\">${formatAmount(exp.finalCost, exp.currency)}</td>\n                        <td class=\"amount\">${formatAmount(exp.fairCost, exp.currency)}</td>\n                        <td>${exp.description}</td>\n                        <td>${exp.creator}</td>\n                        <td><a href=\"${exp.dealLink}\" target=\"_blank\" class=\"link\">→</a></td>\n                    </tr>\n                `;\n            });\n            \n            html += `\n                        </tbody>\n                        <tfoot>\n                            <tr class=\"total-row\">\n                                <td colspan=\"7\">ИТОГО</td>\n                                <td colspan=\"7\" class=\"amount\">${formatAmount(total, 'RUB')}</td>\n                            </tr>\n                        </tfoot>\n                    </table>\n                </div>\n                <div class=\"footer\">Данные получены из Megaplan API</div>\n            `;\n            \n            document.getElementById('result').innerHTML = html;\n        }\n        \n        async function exportCSV() {\n            const dealId = document.getElementById('dealId').value;\n            if (!dealId) return;\n            \n            window.location.href = `${API_URL}/api/export?dealId=${dealId}`;\n        }\n        \n        function showError(message) {\n            document.getElementById('result').innerHTML = `<div class=\"error\">❌ ${message}</div>`;\n        }\n        \n        // Auto-load if dealId in URL\n        window.addEventListener('load', () => {\n            const dealId = getUrlParam('dealId');\n            if (dealId) {\n                document.getElementById('dealId').value = dealId;\n                loadExpenses();\n            }\n        });\n    </script>\n</body>\n</html>"
+      },
+      "id": "html-ui-node",
+      "name": "HTML UI",
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1,
+      "position": [
+        350,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWithStatusCode": 200,
+        "responseHeaders": {
+          "headerParametersJson": "{\n  \"Content-Type\": \"text/html; charset=utf-8\"\n}",
+          "specifyHeaders": "json"
+        },
+        "responseBody": "={{$json.html}}"
+      },
+      "id": "respond-html",
+      "name": "Respond HTML",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        600,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTML UI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML UI": {
+      "main": [
+        [
+          {
+            "node": "Respond HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

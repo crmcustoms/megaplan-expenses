@@ -1,0 +1,161 @@
+{
+  "name": "Megaplan Expenses - Export CSV",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "export-expenses",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger-export",
+      "name": "Webhook Trigger Export",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "export-expenses"
+    },
+    {
+      "parameters": {
+        "url": "={{$env.MEGAPLAN_API_URL}}/deal/={{$json.query.dealId}}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "options": {}
+      },
+      "id": "http-get-deal-export",
+      "name": "HTTP Request - Get Deal",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [450, 300],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "1",
+          "name": "Megaplan Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{$env.MEGAPLAN_API_URL}}/task",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "qs": {
+          "parameters": [
+            {
+              "name": "deal",
+              "value": "={{$json.query.dealId}}"
+            },
+            {
+              "name": "limit",
+              "value": "1000"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "http-get-tasks-export",
+      "name": "HTTP Request - Get Tasks",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [650, 300],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "1",
+          "name": "Megaplan Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Map and generate CSV\nconst deal = $node[\"HTTP Request - Get Deal\"].json.data;\nconst tasks = $json.data || [];\n\n// Custom fields mapping\nconst FIELDS = {\n  status: '1001',\n  category: '1002',\n  brand: '1003',\n  contractor: '1004',\n  paymentType: '1005',\n  amount: '1006',\n  additionalCost: '1007',\n  finalCost: '1008',\n  fairCost: '1009',\n  currency: '1010'\n};\n\nfunction getCustomField(task, fieldKey) {\n  const fieldId = FIELDS[fieldKey];\n  return task.customFields?.[fieldId] || '';\n}\n\nfunction escapeCSV(value) {\n  if (value === null || value === undefined) return '';\n  const stringValue = String(value);\n  \n  if (stringValue.includes(',') || stringValue.includes('\"') || stringValue.includes('\\n')) {\n    return `\"${stringValue.replace(/\"/g, '\"\"')}\"`;\n  }\n  \n  return stringValue;\n}\n\n// Map expenses\nconst expenses = [];\nlet total = 0;\n\ntasks.forEach(task => {\n  const finalCost = parseFloat(getCustomField(task, 'finalCost')) || 0;\n  total += finalCost;\n  \n  expenses.push({\n    deal_id: deal.id,\n    status: getCustomField(task, 'status'),\n    category: getCustomField(task, 'category'),\n    brand: getCustomField(task, 'brand'),\n    contractor: getCustomField(task, 'contractor'),\n    paymentType: getCustomField(task, 'paymentType'),\n    manager: task.responsible?.name || '',\n    amount: parseFloat(getCustomField(task, 'amount')) || 0,\n    additionalCost: parseFloat(getCustomField(task, 'additionalCost')) || 0,\n    finalCost: finalCost,\n    fairCost: parseFloat(getCustomField(task, 'fairCost')) || 0,\n    description: task.name || '',\n    dealLink: `https://${$env.MEGAPLAN_ACCOUNT}.megaplan.ru/deal/${deal.id}`,\n    creator: task.creator?.name || '',\n    currency: getCustomField(task, 'currency') || 'KZT',\n    deal_name: deal.name || ''\n  });\n});\n\n// Generate CSV\nconst headers = [\n  'deal_id', 'Статус', 'Статья расходов', 'Бренд', 'Контрагент',\n  'Тип платежа', 'Менеджер', 'Сумма', 'Доп.стоимость',\n  'Финальная стоимость', 'Справедливая стоимость', 'Суть',\n  'Ссылка на сделку', 'Создатель', 'Валюта', 'deal_name'\n];\n\nconst csvRows = [];\n\n// Header\ncsvRows.push(headers.map(h => escapeCSV(h)).join(','));\n\n// Data rows\nexpenses.forEach(exp => {\n  const row = [\n    exp.deal_id,\n    exp.status,\n    exp.category,\n    exp.brand,\n    exp.contractor,\n    exp.paymentType,\n    exp.manager,\n    exp.amount.toFixed(2),\n    exp.additionalCost.toFixed(2),\n    exp.finalCost.toFixed(2),\n    exp.fairCost.toFixed(2),\n    exp.description,\n    exp.dealLink,\n    exp.creator,\n    exp.currency,\n    exp.deal_name\n  ];\n  \n  csvRows.push(row.map(v => escapeCSV(v)).join(','));\n});\n\n// Total row\nconst totalRow = [\n  '', '', '', '', '', '', '', 'ИТОГО:',\n  total.toFixed(2), '', '', '', '', '', '', ''\n];\ncsvRows.push(totalRow.map(v => escapeCSV(v)).join(','));\n\n// Join with newlines\nconst csvContent = csvRows.join('\\n');\n\n// UTF-8 BOM\nconst BOM = '\\uFEFF';\n\n// Filename\nconst timestamp = new Date().toISOString().split('T')[0];\nconst filename = `expenses_${deal.id}_${timestamp}.csv`;\n\nreturn [{\n  json: {\n    csvContent: BOM + csvContent,\n    filename: filename\n  }\n}];"
+      },
+      "id": "code-generate-csv",
+      "name": "Code - Generate CSV",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{$json.csvContent}}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/csv; charset=utf-8"
+              },
+              {
+                "name": "Content-Disposition",
+                "value": "=attachment; filename=\"{{$json.filename}}\""
+              },
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "id": "respond-webhook-csv",
+      "name": "Respond with CSV",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1050, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger Export": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Get Deal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Get Deal": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Get Tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Get Tasks": {
+      "main": [
+        [
+          {
+            "node": "Code - Generate CSV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code - Generate CSV": {
+      "main": [
+        [
+          {
+            "node": "Respond with CSV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "tags": [],
+  "pinData": {},
+  "meta": {
+    "instanceId": "your-instance-id"
+  }
+}

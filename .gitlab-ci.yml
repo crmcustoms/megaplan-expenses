@@ -1,0 +1,23 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache openssh-client
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-keyscan -H $SERVER_HOST >> ~/.ssh/known_hosts
+  script:
+    - ssh $SSH_USER@$SERVER_HOST "cd /home/$SSH_USER/megaplan-expenses && git pull origin main"
+    - ssh $SSH_USER@$SERVER_HOST "cd /home/$SSH_USER/megaplan-expenses && docker build -t megaplan-expenses ."
+    - ssh $SSH_USER@$SERVER_HOST "docker stop megaplan-expenses || true"
+    - ssh $SSH_USER@$SERVER_HOST "docker rm megaplan-expenses || true"
+    - ssh $SSH_USER@$SERVER_HOST "docker run -d --name megaplan-expenses -p 3000:3000 --env-file /home/$SSH_USER/megaplan-expenses/.env megaplan-expenses"
+  only:
+    - main
+  tags:
+    - docker

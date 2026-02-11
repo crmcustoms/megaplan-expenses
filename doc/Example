@@ -1,0 +1,1444 @@
+{
+"meta": {
+"status": 200,
+"errors": [],
+"pagination": []
+},
+"data": {
+"contentType": "Deal",
+"id": "28994",
+"number": "ТК-28994-03102025",
+"name": "PressEvent Бишкек_6 октября_ (Кыргызстан)_Binance",
+"description": "<p><a href=\"https://docs.google.com/spreadsheets/d/1S-QO-TMLCS5PdEp-ONXh0CQVJdrblKfBYlRRpnhEJcc/edit?usp=sharing\" target=\"_blank\">https://docs.google.com/spreadsheets/d/1S-QO-TMLCS5PdEp-ONXh0CQVJdrblKfBYlRRpnhEJcc/edit?usp=sharing</a></p><p>Площадка - Нователь</p>",
+"shortDescription": "Процесс ТК-28994-03102025 PressEvent Бишкек_6 октября_ (Кыргызстан)_Binance с Binance",
+"contractor": {
+"contentType": "ContractorCompany",
+"id": "1004560",
+"humanNumber": 4560,
+"type": {
+"contentType": "ContractorType",
+"id": "1",
+"name": "Клиент",
+"type": "client",
+"fixedFields": [],
+"layoutSetting": null,
+"layoutTabletSetting": null,
+"rights": {
+"contentType": "ContractorTypeRights",
+"readShort": true
+},
+"responsibleRights": {
+"contentType": "ContractorTypeRights",
+"readShort": false
+},
+"visibleInCardFields": [
+"name",
+"attaches",
+"company",
+"gender",
+"position",
+"Category183CustomFieldDogovor",
+"locations",
+"type",
+"responsibles",
+"Category183CustomFieldFacebook",
+"Category183CustomFieldVkontakte",
+"Category183CustomFieldKontaktDlyaSboraDokumentovFio",
+"Category183CustomFieldKontaktDlyaSboraDokumentovTelefon",
+"Category183CustomFieldKontaktDlyaSboraDokumentovElPochta",
+"Category183CustomFieldInn",
+"Category183CustomFieldInstagram",
+"phones",
+"Category183CustomFieldDokumenti",
+"Category183CustomFieldSayt",
+"Category183CustomFieldDataZaklyucheniyaDogovora",
+"description",
+"Category183CustomFieldAktualniy",
+"Category183CustomFieldZapisZvonkaPeredachiDel",
+"email",
+"Category183CustomFieldDogovorUtverzhdenniy",
+"Category183CustomFieldKontaktDlyaSboraDokumentovMessenger",
+"Category183CustomFieldYurLitsoSNasheyStoroni",
+"Category183CustomFieldProlongatsiyaDogovora",
+"Category183CustomFieldStavkaAvtora",
+"Category183CustomFieldTemiAvtora",
+"Category183CustomFieldStrana"
+],
+"requiredFields": [
+"name",
+"phones",
+"email",
+"Category183CustomFieldStrana"
+],
+"visibleOnCreationFields": [
+"name",
+"attaches",
+"company",
+"gender",
+"position",
+"locations",
+"type",
+"responsibles",
+"Category183CustomFieldFacebook",
+"Category183CustomFieldVkontakte",
+"Category183CustomFieldKontaktDlyaSboraDokumentovFio",
+"Category183CustomFieldKontaktDlyaSboraDokumentovTelefon",
+"Category183CustomFieldKontaktDlyaSboraDokumentovElPochta",
+"Category183CustomFieldInn",
+"Category183CustomFieldInstagram",
+"phones",
+"Category183CustomFieldDokumenti",
+"Category183CustomFieldSayt",
+"Category183CustomFieldAktualniy",
+"Category183CustomFieldZapisZvonkaPeredachiDel",
+"email",
+"Category183CustomFieldKontaktDlyaSboraDokumentovMessenger",
+"Category183CustomFieldYurLitsoSNasheyStoroni",
+"Category183CustomFieldTemiAvtora",
+"Category183CustomFieldStrana"
+]
+},
+"responsibles": [
+{
+"contentType": "Employee",
+"id": "1000215",
+"name": "2L Superadmin",
+"firstName": "2L",
+"middleName": "",
+"lastName": "Superadmin",
+"position": "Администратор",
+"department": {
+"contentType": "Department",
+"id": "1000069",
+"name": "Передача дел"
+},
+"uid": 1008548,
+"gender": "male",
+"birthday": null,
+"inn": "",
+"contactInfo": [
+{
+"contentType": "ContactInfo",
+"type": "email",
+"value": "superadmin@2l-pr.ru",
+"comment": null,
+"isMain": true,
+"subject": {
+"contentType": "Employee",
+"id": "1000215"
+}
+}
+],
+"contactInfoCount": 1,
+"isWorking": true,
+"nearestVacation": null,
+"isReadable": true,
+"isOnline": false,
+"lastOnline": {
+"contentType": "DateTime",
+"value": "2025-12-18T12:39:47+00:00"
+},
+"canLogin": true,
+"avatar": null
+}
+],
+"responsiblesCount": 1,
+"canSeeFull": true,
+"possibleActions": [
+"act_edit",
+"message",
+"task",
+"add_item",
+"add_deal",
+"act_fake_drop",
+"act_view_fin_operation",
+"act_invite",
+"act_read",
+"act_attaches",
+"read_full"
+],
+"contactInfo": [],
+"contactInfoCount": 0,
+"description": "",
+"textDescription": "",
+"birthday": null,
+"preferTransport": "",
+"status": null,
+"isDropped": false,
+"name": "Binance",
+"position": "",
+"avatar": null,
+"isFavorite": false,
+"tags": [],
+"tagsCount": 0,
+"commentsCount": 1,
+"unreadCommentsCount": 0,
+"subscribed": false
+},
+"manager": {
+"contentType": "Employee",
+"id": "1000283",
+"name": "Дадаханова Саида",
+"firstName": "Саида",
+"middleName": "",
+"lastName": "Дадаханова",
+"position": "PR-менеджер",
+"department": null,
+"uid": 1043804,
+"gender": "female",
+"birthday": null,
+"inn": "",
+"contactInfo": [
+{
+"contentType": "ContactInfo",
+"type": "email",
+"value": "dadakhanova@itcomms.io",
+"comment": null,
+"isMain": true,
+"subject": {
+"contentType": "Employee",
+"id": "1000283"
+}
+},
+{
+"contentType": "ContactInfo",
+"type": "telegram",
+"value": "sdadakhanova",
+"comment": null,
+"isMain": true,
+"subject": {
+"contentType": "Employee",
+"id": "1000283"
+}
+},
+{
+"contentType": "ContactInfo",
+"type": "phone",
+"value": "998903173406",
+"comment": "",
+"isMain": true
+}
+],
+"contactInfoCount": 3,
+"isWorking": false,
+"nearestVacation": null,
+"isReadable": true,
+"isOnline": false,
+"lastOnline": {
+"contentType": "DateTime",
+"value": "2025-12-12T15:19:44+00:00"
+},
+"canLogin": false,
+"avatar": {
+"contentType": "File",
+"id": "554796",
+"name": "1833ed040d867ab432222bbf01e43ba8.jpeg",
+"extension": "jpeg",
+"size": 10640671,
+"path": "/attach/SdfFileM_File/File/300/59/2/1833ed040d867ab432222bbf01e43ba8.jpeg/Clipboard1727155471692-94.jpeg",
+"thumbnail": "//pc31.megaplan.ru/hosts/likhtman.megaplan.ru/{width}x{height}/attach/SdfFileM_File/File/300/59/2/1833ed040d867ab432222bbf01e43ba8.jpeg"
+}
+},
+"payer": {
+"contentType": "Payer",
+"id": "1004560",
+"name": "Binance",
+"type": "Legal",
+"country": {
+"contentType": "Country",
+"id": "RU",
+"name": "Россия",
+"isDefault": true
+},
+"inn": "",
+"address": "",
+"legalAddress": "",
+"edrpou": "",
+"currentAccount": "",
+"ogrn": "",
+"bank": "",
+"bik": "",
+"kpp": "",
+"correspondentAccount": "",
+"okpo": "",
+"mfo": "",
+"unp": "",
+"isDropped": false,
+"contractor": {
+"contentType": "ContractorCompany",
+"id": "1004560"
+}
+},
+"auditors": [
+{
+"contentType": "Employee",
+"id": "1000215"
+}
+],
+"auditorsCount": 1,
+"payForm": null,
+"price": {
+"contentType": "Money",
+"currency": "USD",
+"valueInMain": 240715.62,
+"rate": 77.6502,
+"value": 3100
+},
+"state": {
+"contentType": "ProgramState",
+"id": "127",
+"name": "в работе",
+"entryPointName": "в работе",
+"type": "active",
+"color": "#dd525a",
+"description": "Над проектом идёт реальная работа / готовится КП / подготавливется к реализации / реализация.",
+"isEntry": true
+},
+"stateTimeUpdated": {
+"contentType": "DateTime",
+"value": "2025-10-03T06:03:56+00:00"
+},
+"result": "active",
+"timeCreated": {
+"contentType": "DateTime",
+"value": "2025-10-03T06:03:56+00:00"
+},
+"timeUpdated": {
+"contentType": "DateTime",
+"value": "2025-12-17T15:48:58+00:00"
+},
+"positions": [
+{
+"contentType": "OfferRow",
+"id": "1048",
+"discount": {
+"contentType": "Discount",
+"type": "absolute",
+"valueInMain": 0
+},
+"name": "Организация Press Event в Киргизии 6 октября 2026 года",
+"price": {
+"contentType": "Money",
+"currency": "USD",
+"valueInMain": 240715.62,
+"rate": 77.6502,
+"value": 3100
+},
+"sum": {
+"contentType": "Money",
+"currency": "USD",
+"valueInMain": 240715.62,
+"rate": 77.6502,
+"value": 3100
+},
+"tax": {
+"contentType": "Tax",
+"id": "1",
+"rate": 0,
+"name": "0 %"
+},
+"quantity": 1,
+"unit": {
+"contentType": "Unit",
+"id": "1",
+"name": "шт."
+},
+"offerCategory": {
+"contentType": "OfferCategory",
+"id": "1",
+"name": "Номенклатура",
+"type": "product"
+},
+"priceWithoutTax": {
+"contentType": "Money",
+"currency": "USD",
+"valueInMain": 240715.62,
+"rate": 77.6502,
+"value": 3100
+},
+"sumWithoutTax": {
+"contentType": "Money",
+"currency": "USD",
+"valueInMain": 250746.91,
+"rate": 80.8861,
+"value": 3100
+},
+"taxSum": {
+"contentType": "Money",
+"currency": "USD",
+"valueInMain": 0,
+"rate": 80.8861,
+"value": 0
+},
+"margin": {
+"contentType": "Discount",
+"type": "absolute",
+"valueInMain": 0
+},
+"offer": {
+"contentType": "Offer",
+"id": "3054",
+"name": "Организация Press Event в Киргизии 6 октября 2026 года",
+"quantity": 0,
+"category": {
+"contentType": "OfferCategory",
+"id": "1"
+},
+"type": "product",
+"availableQuantity": 0,
+"balanceQuantity": 0,
+"expectedQuantity": 0,
+"nearestArrivalDate": null,
+"article": "",
+"unit": {
+"contentType": "Unit",
+"id": "1"
+},
+"price": {
+"contentType": "Money",
+"currency": "USD",
+"valueInMain": 240715.62,
+"rate": 77.6502,
+"value": 3100
+},
+"priceWithoutTax": {
+"contentType": "Money",
+"currency": "USD",
+"valueInMain": 250746.91,
+"rate": 80.8861,
+"value": 3100
+},
+"tax": {
+"contentType": "Tax",
+"id": "1"
+},
+"originalOffer": {
+"contentType": "Offer",
+"id": "2984",
+"name": "MeetUp Бишкек_9 июня_ (Кыргызстан)",
+"quantity": 0,
+"article": "",
+"unit": {
+"contentType": "Unit",
+"id": "1"
+},
+"price": {
+"contentType": "Money",
+"currency": "RUB",
+"valueInMain": 0,
+"rate": 1,
+"value": 0
+},
+"tax": null,
+"isDropped": false,
+"isFavorite": false,
+"avatar": null,
+"unreadCommentsCount": 0
+},
+"description": "",
+"timeCreated": {
+"contentType": "DateTime",
+"value": "2025-10-03T06:03:57+00:00"
+},
+"userCreated": {
+"contentType": "Employee",
+"id": "1000283"
+},
+"timeUpdated": {
+"contentType": "DateTime",
+"value": "2025-11-06T06:39:15+00:00"
+},
+"userUpdated": {
+"contentType": "Employee",
+"id": "1000283"
+},
+"partsCount": 0,
+"parentsCount": 0,
+"parts": [],
+"parents": [],
+"attaches": [],
+"interactionsCounters": [],
+"isDropped": false,
+"rights": {
+"contentType": "OfferRights",
+"id": "Offer/3054",
+"askWhenDelete": false,
+"produce": true
+},
+"warehouseBalances": [],
+"warehouseBalancesCount": 0,
+"lastComment": null,
+"lastCommentTimeCreated": null,
+"isFavorite": false,
+"avatar": null,
+"photo": null,
+"hiddenCommentsCount": 0,
+"Category1000047CustomFieldGruppa": [],
+"Category1000047CustomFieldPloshchadka": [],
+"Category1000047CustomFieldDataIspolneniya": null,
+"Category1000047CustomFieldSrokRazmeshcheniya": null,
+"Category1000047CustomFieldDataPredostavleniyaMaterialov": null,
+"Category1000047CustomFieldBrend": "",
+"Category1000047CustomFieldTovar": "",
+"Category1000047CustomFieldSebestoimost": {
+"contentType": "Money",
+"currency": "RUB",
+"valueInMain": 0,
+"rate": 1,
+"value": 0
+},
+"comments": [],
+"commentsCount": 0,
+"unreadCommentsCount": 0,
+"attachesCountInComments": 0,
+"unreadAnswer": false,
+"subscribed": false,
+"commentsWithoutTransportCount": 0
+},
+"deal": {
+"contentType": "Deal",
+"id": "28994"
+}
+}
+],
+"positionsCount": 1,
+"debt": {
+"contentType": "Money",
+"currency": "USD",
+"valueInMain": 240715.62,
+"rate": 77.6502,
+"value": 3100
+},
+"paymentProgress": 0,
+"invoices": [
+{
+"contentType": "Invoice",
+"id": "1241",
+"invoiceDate": {
+"contentType": "DateOnly",
+"year": 2025,
+"month": 10,
+"day": 6
+},
+"number": "06112025-1",
+"name": "06112025-1",
+"status": "drawn",
+"possibleStatuses": [
+"paid",
+"rejected"
+],
+"possibleStatusesCount": 2,
+"comment": "",
+"conditions": "",
+"sum": {
+"contentType": "Money",
+"currency": "USD",
+"valueInMain": 250746.91,
+"rate": 80.8861,
+"value": 3100
+},
+"taxTotal": 0,
+"currency": {
+"contentType": "Currency",
+"id": "2",
+"name": "Доллары",
+"abbreviation": "USD",
+"sign": "$",
+"rate": 77.6502,
+"isBase": false
+},
+"recipient": {
+"contentType": "Payer",
+"id": "1010702",
+"name": "ITCOMMS LLC",
+"type": "Legal",
+"country": {
+"contentType": "Country",
+"id": "RU"
+},
+"inn": "",
+"address": "",
+"legalAddress": "100000, г. Ташкент, Юнусабадский район, улица Ниезбек Йули 7, дом 3",
+"edrpou": "",
+"currentAccount": "",
+"ogrn": "",
+"bank": "АКБ «ASIA ALLIANCE BANK» Мирзо-Улугбекский филиал",
+"bik": "",
+"kpp": "",
+"correspondentAccount": "",
+"okpo": "",
+"mfo": "",
+"unp": "",
+"isDropped": false,
+"contractor": {
+"contentType": "ContractorCompany",
+"id": "1039805",
+"humanNumber": 39805,
+"type": {
+"contentType": "ContractorType",
+"id": "1000000",
+"name": "Наша компания",
+"type": "own",
+"fixedFields": [],
+"layoutSetting": null,
+"layoutTabletSetting": null,
+"rights": {
+"contentType": "ContractorTypeRights",
+"readShort": true
+},
+"responsibleRights": {
+"contentType": "ContractorTypeRights",
+"readShort": false
+},
+"visibleInCardFields": [
+"name",
+"attaches",
+"company",
+"gender",
+"position",
+"Category183CustomFieldDogovor",
+"locations",
+"type",
+"responsibles",
+"Category183CustomFieldFacebook",
+"Category183CustomFieldVkontakte",
+"Category183CustomFieldKontaktDlyaSboraDokumentovFio",
+"Category183CustomFieldKontaktDlyaSboraDokumentovTelefon",
+"Category183CustomFieldKontaktDlyaSboraDokumentovElPochta",
+"Category183CustomFieldInn",
+"Category183CustomFieldInstagram",
+"phones",
+"Category183CustomFieldDokumenti",
+"Category183CustomFieldSayt",
+"Category183CustomFieldDataZaklyucheniyaDogovora",
+"description",
+"Category183CustomFieldAktualniy",
+"Category183CustomFieldZapisZvonkaPeredachiDel",
+"email",
+"Category183CustomFieldDogovorUtverzhdenniy",
+"Category183CustomFieldKontaktDlyaSboraDokumentovMessenger",
+"Category183CustomFieldYurLitsoSNasheyStoroni",
+"Category183CustomFieldProlongatsiyaDogovora",
+"Category183CustomFieldStavkaAvtora",
+"Category183CustomFieldTemiAvtora",
+"Category183CustomFieldStrana"
+],
+"requiredFields": [
+"name",
+"phones",
+"email",
+"Category183CustomFieldStrana"
+],
+"visibleOnCreationFields": [
+"name",
+"attaches",
+"company",
+"gender",
+"position",
+"locations",
+"type",
+"responsibles",
+"Category183CustomFieldFacebook",
+"Category183CustomFieldVkontakte",
+"Category183CustomFieldKontaktDlyaSboraDokumentovFio",
+"Category183CustomFieldKontaktDlyaSboraDokumentovTelefon",
+"Category183CustomFieldKontaktDlyaSboraDokumentovElPochta",
+"Category183CustomFieldInn",
+"Category183CustomFieldInstagram",
+"phones",
+"Category183CustomFieldDokumenti",
+"Category183CustomFieldSayt",
+"Category183CustomFieldAktualniy",
+"Category183CustomFieldZapisZvonkaPeredachiDel",
+"email",
+"Category183CustomFieldKontaktDlyaSboraDokumentovMessenger",
+"Category183CustomFieldYurLitsoSNasheyStoroni",
+"Category183CustomFieldTemiAvtora",
+"Category183CustomFieldStrana"
+]
+},
+"responsibles": [
+{
+"contentType": "Employee",
+"id": "1000215"
+}
+],
+"responsiblesCount": 1,
+"canSeeFull": true,
+"possibleActions": [
+"act_edit",
+"message",
+"task",
+"add_item",
+"add_deal",
+"act_fake_drop",
+"act_view_fin_operation",
+"act_invite",
+"act_read",
+"act_attaches",
+"read_full"
+],
+"contactInfo": [
+{
+"contentType": "ContactInfo",
+"type": "phone",
+"value": "+998 99 039 67 59",
+"comment": "",
+"isMain": false
+}
+],
+"contactInfoCount": 1,
+"description": "",
+"textDescription": "",
+"birthday": null,
+"preferTransport": "",
+"status": null,
+"isDropped": false,
+"name": "ITCOMMS KZ",
+"position": "",
+"avatar": null,
+"isFavorite": false,
+"tags": [],
+"tagsCount": 0,
+"commentsCount": 0,
+"unreadCommentsCount": 0,
+"subscribed": false
+}
+},
+"payer": {
+"contentType": "Payer",
+"id": "1004560"
+},
+"consignee": {
+"contentType": "Payer",
+"id": "1004560"
+},
+"userCreated": {
+"contentType": "Employee",
+"id": "1000283"
+},
+"deadline": {
+"contentType": "DateOnly",
+"year": 2025,
+"month": 10,
+"day": 20
+},
+"actualPaymentDate": {
+"contentType": "DateTime",
+"value": "2026-02-10T14:43:13+00:00"
+},
+"rowsCount": 1,
+"publicDownloadLink": "https://likhtman.megaplan.ru/invoices/1241/publicDownload.pdf?key=94d0e5c9c7bfe1fd4c1abb622396de8d",
+"isFavorite": false,
+"invoiceTemplate": {
+"contentType": "InvoiceTemplate",
+"id": "17",
+"name": "Invoice ITComms  KZ ($) новый",
+"isDefault": false
+}
+}
+],
+"invoicesCount": 1,
+"nearTodo": null,
+"contractorEmail": "",
+"contractorPhone": null,
+"cost": {
+"contentType": "Money",
+"currency": "USD",
+"valueInMain": 240711.73748999997,
+"rate": 77.6502,
+"value": 3099.95
+},
+"contact": null,
+"lastComment": null,
+"lastCommentTimeCreated": null,
+"firstUnreadComment": null,
+"program": {
+"contentType": "Program",
+"id": "14",
+"name": "Текущие клиенты",
+"roles": [
+{
+"contentType": "ProgramRole",
+"id": "62",
+"linkedField": {
+"contentType": "RefLinkField",
+"id": "1000390",
+"hrName": "Менеджер",
+"name": "manager",
+"type": "RefLink",
+"orderPos": 9663,
+"isSystem": true,
+"isSortable": true,
+"targetEntity": "bums\\trade\\api\\v03\\Entity\\Deal",
+"settings": [],
+"settingsCount": 0,
+"isRequired": false,
+"refContentType": [
+"Employee",
+"ContractorHuman",
+"ContractorCompany"
+]
+},
+"valueContentTypes": [
+"Employee"
+],
+"name": "Менеджер"
+},
+{
+"contentType": "ProgramRole",
+"id": "63",
+"linkedField": {
+"contentType": "RefLinkField",
+"id": "1000391",
+"hrName": "Аудиторы",
+"name": "auditors",
+"type": "RefLink",
+"orderPos": 9664,
+"isSystem": true,
+"isSortable": true,
+"targetEntity": "bums\\trade\\api\\v03\\Entity\\Deal",
+"settings": [],
+"settingsCount": 0,
+"isRequired": false,
+"refContentType": [
+"Employee",
+"ContractorHuman",
+"ContractorCompany"
+]
+},
+"valueContentTypes": [
+"Employee"
+],
+"name": "Аудиторы",
+"isMultiple": true
+},
+{
+"contentType": "ProgramRole",
+"id": "64",
+"linkedField": null,
+"valueContentTypes": [],
+"name": "Руководитель отдела продаж",
+"isMultiple": false
+},
+{
+"contentType": "ProgramRole",
+"id": "109",
+"linkedField": null,
+"valueContentTypes": [],
+"name": "Открытый доступ",
+"isMultiple": false
+},
+{
+"contentType": "ProgramRole",
+"id": "116",
+"linkedField": null,
+"valueContentTypes": [
+"Employee"
+],
+"name": "Задача копирайтеру: Ответственный",
+"isMultiple": false
+},
+{
+"contentType": "ProgramRole",
+"id": "155",
+"linkedField": null,
+"valueContentTypes": [
+"Employee"
+],
+"name": "Видят всё",
+"isMultiple": false
+}
+],
+"orderPositionsFields": [],
+"orderPositionsSortField": null,
+"possibleActions": [
+"can_create",
+"can_export"
+]
+},
+"possibleTriggers": [
+{
+"contentType": "ProgramTrigger",
+"id": "350",
+"name": "✅ Отчёт по проекту",
+"possibleOperations": [],
+"reasons": [],
+"enabled": true
+},
+{
+"contentType": "ProgramTrigger",
+"id": "178",
+"name": "⏩ Заявка на Оплату",
+"possibleOperations": [
+"CreateDeal"
+],
+"reasons": [],
+"enabled": true
+},
+{
+"contentType": "ProgramTrigger",
+"id": "175",
+"name": "⏩ Заявка на Логистику",
+"possibleOperations": [
+"CreateDeal"
+],
+"reasons": [],
+"enabled": true
+},
+{
+"contentType": "ProgramTrigger",
+"id": "288",
+"name": "⏩ Расходы",
+"possibleOperations": [
+"CreateDeal"
+],
+"reasons": [],
+"enabled": true
+},
+{
+"contentType": "ProgramTrigger",
+"id": "152",
+"name": "✅ Шаблон расходов",
+"possibleOperations": [],
+"reasons": [],
+"enabled": true
+},
+{
+"contentType": "ProgramTrigger",
+"id": "305",
+"name": "❎ Вывести отчет по расходам - добавить в таблицу",
+"possibleOperations": [],
+"reasons": [],
+"enabled": true
+},
+{
+"contentType": "ProgramTrigger",
+"id": "221",
+"name": "✅ Счет ООО Премиком (РУБ)",
+"possibleOperations": [
+"CreateInvoice"
+],
+"reasons": [],
+"enabled": true
+},
+{
+"contentType": "ProgramTrigger",
+"id": "389",
+"name": "✅ Invoice LLC Premicom (USD)",
+"possibleOperations": [
+"CreateInvoice"
+],
+"reasons": [],
+"enabled": true
+},
+{
+"contentType": "ProgramTrigger",
+"id": "222",
+"name": "✅ Invoice LLC Premicom (EUR)",
+"possibleOperations": [
+"CreateInvoice"
+],
+"reasons": [],
+"enabled": true
+},
+{
+"contentType": "ProgramTrigger",
+"id": "416",
+"name": "✅ Invoice ООО Премиком (CNY)",
+"possibleOperations": [
+"CreateInvoice"
+],
+"reasons": [],
+"enabled": true
+},
+{
+"contentType": "ProgramTrigger",
+"id": "396",
+"name": "✅ Invoice ООО «TECH PR CA» (USD)",
+"possibleOperations": [
+"CreateInvoice"
+],
+"reasons": [],
+"enabled": true
+},
+{
+"contentType": "ProgramTrigger",
+"id": "393",
+"name": "✅ Счет ООО «TECH PR CA» (РУБ)",
+"possibleOperations": [
+"CreateInvoice"
+],
+"reasons": [],
+"enabled": true
+},
+{
+"contentType": "ProgramTrigger",
+"id": "391",
+"name": "✅ Invoice ITcomms KZ (KZT)",
+"possibleOperations": [
+"CreateInvoice"
+],
+"reasons": [],
+"enabled": true
+},
+{
+"contentType": "ProgramTrigger",
+"id": "392",
+"name": "✅ Invoice ITcomms KZ (USD)",
+"possibleOperations": [
+"CreateInvoice"
+],
+"reasons": [],
+"enabled": true
+},
+{
+"contentType": "ProgramTrigger",
+"id": "395",
+"name": "✅ Invoice ООО «TECH PR CA» (UZS)",
+"possibleOperations": [
+"CreateInvoice"
+],
+"reasons": [],
+"enabled": true
+},
+{
+"contentType": "ProgramTrigger",
+"id": "440",
+"name": "✅ Invoice AIC LLC USD ($)",
+"possibleOperations": [
+"CreateInvoice"
+],
+"reasons": [],
+"enabled": true
+}
+],
+"possibleTriggersCount": 16,
+"possibleTransitions": [
+{
+"contentType": "ProgramTransition",
+"id": "1152",
+"name": "",
+"description": "",
+"to": {
+"contentType": "ProgramState",
+"id": "340",
+"name": "на поддержке",
+"entryPointName": "завершен",
+"type": "active",
+"color": "#00b27a",
+"description": "Технический статус, для подвисших сделок когда: клиент заморозил работу над проектом, но не отказался от него полностью / проект подвис причины выясняются и тд. Т.е. проект не можем перевести в Отказ или Успешно реализовано, нужно помариновать, чтобы про него не забыть.",
+"isEntry": false
+},
+"reasons": [],
+"enabled": true
+},
+{
+"contentType": "ProgramTransition",
+"id": "824",
+"name": "",
+"description": "",
+"to": {
+"contentType": "ProgramState",
+"id": "232",
+"name": "сбор документов",
+"entryPointName": "сбор документов",
+"type": "active",
+"color": "#8100e5",
+"description": "Проект реально завершен + всем подрядчикам оплачено + клиент принял отчет + от клиента деньги пришли, но закрывающие документы ещё не собраны до конца.",
+"isEntry": false
+},
+"reasons": [],
+"enabled": true
+},
+{
+"contentType": "ProgramTransition",
+"id": "567",
+"name": "",
+"description": "",
+"to": {
+"contentType": "ProgramState",
+"id": "189",
+"name": "Успешно реализовано",
+"entryPointName": "Успешно реализовано",
+"type": "positive",
+"color": "#84216b",
+"description": "Проект реально завершен + всем подрядчикам оплачено +клиент принял отчет + от клиента деньги пришли + все закрывающие документы сданы в бухгалтерию.",
+"isEntry": false
+},
+"reasons": [],
+"enabled": true
+},
+{
+"contentType": "ProgramTransition",
+"id": "566",
+"name": "",
+"description": "",
+"to": {
+"contentType": "ProgramState",
+"id": "188",
+"name": "Отказ",
+"entryPointName": "Отказ",
+"type": "negative",
+"color": "#593f3d",
+"description": "Клиент отказался от проекта, его можно закрыть и забыть",
+"isEntry": false
+},
+"reasons": [],
+"enabled": true
+}
+],
+"possibleTransitionsCount": 4,
+"possibleActions": [
+"act_read",
+"act_edit",
+"act_edit_auditors",
+"act_use_journal",
+"act_add_consignment",
+"act_produce",
+"act_edit_positions",
+"act_delete"
+],
+"todos": [],
+"todosCount": 0,
+"dealsCount": 2,
+"actualDealsCount": 2,
+"tasksCount": 0,
+"actualTasksCount": 0,
+"editableFields": [
+"name",
+"contractor",
+"manager",
+"auditors",
+"description",
+"contact",
+"positions",
+"payForm",
+"cost",
+"payer",
+"Category1000061CustomFieldSsilkaNaDisk",
+"Category1000061CustomFieldNachaloRabot",
+"Category1000061CustomFieldOzhidaemiyKonetsProekta",
+"Category1000061CustomFieldPlanovayaPribil",
+"Category1000061CustomFieldPlanovieZatrati",
+"Category1000061CustomFieldNomerInvoysa",
+"Category1000061CustomFieldGruppa",
+"Category1000061CustomFieldBrend",
+"Category1000061CustomFieldDataZakritiyaFinotcheta",
+"Category1000061CustomFieldVidSdelki",
+"Category1000061CustomFieldViruchkaFakticheskaya",
+"Category1000061CustomFieldNalogNaPribil",
+"Category1000061CustomFieldReklamniySbor",
+"Category1000061CustomFieldRashodiSummaItogo",
+"Category1000061CustomFieldFakticheskayaPribil",
+"Category1000061CustomFieldBrif",
+"Category1000061CustomFieldKp",
+"Category1000061CustomFieldSmeta",
+"Category1000061CustomFieldSkanDogovora",
+"Category1000061CustomFieldSkanPrilozheniyaIliDs",
+"Category1000061CustomFieldAktVipolnennihRabot",
+"Category1000061CustomFieldOtchetKlientu1",
+"Category1000061CustomFieldIdTablitsi",
+"Category1000061CustomFieldIdFolder",
+"Category1000061CustomFieldIdBrif",
+"Category1000061CustomFieldIdSmeti",
+"Category1000061CustomFieldHttpsDocsGoogleComSpreadsheetsD",
+"Category1000061CustomFieldSummaPosledneyOplati",
+"Category1000061CustomFieldSkanLogovoraEst",
+"Category1000061CustomFieldSkanPrilozheniyaEst",
+"Category1000061CustomFieldSkanAktaEst",
+"Category1000061CustomFieldFinOtchetSdan",
+"contractor.Category183CustomFieldDogovorUtverzhdenniy"
+],
+"visibleFields": [
+"name",
+"contractor",
+"manager",
+"auditors",
+"description",
+"contact",
+"positions",
+"payForm",
+"cost",
+"payer",
+"Category1000061CustomFieldSsilkaNaDisk",
+"Category1000061CustomFieldNachaloRabot",
+"Category1000061CustomFieldOzhidaemiyKonetsProekta",
+"Category1000061CustomFieldPlanovayaPribil",
+"Category1000061CustomFieldPlanovieZatrati",
+"Category1000061CustomFieldNomerInvoysa",
+"Category1000061CustomFieldGruppa",
+"Category1000061CustomFieldBrend",
+"Category1000061CustomFieldDataZakritiyaFinotcheta",
+"Category1000061CustomFieldVidSdelki",
+"Category1000061CustomFieldViruchkaFakticheskaya",
+"Category1000061CustomFieldNalogNaPribil",
+"Category1000061CustomFieldReklamniySbor",
+"Category1000061CustomFieldRashodiSummaItogo",
+"Category1000061CustomFieldFakticheskayaPribil",
+"Category1000061CustomFieldBrif",
+"Category1000061CustomFieldKp",
+"Category1000061CustomFieldSmeta",
+"Category1000061CustomFieldSkanDogovora",
+"Category1000061CustomFieldSkanPrilozheniyaIliDs",
+"Category1000061CustomFieldAktVipolnennihRabot",
+"Category1000061CustomFieldOtchetKlientu1",
+"Category1000061CustomFieldIdTablitsi",
+"Category1000061CustomFieldIdFolder",
+"Category1000061CustomFieldIdBrif",
+"Category1000061CustomFieldIdSmeti",
+"Category1000061CustomFieldHttpsDocsGoogleComSpreadsheetsD",
+"Category1000061CustomFieldSummaPosledneyOplati",
+"Category1000061CustomFieldSkanLogovoraEst",
+"Category1000061CustomFieldSkanPrilozheniyaEst",
+"Category1000061CustomFieldSkanAktaEst",
+"Category1000061CustomFieldFinOtchetSdan"
+],
+"messagesCount": 0,
+"callsCount": 0,
+"linksCount": 1,
+"relationLinks": [
+{
+"contentType": "RelationLink",
+"id": "3175822",
+"relationType": "url",
+"placeholder": "https://docs.google.com/spreadsheets/d/1S-QO-TMLCS5PdEp-ONXh0CQVJdrblKfBYlRRpnhEJcc/edit?usp=sharing",
+"representation": "<a href=\"https://docs.google.com/spreadsheets/d/1S-QO-TMLCS5PdEp-ONXh0CQVJdrblKfBYlRRpnhEJcc/edit?usp=sharing\" target=\"_blank\">https://docs.google.com/spreadsheets/d/1S-QO-TMLCS5PdEp-ONXh0CQVJdrblKfBYlRRpnhEJcc/edit?usp=sharing</a>",
+"origin": "https://docs.google.com/spreadsheets/d/1S-QO-TMLCS5PdEp-ONXh0CQVJdrblKfBYlRRpnhEJcc/edit?usp=sharing",
+"target": null,
+"isTargetVisible": true,
+"metadata": null
+}
+],
+"relationLinksCount": 1,
+"userCreated": {
+"contentType": "Employee",
+"id": "1000283"
+},
+"userUpdated": {
+"contentType": "Employee",
+"id": "1000157",
+"name": "Барсегян Наталья",
+"firstName": "Наталья",
+"middleName": "Владимировна",
+"lastName": "Барсегян",
+"position": "Бухгалтер",
+"department": {
+"contentType": "Department",
+"id": "1000048",
+"name": "Команда бухгалтерии"
+},
+"uid": 1001416,
+"gender": "female",
+"birthday": null,
+"inn": "",
+"contactInfo": [
+{
+"contentType": "ContactInfo",
+"type": "email",
+"value": "nb@2l-pr.ru",
+"comment": null,
+"isMain": true,
+"subject": {
+"contentType": "Employee",
+"id": "1000157"
+}
+},
+{
+"contentType": "ContactInfo",
+"type": "telegram",
+"value": "@barsyk1969",
+"comment": null,
+"isMain": true,
+"subject": {
+"contentType": "Employee",
+"id": "1000157"
+}
+},
+{
+"contentType": "ContactInfo",
+"type": "phone",
+"value": "+7 903 512-75-69",
+"comment": "",
+"isMain": false
+}
+],
+"contactInfoCount": 3,
+"isWorking": true,
+"nearestVacation": null,
+"isReadable": true,
+"isOnline": true,
+"lastOnline": {
+"contentType": "DateTime",
+"value": "2026-02-10T14:43:10+00:00"
+},
+"canLogin": true,
+"avatar": {
+"contentType": "File",
+"id": "119008",
+"name": "ab1487807ca4ada771c2fe36ad3057b9.png",
+"extension": "png",
+"size": 246153,
+"path": "/attach/SdfFileM_File/File/224/232/ab1487807ca4ada771c2fe36ad3057b9.png/croppedimage.png",
+"thumbnail": "//pc31.megaplan.ru/hosts/likhtman.megaplan.ru/{width}x{height}/attach/SdfFileM_File/File/224/232/ab1487807ca4ada771c2fe36ad3057b9.png"
+}
+},
+"fixCurrencyDate": null,
+"currency": {
+"contentType": "Currency",
+"id": "2"
+},
+"contractorFields": [
+"Category183CustomFieldDogovorUtverzhdenniy"
+],
+"attaches": [],
+"attachesCount": 0,
+"reminderTime": null,
+"interactionsCounters": [
+{
+"contentType": "InteractionCounter",
+"action": "read",
+"count": 4
+}
+],
+"consignment": null,
+"isFavorite": false,
+"Category1000061CustomFieldSsilkaNaDisk": "<a href=\"https://drive.google.com/drive/folders/1HkwX7xYb6zonPzUKRNaGUGyfDO757Crb\" target=\"_blank\">https://drive.google.com/drive/folders/1HkwX7xYb6zonPzUKRNaGUGyfDO757Crb</a>",
+"Category1000061CustomFieldNachaloRabot": {
+"contentType": "DateOnly",
+"year": 2025,
+"month": 8,
+"day": 22
+},
+"Category1000061CustomFieldOzhidaemiyKonetsProekta": {
+"contentType": "DateOnly",
+"year": 2025,
+"month": 9,
+"day": 20
+},
+"Category1000061CustomFieldPlanovayaPribil": {
+"contentType": "Money",
+"currency": "USD",
+"valueInMain": 0,
+"rate": 77.6502,
+"value": 0
+},
+"Category1000061CustomFieldPlanovieZatrati": {
+"contentType": "Money",
+"currency": "USD",
+"valueInMain": 0,
+"rate": 77.6502,
+"value": 0
+},
+"Category1000061CustomFieldNomerInvoysa": "",
+"Category1000061CustomFieldGruppa": "Алина Морозова",
+"Category1000061CustomFieldBrend": "Binance",
+"Category1000061CustomFieldDataZakritiyaFinotcheta": "4 квартал 2025",
+"Category1000061CustomFieldVidSdelki": "Спецпроект",
+"Category1000061CustomFieldViruchkaFakticheskaya": {
+"contentType": "Money",
+"currency": "RUB",
+"valueInMain": 0,
+"rate": 1,
+"value": 0
+},
+"Category1000061CustomFieldNalogNaPribil": {
+"contentType": "Money",
+"currency": "RUB",
+"valueInMain": 0,
+"rate": 1,
+"value": 0
+},
+"Category1000061CustomFieldReklamniySbor": {
+"contentType": "Money",
+"currency": "RUB",
+"valueInMain": 0,
+"rate": 1,
+"value": 0
+},
+"Category1000061CustomFieldRashodiSummaItogo": {
+"contentType": "Money",
+"currency": "RUB",
+"valueInMain": 0,
+"rate": 1,
+"value": 0
+},
+"Category1000061CustomFieldFakticheskayaPribil": {
+"contentType": "Money",
+"currency": "RUB",
+"valueInMain": 0,
+"rate": 1,
+"value": 0
+},
+"Category1000061CustomFieldBrif": [],
+"Category1000061CustomFieldKp": "",
+"Category1000061CustomFieldSmeta": "",
+"Category1000061CustomFieldSkanDogovora": [],
+"Category1000061CustomFieldSkanPrilozheniyaIliDs": [],
+"Category1000061CustomFieldAktVipolnennihRabot": [],
+"Category1000061CustomFieldOtchetKlientu1": "",
+"Category1000061CustomFieldIdTablitsi": "1ufTOBTYZiKsrDRpyv_1IyeIGfzEEUU-vYNnGvlaqByA",
+"Category1000061CustomFieldIdFolder": "1HkwX7xYb6zonPzUKRNaGUGyfDO757Crb",
+"Category1000061CustomFieldIdBrif": "1jLJ_ybWXNN_Nje4eHkQzZd3cOsMmlR7362pd76-ssN4",
+"Category1000061CustomFieldIdSmeti": "",
+"Category1000061CustomFieldHttpsDocsGoogleComSpreadsheetsD": "https://docs.google.com/spreadsheets/d/1ufTOBTYZiKsrDRpyv_1IyeIGfzEEUU-vYNnGvlaqByA",
+"Category1000061CustomFieldSummaPosledneyOplati": {
+"contentType": "Money",
+"currency": "RUB",
+"valueInMain": 0,
+"rate": 1,
+"value": 0
+},
+"Category1000061CustomFieldSkanLogovoraEst": false,
+"Category1000061CustomFieldSkanPrilozheniyaEst": false,
+"Category1000061CustomFieldSkanAktaEst": false,
+"Category1000061CustomFieldFinOtchetSdan": false,
+"actualTodosCount": 0,
+"finishedTodosCount": 0,
+"allFilesCount": 1,
+"attachesInfo": {
+"contentType": "AttachesInfo",
+"imageFiles": [],
+"imageFilesCount": 0,
+"audioFiles": [],
+"audioFilesCount": 0,
+"otherFiles": [
+{
+"contentType": "File",
+"id": "562717",
+"name": "RID_267952_2025_10_31_Binance_Investments_Co_,_Ltd_x_LC_TECH_PR.pdf",
+"mimeType": "application/pdf",
+"extension": "pdf",
+"size": 140336,
+"timeCreated": {
+"contentType": "DateTime",
+"value": "2025-11-10T19:16:45+00:00"
+},
+"path": "/attach/SdfFileM_File/File/29/75/2/cd914fcc8e7858689b3bc67742772f42.pdf/RID_267952_2025_10_31_Binance_Investments_Co_%2C_Ltd_x_LC_TECH_PR.pdf",
+"possibleActions": [
+"act_share"
+],
+"metadata": null
+}
+],
+"otherFilesCount": 1
+},
+"tags": [],
+"tagsCount": 0,
+"financeOperations": [],
+"financeOperationsCount": 0,
+"comments": [],
+"commentsCount": 0,
+"unreadCommentsCount": 0,
+"attachesCountInComments": 0,
+"unreadAnswer": false,
+"subscribed": false,
+"commentsWithoutTransportCount": 0,
+"emailsCount": 0,
+"whatsappCount": 0,
+"telegramCount": 0,
+"maxMessengerCount": 0,
+"instagramCount": 0,
+"hiddenCommentsCount": 0
+}
+}

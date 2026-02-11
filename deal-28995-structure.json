@@ -1,0 +1,1068 @@
+{
+  "contentType": "Deal",
+  "id": "28995",
+  "number": "28995ПП",
+  "name": "137,22 USD_оплата персонала_PressEvent Bishkek 06/10/2025_Binance",
+  "description": "<p>Просьба оплатить 137,22$ </p><p>Максим Полетаев</p><p>Мбанк (visa)</p><p>4177490197991310 </p><p>996555 130771</p>",
+  "shortDescription": "Сделка 28995ПП 137,22 USD_оплата персонала_PressEvent Bishkek 06/10/2025_Binance с Полетаев Максим",
+  "contractor": {
+    "contentType": "ContractorHuman",
+    "id": "1041750",
+    "humanNumber": 41750,
+    "type": {
+      "contentType": "ContractorType",
+      "id": "5",
+      "name": "Поставщик",
+      "type": "supplier",
+      "fixedFields": [],
+      "layoutSetting": null,
+      "layoutTabletSetting": null,
+      "rights": {
+        "contentType": "ContractorTypeRights",
+        "readShort": true
+      },
+      "responsibleRights": {
+        "contentType": "ContractorTypeRights",
+        "readShort": false
+      },
+      "visibleInCardFields": [
+        "name",
+        "attaches",
+        "company",
+        "gender",
+        "position",
+        "Category183CustomFieldDogovor",
+        "locations",
+        "type",
+        "responsibles",
+        "Category183CustomFieldFacebook",
+        "Category183CustomFieldVkontakte",
+        "Category183CustomFieldKontaktDlyaSboraDokumentovFio",
+        "Category183CustomFieldKontaktDlyaSboraDokumentovTelefon",
+        "Category183CustomFieldKontaktDlyaSboraDokumentovElPochta",
+        "Category183CustomFieldInn",
+        "Category183CustomFieldInstagram",
+        "phones",
+        "Category183CustomFieldDokumenti",
+        "Category183CustomFieldSayt",
+        "Category183CustomFieldDataZaklyucheniyaDogovora",
+        "description",
+        "Category183CustomFieldAktualniy",
+        "Category183CustomFieldZapisZvonkaPeredachiDel",
+        "email",
+        "Category183CustomFieldDogovorUtverzhdenniy",
+        "Category183CustomFieldKontaktDlyaSboraDokumentovMessenger",
+        "Category183CustomFieldYurLitsoSNasheyStoroni",
+        "Category183CustomFieldProlongatsiyaDogovora",
+        "Category183CustomFieldStavkaAvtora",
+        "Category183CustomFieldTemiAvtora",
+        "Category183CustomFieldStrana"
+      ],
+      "requiredFields": [
+        "name",
+        "phones",
+        "email",
+        "Category183CustomFieldStrana"
+      ],
+      "visibleOnCreationFields": [
+        "name",
+        "attaches",
+        "company",
+        "gender",
+        "position",
+        "locations",
+        "type",
+        "responsibles",
+        "Category183CustomFieldFacebook",
+        "Category183CustomFieldVkontakte",
+        "Category183CustomFieldKontaktDlyaSboraDokumentovFio",
+        "Category183CustomFieldKontaktDlyaSboraDokumentovTelefon",
+        "Category183CustomFieldKontaktDlyaSboraDokumentovElPochta",
+        "Category183CustomFieldInn",
+        "Category183CustomFieldInstagram",
+        "phones",
+        "Category183CustomFieldDokumenti",
+        "Category183CustomFieldSayt",
+        "Category183CustomFieldAktualniy",
+        "Category183CustomFieldZapisZvonkaPeredachiDel",
+        "email",
+        "Category183CustomFieldKontaktDlyaSboraDokumentovMessenger",
+        "Category183CustomFieldYurLitsoSNasheyStoroni",
+        "Category183CustomFieldTemiAvtora",
+        "Category183CustomFieldStrana"
+      ]
+    },
+    "responsibles": [
+      {
+        "contentType": "Employee",
+        "id": "1000246",
+        "name": "Коханюк Анастасия",
+        "firstName": "Анастасия",
+        "middleName": "Олеговна",
+        "lastName": "Коханюк",
+        "position": "Account Executive",
+        "department": null,
+        "uid": 1010335,
+        "gender": "female",
+        "birthday": {
+          "contentType": "DateOnly",
+          "year": 1990,
+          "month": 8,
+          "day": 18
+        },
+        "inn": "",
+        "contactInfo": [
+          {
+            "contentType": "ContactInfo",
+            "type": "email",
+            "value": "kokhanyuk@itcomms.io",
+            "comment": "",
+            "isMain": true,
+            "subject": {
+              "contentType": "Employee",
+              "id": "1000246"
+            }
+          },
+          {
+            "contentType": "ContactInfo",
+            "type": "phone",
+            "value": "+7 985 217-78-04",
+            "comment": "",
+            "isMain": false
+          }
+        ],
+        "contactInfoCount": 2,
+        "isWorking": false,
+        "nearestVacation": null,
+        "isReadable": true,
+        "isOnline": false,
+        "lastOnline": {
+          "contentType": "DateTime",
+          "value": "2025-12-11T11:47:52+00:00"
+        },
+        "canLogin": false,
+        "avatar": {
+          "contentType": "File",
+          "id": "514358",
+          "name": "e021082f08f4b2a159765395259997b0.jpeg",
+          "extension": "jpeg",
+          "size": 90600,
+          "path": "/attach/SdfFileM_File/File/310/492/1/e021082f08f4b2a159765395259997b0.jpeg/avatar_WhatsApp%20Image%202021-10-27%20at%2011.13.52.jpeg",
+          "thumbnail": "//pc31.megaplan.ru/hosts/likhtman.megaplan.ru/{width}x{height}/attach/SdfFileM_File/File/310/492/1/e021082f08f4b2a159765395259997b0.jpeg"
+        }
+      }
+    ],
+    "responsiblesCount": 1,
+    "canSeeFull": true,
+    "possibleActions": [
+      "act_edit",
+      "message",
+      "task",
+      "add_item",
+      "add_deal",
+      "act_fake_drop",
+      "act_view_fin_operation",
+      "act_invite",
+      "act_read",
+      "act_attaches",
+      "read_full"
+    ],
+    "contactInfo": [
+      {
+        "contentType": "ContactInfo",
+        "type": "phone",
+        "value": "996555130771",
+        "comment": "",
+        "isMain": false
+      }
+    ],
+    "contactInfoCount": 1,
+    "description": "",
+    "textDescription": "",
+    "birthday": null,
+    "preferTransport": "",
+    "status": null,
+    "isDropped": false,
+    "firstName": "Максим",
+    "middleName": "",
+    "lastName": "Полетаев",
+    "dateLastReadNews": null,
+    "company": null,
+    "gender": "male",
+    "position": "",
+    "loginEmail": null,
+    "lastOnline": null,
+    "canLogin": false,
+    "isGuestAccessEnabled": false,
+    "avatar": null,
+    "isFavorite": false,
+    "tags": [],
+    "tagsCount": 0,
+    "commentsCount": 0,
+    "unreadCommentsCount": 0,
+    "subscribed": false
+  },
+  "manager": {
+    "contentType": "Employee",
+    "id": "1000283",
+    "name": "Дадаханова Саида",
+    "firstName": "Саида",
+    "middleName": "",
+    "lastName": "Дадаханова",
+    "position": "PR-менеджер",
+    "department": null,
+    "uid": 1043804,
+    "gender": "female",
+    "birthday": null,
+    "inn": "",
+    "contactInfo": [
+      {
+        "contentType": "ContactInfo",
+        "type": "email",
+        "value": "dadakhanova@itcomms.io",
+        "comment": null,
+        "isMain": true,
+        "subject": {
+          "contentType": "Employee",
+          "id": "1000283"
+        }
+      },
+      {
+        "contentType": "ContactInfo",
+        "type": "telegram",
+        "value": "sdadakhanova",
+        "comment": null,
+        "isMain": true,
+        "subject": {
+          "contentType": "Employee",
+          "id": "1000283"
+        }
+      },
+      {
+        "contentType": "ContactInfo",
+        "type": "phone",
+        "value": "998903173406",
+        "comment": "",
+        "isMain": true
+      }
+    ],
+    "contactInfoCount": 3,
+    "isWorking": false,
+    "nearestVacation": null,
+    "isReadable": true,
+    "isOnline": false,
+    "lastOnline": {
+      "contentType": "DateTime",
+      "value": "2025-12-12T15:19:44+00:00"
+    },
+    "canLogin": false,
+    "avatar": {
+      "contentType": "File",
+      "id": "554796",
+      "name": "1833ed040d867ab432222bbf01e43ba8.jpeg",
+      "extension": "jpeg",
+      "size": 10640671,
+      "path": "/attach/SdfFileM_File/File/300/59/2/1833ed040d867ab432222bbf01e43ba8.jpeg/Clipboard1727155471692-94.jpeg",
+      "thumbnail": "//pc31.megaplan.ru/hosts/likhtman.megaplan.ru/{width}x{height}/attach/SdfFileM_File/File/300/59/2/1833ed040d867ab432222bbf01e43ba8.jpeg"
+    }
+  },
+  "payer": {
+    "contentType": "Payer",
+    "id": "1012690",
+    "name": "Полетаев Максим",
+    "type": "Natural",
+    "firstName": "Максим",
+    "lastName": "Полетаев",
+    "country": {
+      "contentType": "Country",
+      "id": "RU",
+      "name": "Россия",
+      "isDefault": true
+    },
+    "inn": "",
+    "address": "",
+    "legalAddress": "",
+    "edrpou": "",
+    "currentAccount": "",
+    "unp": "",
+    "isDropped": false,
+    "contractor": {
+      "contentType": "ContractorHuman",
+      "id": "1041750"
+    }
+  },
+  "auditors": [
+    {
+      "contentType": "Employee",
+      "id": "1000215",
+      "name": "2L Superadmin",
+      "firstName": "2L",
+      "middleName": "",
+      "lastName": "Superadmin",
+      "position": "Администратор",
+      "department": {
+        "contentType": "Department",
+        "id": "1000069",
+        "name": "Передача дел"
+      },
+      "uid": 1008548,
+      "gender": "male",
+      "birthday": null,
+      "inn": "",
+      "contactInfo": [
+        {
+          "contentType": "ContactInfo",
+          "type": "email",
+          "value": "superadmin@2l-pr.ru",
+          "comment": null,
+          "isMain": true,
+          "subject": {
+            "contentType": "Employee",
+            "id": "1000215"
+          }
+        }
+      ],
+      "contactInfoCount": 1,
+      "isWorking": true,
+      "nearestVacation": null,
+      "isReadable": true,
+      "isOnline": false,
+      "lastOnline": {
+        "contentType": "DateTime",
+        "value": "2025-12-18T12:39:47+00:00"
+      },
+      "canLogin": true,
+      "avatar": null
+    },
+    {
+      "contentType": "Employee",
+      "id": "1000282",
+      "name": "Гламаздина Алина",
+      "firstName": "Алина",
+      "middleName": "",
+      "lastName": "Гламаздина",
+      "position": "Менеджер по документообороту",
+      "department": {
+        "contentType": "Department",
+        "id": "1000050",
+        "name": "Команда АХО"
+      },
+      "uid": 1043685,
+      "gender": "female",
+      "birthday": {
+        "contentType": "DateOnly",
+        "year": 1998,
+        "month": 1,
+        "day": 12
+      },
+      "inn": "",
+      "contactInfo": [
+        {
+          "contentType": "ContactInfo",
+          "type": "email",
+          "value": "office@itcomms.io",
+          "comment": null,
+          "isMain": true,
+          "subject": {
+            "contentType": "Employee",
+            "id": "1000282"
+          }
+        },
+        {
+          "contentType": "ContactInfo",
+          "type": "telegram",
+          "value": "https://t.me/tkachevaalina",
+          "comment": null,
+          "isMain": true,
+          "subject": {
+            "contentType": "Employee",
+            "id": "1000282"
+          }
+        },
+        {
+          "contentType": "ContactInfo",
+          "type": "phone",
+          "value": "+7 702 876 8699",
+          "comment": "",
+          "isMain": true
+        }
+      ],
+      "contactInfoCount": 4,
+      "isWorking": false,
+      "nearestVacation": null,
+      "isReadable": true,
+      "isOnline": false,
+      "lastOnline": {
+        "contentType": "DateTime",
+        "value": "2025-12-17T13:09:44+00:00"
+      },
+      "canLogin": false,
+      "avatar": {
+        "contentType": "File",
+        "id": "554084",
+        "name": "e1971b9e43886da8f773b86d44d84928.png",
+        "extension": "png",
+        "size": 131458,
+        "path": "/attach/SdfFileM_File/File/100/58/2/e1971b9e43886da8f773b86d44d84928.png/cropped%D0%90%D0%BB%D0%B8%D0%BD%D0%B0.png",
+        "thumbnail": "//pc31.megaplan.ru/hosts/likhtman.megaplan.ru/{width}x{height}/attach/SdfFileM_File/File/100/58/2/e1971b9e43886da8f773b86d44d84928.png"
+      }
+    }
+  ],
+  "auditorsCount": 2,
+  "state": {
+    "contentType": "ProgramState",
+    "id": "257",
+    "name": "Оплачено",
+    "entryPointName": "Реализовано",
+    "type": "active",
+    "color": "#4f3bff",
+    "description": "",
+    "isEntry": false
+  },
+  "stateTimeUpdated": {
+    "contentType": "DateTime",
+    "value": "2025-10-13T05:28:15+00:00"
+  },
+  "result": "active",
+  "timeCreated": {
+    "contentType": "DateTime",
+    "value": "2025-10-03T06:14:11+00:00"
+  },
+  "timeUpdated": {
+    "contentType": "DateTime",
+    "value": "2025-12-17T15:53:05+00:00"
+  },
+  "debt": {
+    "contentType": "Money",
+    "currency": "RUB",
+    "valueInMain": 0,
+    "rate": 1,
+    "value": 0
+  },
+  "paymentProgress": 0,
+  "invoices": [],
+  "invoicesCount": 0,
+  "nearTodo": null,
+  "contractorEmail": "",
+  "contractorPhone": {
+    "contentType": "ContactInfo",
+    "type": "phone",
+    "value": "996555130771",
+    "comment": "",
+    "isMain": false
+  },
+  "contact": null,
+  "lastComment": {
+    "contentType": "Comment",
+    "id": "310130",
+    "content": "<p>Оплачено. </p>",
+    "isDropped": false,
+    "subject": {
+      "contentType": "Deal",
+      "id": "28995"
+    },
+    "owner": {
+      "contentType": "Employee",
+      "id": "1000282"
+    },
+    "attaches": [
+      {
+        "contentType": "File",
+        "id": "562314",
+        "name": "transfer-receipt-№16_762918287358072549.pdf",
+        "mimeType": "application/pdf",
+        "extension": "pdf",
+        "size": 232090,
+        "timeCreated": {
+          "contentType": "DateTime",
+          "value": "2025-10-13T05:28:10+00:00"
+        },
+        "path": "/attach/SdfFileM_File/File/138/74/2/3333963e082089814b61577f698ae002.pdf/transfer-receipt-%E2%84%9616_762918287358072549.pdf",
+        "possibleActions": [
+          "act_share"
+        ],
+        "metadata": null
+      }
+    ],
+    "attachesCount": 1,
+    "timeCreated": {
+      "contentType": "DateTime",
+      "value": "2025-10-13T05:28:12+00:00"
+    },
+    "timeUpdated": {
+      "contentType": "DateTime",
+      "value": "2025-10-13T05:28:12+00:00"
+    },
+    "relationLinks": [],
+    "workTime": {
+      "contentType": "DateInterval",
+      "value": 0
+    },
+    "workDate": {
+      "contentType": "DateTime",
+      "value": "2025-10-12T21:00:00+00:00"
+    },
+    "isUnread": true,
+    "possibleActions": [
+      "act_read"
+    ],
+    "transportMessages": [],
+    "transportMessagesCount": 0,
+    "isFavorite": false,
+    "originalComment": null,
+    "isHidden": false,
+    "isLiked": false,
+    "likes": [],
+    "likesCount": 0,
+    "interactionsCounters": [
+      {
+        "contentType": "InteractionCounter",
+        "action": "read",
+        "count": 1
+      }
+    ],
+    "forwardFrom": null
+  },
+  "lastCommentTimeCreated": {
+    "contentType": "DateTime",
+    "value": "2025-10-13T05:28:12+00:00"
+  },
+  "firstUnreadComment": {
+    "contentType": "Comment",
+    "id": "310130"
+  },
+  "program": {
+    "contentType": "Program",
+    "id": "35",
+    "name": "Прочие поставщики",
+    "roles": [
+      {
+        "contentType": "ProgramRole",
+        "id": "136",
+        "linkedField": {
+          "contentType": "RefLinkField",
+          "id": "1000390",
+          "hrName": "Менеджер",
+          "name": "manager",
+          "type": "RefLink",
+          "orderPos": 9663,
+          "isSystem": true,
+          "isSortable": true,
+          "targetEntity": "bums\\trade\\api\\v03\\Entity\\Deal",
+          "settings": [],
+          "settingsCount": 0,
+          "isRequired": false,
+          "refContentType": [
+            "Employee",
+            "ContractorHuman",
+            "ContractorCompany"
+          ]
+        },
+        "valueContentTypes": [
+          "Employee"
+        ],
+        "name": "Менеджер"
+      },
+      {
+        "contentType": "ProgramRole",
+        "id": "137",
+        "linkedField": {
+          "contentType": "RefLinkField",
+          "id": "1000391",
+          "hrName": "Аудиторы",
+          "name": "auditors",
+          "type": "RefLink",
+          "orderPos": 9664,
+          "isSystem": true,
+          "isSortable": true,
+          "targetEntity": "bums\\trade\\api\\v03\\Entity\\Deal",
+          "settings": [],
+          "settingsCount": 0,
+          "isRequired": false,
+          "refContentType": [
+            "Employee",
+            "ContractorHuman",
+            "ContractorCompany"
+          ]
+        },
+        "valueContentTypes": [
+          "Employee"
+        ],
+        "name": "Аудиторы",
+        "isMultiple": true
+      },
+      {
+        "contentType": "ProgramRole",
+        "id": "138",
+        "linkedField": null,
+        "valueContentTypes": [],
+        "name": "Руководитель отдела продаж",
+        "isMultiple": false
+      },
+      {
+        "contentType": "ProgramRole",
+        "id": "154",
+        "linkedField": null,
+        "valueContentTypes": [
+          "Employee"
+        ],
+        "name": "Видят всё",
+        "isMultiple": false
+      },
+      {
+        "contentType": "ProgramRole",
+        "id": "168",
+        "linkedField": null,
+        "valueContentTypes": [],
+        "name": "Бухгалтерия",
+        "isMultiple": false
+      }
+    ],
+    "orderPositionsFields": [],
+    "orderPositionsSortField": null,
+    "bmpSettings": {
+      "contentType": "BpmSettings",
+      "pluralNames": [
+        {
+          "contentType": "PluralName",
+          "type": "one",
+          "name": "Сделка"
+        },
+        {
+          "contentType": "PluralName",
+          "type": "few",
+          "name": "Сделки"
+        },
+        {
+          "contentType": "PluralName",
+          "type": "many",
+          "name": "Сделки"
+        },
+        {
+          "contentType": "PluralName",
+          "type": "other",
+          "name": "Сделку"
+        }
+      ],
+      "pluralNamesCount": 4,
+      "gender": "f",
+      "slug": "post",
+      "withDuplicatesFinder": true
+    },
+    "possibleActions": [
+      "can_create",
+      "can_export"
+    ]
+  },
+  "possibleTriggers": [
+    {
+      "contentType": "ProgramTrigger",
+      "id": "218",
+      "name": "⏩ Запустить процесс ДОГОВОР",
+      "possibleOperations": [
+        "CreateDeal"
+      ],
+      "reasons": [],
+      "enabled": true
+    },
+    {
+      "contentType": "ProgramTrigger",
+      "id": "287",
+      "name": "⏩ Скопировать эту сделку",
+      "possibleOperations": [],
+      "reasons": [],
+      "enabled": true
+    },
+    {
+      "contentType": "ProgramTrigger",
+      "id": "289",
+      "name": "⏩ Скопировать в текущую сделку",
+      "possibleOperations": [],
+      "reasons": [],
+      "enabled": true
+    },
+    {
+      "contentType": "ProgramTrigger",
+      "id": "346",
+      "name": "Вывести отчет по расходам",
+      "possibleOperations": [],
+      "reasons": [],
+      "enabled": true
+    }
+  ],
+  "possibleTriggersCount": 4,
+  "possibleTransitions": [
+    {
+      "contentType": "ProgramTransition",
+      "id": "1020",
+      "name": "",
+      "description": "",
+      "to": {
+        "contentType": "ProgramState",
+        "id": "316",
+        "name": "Сбор документов",
+        "entryPointName": "Сбор документов",
+        "type": "active",
+        "color": "#e3db47",
+        "description": "",
+        "isEntry": false
+      },
+      "reasons": [],
+      "enabled": true
+    },
+    {
+      "contentType": "ProgramTransition",
+      "id": "991",
+      "name": "",
+      "description": "",
+      "to": {
+        "contentType": "ProgramState",
+        "id": "309",
+        "name": "Успешно реализовано",
+        "entryPointName": "",
+        "type": "positive",
+        "color": "#215b33",
+        "description": "",
+        "isEntry": false
+      },
+      "reasons": [],
+      "enabled": true
+    }
+  ],
+  "possibleTransitionsCount": 2,
+  "possibleActions": [
+    "act_read",
+    "act_edit",
+    "act_edit_auditors",
+    "act_use_journal",
+    "act_add_consignment",
+    "act_produce",
+    "act_edit_positions",
+    "act_delete"
+  ],
+  "todos": [],
+  "todosCount": 0,
+  "dealsCount": 1,
+  "actualDealsCount": 1,
+  "tasksCount": 0,
+  "actualTasksCount": 0,
+  "editableFields": [
+    "name",
+    "contractor",
+    "manager",
+    "auditors",
+    "description",
+    "contact",
+    "payer",
+    "Category1000083CustomFieldTipPlatezha",
+    "Category1000083CustomFieldBrend",
+    "Category1000083CustomFieldBuhgalteriyaNasheYurLitso",
+    "Category1000083CustomFieldBuhgalteriyaValyuta",
+    "Category1000083CustomFieldStatyaRashodov",
+    "Category1000083CustomFieldSumma",
+    "Category1000083CustomFieldStranaKudaOtpravlyaemPlatezh",
+    "Category1000083CustomFieldPerevodNaKartu",
+    "Category1000083CustomFieldFamiliyaImyaPoluchatelyaNaLatinitseK",
+    "Category1000083CustomFieldNomerKarti",
+    "Category1000083CustomFieldNomerTelefona",
+    "Category1000083CustomFieldNazvanieBanka",
+    "Category1000083CustomFieldDedlaynPoOplate",
+    "Category1000083CustomFieldSpravedlivayaStoimost",
+    "Category1000083CustomFieldDopStoimost",
+    "Category1000083CustomFieldFinalnayaStoimost",
+    "Category1000083CustomFieldSkanOriginalaDogovora",
+    "Category1000083CustomFieldSkanDogovora",
+    "Category1000083CustomFieldAktSkan",
+    "Category1000083CustomFieldTipAktaPoluchen",
+    "Category1000083CustomFieldBuhgalteriyaTipZakrivayushchegoDokum",
+    "Category1000083CustomFieldBuhgalteriyaDataZakrivayushchegoDoku",
+    "Category1000083CustomFieldBuhgalteriyaNomerZakrivayushchegoDok",
+    "Category1000083CustomFieldBuhgalteriyaStatusDokumenta",
+    "Category1000083CustomFieldStatusOplati1",
+    "Category1000083CustomFieldOplacheno",
+    "Category1000083CustomFieldDataOplati",
+    "Category1000083CustomFieldIdTablitsi",
+    "Category1000083CustomFieldViborStatusa",
+    "Category1000083CustomFieldIdFolder",
+    "Category1000083CustomFieldIdOsnovnoySdelki",
+    "Category1000083CustomFieldNeUchitivatVRashodah",
+    "Category1000083CustomFieldIdOrganisations",
+    "Category1000083CustomFieldIdFactstreams",
+    "Category1000083CustomFieldOtpravlenoVFinansist",
+    "Category1000083CustomFieldSkanDogovoraEst",
+    "Category1000083CustomFieldSkanAktaEst",
+    "Category1000083CustomFieldSkanPrilozheniyaEst",
+    "Category1000083CustomFieldTvorcheskiyOtchet",
+    "Category1000083CustomFieldOrd",
+    "Category1000083CustomFieldOrdPremikom",
+    "Category1000083CustomFieldOrdPremikomDogovor",
+    "Category1000083CustomFieldOrdPremikomAkt"
+  ],
+  "visibleFields": [
+    "name",
+    "contractor",
+    "manager",
+    "auditors",
+    "description",
+    "contact",
+    "payer",
+    "Category1000083CustomFieldTipPlatezha",
+    "Category1000083CustomFieldBrend",
+    "Category1000083CustomFieldBuhgalteriyaNasheYurLitso",
+    "Category1000083CustomFieldBuhgalteriyaValyuta",
+    "Category1000083CustomFieldStatyaRashodov",
+    "Category1000083CustomFieldSumma",
+    "Category1000083CustomFieldStranaKudaOtpravlyaemPlatezh",
+    "Category1000083CustomFieldPerevodNaKartu",
+    "Category1000083CustomFieldFamiliyaImyaPoluchatelyaNaLatinitseK",
+    "Category1000083CustomFieldNomerKarti",
+    "Category1000083CustomFieldNomerTelefona",
+    "Category1000083CustomFieldNazvanieBanka",
+    "Category1000083CustomFieldDedlaynPoOplate",
+    "Category1000083CustomFieldSpravedlivayaStoimost",
+    "Category1000083CustomFieldDopStoimost",
+    "Category1000083CustomFieldFinalnayaStoimost",
+    "Category1000083CustomFieldSkanOriginalaDogovora",
+    "Category1000083CustomFieldSkanDogovora",
+    "Category1000083CustomFieldAktSkan",
+    "Category1000083CustomFieldTipAktaPoluchen",
+    "Category1000083CustomFieldBuhgalteriyaTipZakrivayushchegoDokum",
+    "Category1000083CustomFieldBuhgalteriyaDataZakrivayushchegoDoku",
+    "Category1000083CustomFieldBuhgalteriyaNomerZakrivayushchegoDok",
+    "Category1000083CustomFieldBuhgalteriyaStatusDokumenta",
+    "Category1000083CustomFieldStatusOplati1",
+    "Category1000083CustomFieldOplacheno",
+    "Category1000083CustomFieldDataOplati",
+    "Category1000083CustomFieldIdTablitsi",
+    "Category1000083CustomFieldViborStatusa",
+    "Category1000083CustomFieldIdFolder",
+    "Category1000083CustomFieldIdOsnovnoySdelki",
+    "Category1000083CustomFieldNeUchitivatVRashodah",
+    "Category1000083CustomFieldIdOrganisations",
+    "Category1000083CustomFieldIdFactstreams",
+    "Category1000083CustomFieldOtpravlenoVFinansist",
+    "Category1000083CustomFieldSkanDogovoraEst",
+    "Category1000083CustomFieldSkanAktaEst",
+    "Category1000083CustomFieldSkanPrilozheniyaEst",
+    "Category1000083CustomFieldTvorcheskiyOtchet",
+    "Category1000083CustomFieldOrd",
+    "Category1000083CustomFieldOrdPremikom",
+    "Category1000083CustomFieldOrdPremikomDogovor",
+    "Category1000083CustomFieldOrdPremikomAkt"
+  ],
+  "messagesCount": 0,
+  "callsCount": 0,
+  "linksCount": 0,
+  "relationLinks": [],
+  "relationLinksCount": 0,
+  "userCreated": {
+    "contentType": "Employee",
+    "id": "1000283"
+  },
+  "userUpdated": {
+    "contentType": "Employee",
+    "id": "1000157",
+    "name": "Барсегян Наталья",
+    "firstName": "Наталья",
+    "middleName": "Владимировна",
+    "lastName": "Барсегян",
+    "position": "Бухгалтер",
+    "department": {
+      "contentType": "Department",
+      "id": "1000048",
+      "name": "Команда бухгалтерии"
+    },
+    "uid": 1001416,
+    "gender": "female",
+    "birthday": null,
+    "inn": "",
+    "contactInfo": [
+      {
+        "contentType": "ContactInfo",
+        "type": "email",
+        "value": "nb@2l-pr.ru",
+        "comment": null,
+        "isMain": true,
+        "subject": {
+          "contentType": "Employee",
+          "id": "1000157"
+        }
+      },
+      {
+        "contentType": "ContactInfo",
+        "type": "telegram",
+        "value": "@barsyk1969",
+        "comment": null,
+        "isMain": true,
+        "subject": {
+          "contentType": "Employee",
+          "id": "1000157"
+        }
+      },
+      {
+        "contentType": "ContactInfo",
+        "type": "phone",
+        "value": "+7 903 512-75-69",
+        "comment": "",
+        "isMain": false
+      }
+    ],
+    "contactInfoCount": 3,
+    "isWorking": true,
+    "nearestVacation": null,
+    "isReadable": true,
+    "isOnline": true,
+    "lastOnline": {
+      "contentType": "DateTime",
+      "value": "2026-02-10T16:04:43+00:00"
+    },
+    "canLogin": true,
+    "avatar": {
+      "contentType": "File",
+      "id": "119008",
+      "name": "ab1487807ca4ada771c2fe36ad3057b9.png",
+      "extension": "png",
+      "size": 246153,
+      "path": "/attach/SdfFileM_File/File/224/232/ab1487807ca4ada771c2fe36ad3057b9.png/croppedimage.png",
+      "thumbnail": "//pc31.megaplan.ru/hosts/likhtman.megaplan.ru/{width}x{height}/attach/SdfFileM_File/File/224/232/ab1487807ca4ada771c2fe36ad3057b9.png"
+    }
+  },
+  "fixCurrencyDate": null,
+  "currency": {
+    "contentType": "Currency",
+    "id": "1",
+    "name": "Рубли",
+    "abbreviation": "RUB",
+    "sign": " руб.",
+    "isBase": true
+  },
+  "contractorFields": [],
+  "attaches": [],
+  "attachesCount": 0,
+  "reminderTime": null,
+  "interactionsCounters": [
+    {
+      "contentType": "InteractionCounter",
+      "action": "read",
+      "count": 2
+    }
+  ],
+  "consignment": null,
+  "isFavorite": false,
+  "Category1000083CustomFieldTipPlatezha": "Конфеты",
+  "Category1000083CustomFieldBrend": "Binance",
+  "Category1000083CustomFieldBuhgalteriyaNasheYurLitso": "ITCOMMS",
+  "Category1000083CustomFieldBuhgalteriyaValyuta": "USD",
+  "Category1000083CustomFieldStatyaRashodov": "Возмещаемый расход",
+  "Category1000083CustomFieldSumma": {
+    "contentType": "Money",
+    "currency": "USD",
+    "valueInMain": 167190.19862399998,
+    "rate": 77.6502,
+    "value": 2153.12
+  },
+  "Category1000083CustomFieldStranaKudaOtpravlyaemPlatezh": "Кыргызстан",
+  "Category1000083CustomFieldPerevodNaKartu": true,
+  "Category1000083CustomFieldFamiliyaImyaPoluchatelyaNaLatinitseK": "Максим Полетаев",
+  "Category1000083CustomFieldNomerKarti": "4177490197991310",
+  "Category1000083CustomFieldNomerTelefona": "996555130771",
+  "Category1000083CustomFieldNazvanieBanka": "Мбанк",
+  "Category1000083CustomFieldDedlaynPoOplate": {
+    "contentType": "DateOnly",
+    "year": 2025,
+    "month": 9,
+    "day": 3
+  },
+  "Category1000083CustomFieldSpravedlivayaStoimost": {
+    "contentType": "Money",
+    "currency": "RUB",
+    "valueInMain": 175472.174704,
+    "rate": 1,
+    "value": 175472.1747
+  },
+  "Category1000083CustomFieldDopStoimost": {
+    "contentType": "Money",
+    "currency": "RUB",
+    "valueInMain": 0,
+    "rate": 1,
+    "value": 0
+  },
+  "Category1000083CustomFieldFinalnayaStoimost": {
+    "contentType": "Money",
+    "currency": "RUB",
+    "valueInMain": 175472.174704,
+    "rate": 1,
+    "value": 175472.1747
+  },
+  "Category1000083CustomFieldSkanOriginalaDogovora": [],
+  "Category1000083CustomFieldSkanDogovora": [],
+  "Category1000083CustomFieldAktSkan": [],
+  "Category1000083CustomFieldTipAktaPoluchen": "",
+  "Category1000083CustomFieldBuhgalteriyaTipZakrivayushchegoDokum": "",
+  "Category1000083CustomFieldBuhgalteriyaDataZakrivayushchegoDoku": null,
+  "Category1000083CustomFieldBuhgalteriyaNomerZakrivayushchegoDok": "",
+  "Category1000083CustomFieldBuhgalteriyaStatusDokumenta": "Нет документа",
+  "Category1000083CustomFieldStatusOplati1": "К оплате",
+  "Category1000083CustomFieldOplacheno": false,
+  "Category1000083CustomFieldDataOplati": {
+    "contentType": "DateOnly",
+    "year": 2025,
+    "month": 9,
+    "day": 13
+  },
+  "Category1000083CustomFieldIdTablitsi": "",
+  "Category1000083CustomFieldViborStatusa": "К оплате",
+  "Category1000083CustomFieldIdFolder": "",
+  "Category1000083CustomFieldIdOsnovnoySdelki": "",
+  "Category1000083CustomFieldNeUchitivatVRashodah": false,
+  "Category1000083CustomFieldIdOrganisations": "8221",
+  "Category1000083CustomFieldIdFactstreams": "",
+  "Category1000083CustomFieldOtpravlenoVFinansist": false,
+  "Category1000083CustomFieldSkanDogovoraEst": false,
+  "Category1000083CustomFieldSkanAktaEst": false,
+  "Category1000083CustomFieldSkanPrilozheniyaEst": false,
+  "Category1000083CustomFieldTvorcheskiyOtchet": "",
+  "Category1000083CustomFieldOrd": "",
+  "Category1000083CustomFieldOrdPremikom": "",
+  "Category1000083CustomFieldOrdPremikomDogovor": false,
+  "Category1000083CustomFieldOrdPremikomAkt": false,
+  "actualTodosCount": 0,
+  "finishedTodosCount": 0,
+  "allFilesCount": 1,
+  "attachesInfo": {
+    "contentType": "AttachesInfo",
+    "imageFiles": [],
+    "imageFilesCount": 0,
+    "audioFiles": [],
+    "audioFilesCount": 0,
+    "otherFiles": [
+      {
+        "contentType": "File",
+        "id": "562314"
+      }
+    ],
+    "otherFilesCount": 1
+  },
+  "tags": [],
+  "tagsCount": 0,
+  "financeOperations": [],
+  "financeOperationsCount": 0,
+  "comments": [
+    {
+      "contentType": "Comment",
+      "id": "310130"
+    }
+  ],
+  "commentsCount": 1,
+  "unreadCommentsCount": 1,
+  "attachesCountInComments": 1,
+  "unreadAnswer": false,
+  "subscribed": false,
+  "commentsWithoutTransportCount": 1,
+  "emailsCount": 0,
+  "whatsappCount": 0,
+  "telegramCount": 0,
+  "maxMessengerCount": 0,
+  "instagramCount": 0,
+  "hiddenCommentsCount": 0
+}
