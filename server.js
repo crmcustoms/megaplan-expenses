@@ -38,10 +38,12 @@ app.use((req, res, next) => {
 // Import API handlers
 const expensesHandler = require('./api/expenses');
 const exportHandler = require('./api/export');
+const updateFieldHandler = require('./api/update-field');
 
 // API endpoints
 app.get('/api/expenses', expensesHandler);
 app.get('/api/export', exportHandler);
+app.post('/api/update-deal-field', updateFieldHandler);
 
 // GitHub Webhook для автоматического деплоя
 // Webhook слушает push события в main ветке и запускает git pull + docker restart

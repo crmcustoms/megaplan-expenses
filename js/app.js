@@ -8,7 +8,8 @@ const API_BASE_URL = '/api'; // Для production
 
 const API_ENDPOINTS = {
   getExpenses: `${API_BASE_URL}/expenses`,
-  exportCSV: `${API_BASE_URL}/export`
+  exportCSV: `${API_BASE_URL}/export`,
+  updateDealField: `${API_BASE_URL}/update-deal-field`
 };
 
 // ===========================
@@ -57,10 +58,38 @@ async function loadExpenses(dealId) {
     document.getElementById('totalAmount').textContent = formatNumber(data.total || 0);
 
     showContent(true);
-    
+
+    // Update deal field with total expenses
+    await updateDealExpensesTotal(dealId, data.total);
+
   } catch (error) {
     console.error('Ошибка загрузки данных:', error);
     showError(`Не удалось загрузить данные: ${error.message}`);
+  }
+}
+
+// ===========================
+// DEAL UPDATE
+// ===========================
+
+async function updateDealExpensesTotal(dealId, totalAmount) {
+  try {
+    const response = await fetch(API_ENDPOINTS.updateDealField, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        dealId: dealId,
+        fieldValue: totalAmount
+      })
+    });
+
+    if (!response.ok) {
+      console.warn('Не удалось обновить поле сделки:', response.statusText);
+    }
+  } catch (error) {
+    console.warn('Ошибка при обновлении поля сделки:', error);
   }
 }
 
@@ -89,7 +118,7 @@ function renderTable(expenses) {
     row.innerHTML = `
       <td>${escapeHtml(exp.deal_id || '')}</td>
       <td>${renderDealLink(exp.dealLink, exp.deal_name)}</td>
-      <td class="col-description">${escapeHtml(exp.description || '')}</td>
+      <td class="col-description">${escapeHtml(stripHtmlTags(exp.description || ''))}</td>
       <td>${renderStatus(exp.status)}</td>
       <td>${escapeHtml(exp.category || '')}</td>
       <td>${escapeHtml(exp.brand || '')}</td>
@@ -265,10 +294,18 @@ function formatNumber(num) {
 
 function escapeHtml(text) {
   if (!text) return '';
-  
+
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
+}
+
+function stripHtmlTags(text) {
+  if (!text) return '';
+
+  const div = document.createElement('div');
+  div.innerHTML = text;
+  return div.textContent || div.innerText || '';
 }
 
 // ===========================
