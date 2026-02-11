@@ -76,10 +76,10 @@ app.post('/api/deploy', (req, res) => {
 
   console.log('🚀 Deploy webhook triggered!');
 
-  // Запускаем git pull и docker restart в фоне
+  // Запускаем deploy скрипт на хосте в фоне
   // Deploy будет выполнен в фоне, не ждем результат
   exec(
-    'cd /app && git pull origin main && docker restart megaplan-expenses',
+    'docker run --rm -v /root/megaplan-expenses:/deploy -v /var/run/docker.sock:/var/run/docker.sock -w /deploy node:18-alpine /bin/sh -c "git pull origin main && docker stop megaplan-expenses || true && docker rm megaplan-expenses || true && docker build -t megaplan-expenses . && docker run -d --name megaplan-expenses -p 3001:3000 --env-file .env -v /var/run/docker.sock:/var/run/docker.sock megaplan-expenses"',
     (error, stdout, stderr) => {
       if (error) {
         console.error('❌ Deploy failed:', error.message);
