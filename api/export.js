@@ -197,28 +197,28 @@ module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  
+
   // Handle OPTIONS
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
-  
+
   // Validate method
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
-  
+
   try {
     // Get dealId from query
     const { dealId } = req.query;
-    
+
     if (!dealId) {
-      return res.status(400).json({ 
-        error: 'dealId parameter is required' 
+      return res.status(400).json({
+        error: 'dealId parameter is required'
       });
     }
-    
-    console.log(`Exporting expenses for deal ${dealId}...`);
+
+    console.log(`[${new Date().toISOString()}] Exporting expenses for deal ${dealId}...`);
     
     // 1. Get deal info
     const deal = await megaplanRequest(`/deal/${dealId}`);
