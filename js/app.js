@@ -76,7 +76,7 @@ function renderTable(expenses) {
     tbody.innerHTML = `
       <tr>
         <td colspan="16" style="text-align: center; padding: 32px; color: #6B6B6B;">
-          📭 Расходов по проекту пока нет
+          Расходов по проекту пока нет
         </td>
       </tr>
     `;
@@ -188,7 +188,7 @@ function renderStatus(status) {
 function renderDealLink(url, dealName) {
   if (!url) return '';
 
-  return `<a href="${escapeHtml(url)}" target="_blank" class="deal-link" title="Открыть сделку">${escapeHtml(dealName || '🔗')}</a>`;
+  return `<a href="${escapeHtml(url)}" target="_blank" class="deal-link" title="Открыть сделку">${escapeHtml(dealName || 'Сделка')}</a>`;
 }
 
 // ===========================
@@ -200,7 +200,7 @@ async function exportExcel() {
     // Disable button
     const btn = document.getElementById('exportBtn');
     btn.disabled = true;
-    btn.textContent = '⏳ Генерация...';
+    btn.textContent = 'Генерация...';
     
     // Request CSV
     const url = `${API_ENDPOINTS.exportCSV}?dealId=${dealId}`;
@@ -233,16 +233,16 @@ async function exportExcel() {
     
     // Restore button
     btn.disabled = false;
-    btn.innerHTML = '📥 Скачать Excel';
+    btn.innerHTML = 'Скачать Excel';
     
   } catch (error) {
     console.error('Ошибка экспорта:', error);
-    alert('❌ Ошибка экспорта файла. Попробуйте еще раз.');
+    alert('Ошибка экспорта файла. Попробуйте еще раз.');
     
     // Restore button
     const btn = document.getElementById('exportBtn');
     btn.disabled = false;
-    btn.innerHTML = '📥 Скачать Excel';
+    btn.innerHTML = 'Скачать Excel';
   }
 }
 
