@@ -85,7 +85,9 @@ function renderTable(expenses) {
   expenses.forEach(exp => {
     const row = document.createElement('tr');
     row.innerHTML = `
+      <td>${renderDealLink(exp.dealLink, exp.deal_name)}</td>
       <td>${escapeHtml(exp.deal_id || '')}</td>
+      <td>${escapeHtml(exp.deal_name || '')}</td>
       <td>${renderStatus(exp.status)}</td>
       <td>${escapeHtml(exp.category || '')}</td>
       <td>${escapeHtml(exp.brand || '')}</td>
@@ -97,10 +99,8 @@ function renderTable(expenses) {
       <td class="col-number">${formatNumber(exp.finalCost)}</td>
       <td class="col-number">${formatNumber(exp.fairCost)}</td>
       <td class="col-description">${escapeHtml(exp.description || '')}</td>
-      <td>${renderDealLink(exp.dealLink)}</td>
       <td>${escapeHtml(exp.creator || '')}</td>
       <td class="text-center">${escapeHtml(exp.currency || '')}</td>
-      <td class="col-deal-name">${escapeHtml(exp.deal_name || '')}</td>
     `;
     tbody.appendChild(row);
   });
@@ -127,10 +127,10 @@ function renderStatus(status) {
   return `<span class="${className}">${escapeHtml(status)}</span>`;
 }
 
-function renderDealLink(url) {
+function renderDealLink(url, dealName) {
   if (!url) return '';
-  
-  return `<a href="${escapeHtml(url)}" target="_blank" class="deal-link" title="Открыть сделку">🔗</a>`;
+
+  return `<a href="${escapeHtml(url)}" target="_blank" class="deal-link" title="Открыть сделку">${escapeHtml(dealName || '🔗')}</a>`;
 }
 
 // ===========================

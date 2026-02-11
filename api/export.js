@@ -122,7 +122,9 @@ function escapeCSV(value) {
 
 function generateCSV(expenses, total) {
   const headers = [
+    'Ссылка на сделку',
     'deal_id',
+    'Название сделки',
     'Статус',
     'Статья расходов',
     'Бренд',
@@ -134,21 +136,21 @@ function generateCSV(expenses, total) {
     'Финальная стоимость',
     'Справедливая стоимость',
     'Суть',
-    'Ссылка на сделку',
     'Создатель',
-    'Валюта',
-    'deal_name'
+    'Валюта'
   ];
-  
+
   const csvRows = [];
-  
+
   // Header row
   csvRows.push(headers.map(h => escapeCSV(h)).join(','));
-  
+
   // Data rows
   expenses.forEach(exp => {
     const row = [
+      exp.dealLink,
       exp.deal_id,
+      exp.deal_name,
       exp.status,
       exp.category,
       exp.brand,
@@ -160,31 +162,29 @@ function generateCSV(expenses, total) {
       exp.finalCost.toFixed(2),
       exp.fairCost.toFixed(2),
       exp.description,
-      exp.dealLink,
       exp.creator,
-      exp.currency,
-      exp.deal_name
+      exp.currency
     ];
-    
+
     csvRows.push(row.map(v => escapeCSV(v)).join(','));
   });
-  
+
   // Total row
   const totalRow = [
-    '', '', '', '', '', '', '', // Empty columns
+    '', '', '', '', '', '', '', '', '', // Empty columns
     'ИТОГО:',
     total.toFixed(2),
-    '', '', '', '', '', '' // Rest empty
+    '', '', '', '' // Rest empty
   ];
-  
+
   csvRows.push(totalRow.map(v => escapeCSV(v)).join(','));
-  
+
   // Join with newlines
   const csvContent = csvRows.join('\n');
-  
+
   // КРИТИЧНО! UTF-8 BOM для Excel
   const BOM = '\uFEFF';
-  
+
   return BOM + csvContent;
 }
 
