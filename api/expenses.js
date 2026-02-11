@@ -112,6 +112,7 @@ async function mapExpense(expenseDeal, parentDeal) {
     dealLink: `https://${MEGAPLAN_CONFIG.account}.megaplan.ru/deals/${expenseDeal.id}/card/`,
     manager: expenseDeal.manager?.name || expenseDeal.responsible?.name || parentDeal.manager?.name || parentDeal.responsible?.name || '',
     owner: expenseDeal.owner?.name || expenseDeal.createdBy?.name || '',
+    creator: expenseDeal.createdBy?.name || '',
     deal_name: expenseDeal.name || ''
   };
 }

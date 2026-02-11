@@ -132,7 +132,7 @@ function renderTable(expenses) {
       <td>${escapeHtml(exp.contractor || '')}</td>
       <td>${escapeHtml(exp.paymentType || '')}</td>
       <td>${escapeHtml(exp.manager || '')}</td>
-      <td>${escapeHtml(exp.owner || '')}</td>
+      <td>${escapeHtml(exp.creator || '')}</td>
       <td class="col-number">${amountWithCurrency}</td>
       <td class="col-number">${formatNumber(exp.additionalCost)}</td>
       <td class="col-number">${formatNumber(exp.finalCost)}</td>
