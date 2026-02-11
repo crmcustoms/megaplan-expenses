@@ -79,7 +79,7 @@ app.post('/api/deploy', (req, res) => {
   // Запускаем git pull и docker restart в фоне
   // Deploy будет выполнен в фоне, не ждем результат
   exec(
-    'cd /root/megaplan-expenses && git pull origin main && docker restart megaplan-expenses',
+    'cd /app && git pull origin main && docker restart megaplan-expenses',
     (error, stdout, stderr) => {
       if (error) {
         console.error('❌ Deploy failed:', error.message);
