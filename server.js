@@ -43,6 +43,7 @@ app.get('/api/expenses', expensesHandler);
 app.get('/api/export', exportHandler);
 
 // GitHub Webhook для автоматического деплоя
+// Webhook слушает push события в main ветке и запускает git pull + docker restart
 app.post('/api/deploy', (req, res) => {
   const secret = process.env.GITHUB_WEBHOOK_SECRET || 'secret';
   const signature = req.headers['x-hub-signature-256'];
