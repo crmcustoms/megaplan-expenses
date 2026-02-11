@@ -157,6 +157,7 @@ app.listen(PORT, () => {
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   console.log(`⏰ Deploy timestamp: ${new Date().toISOString()}`);
   console.log('✅ Webhook deployment system is operational');
+  console.log('🔄 Auto-deployment from GitHub webhook: ENABLED');
   console.log('');
   
   // Check configuration
