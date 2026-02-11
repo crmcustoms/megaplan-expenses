@@ -91,7 +91,17 @@ async function mapExpense(expenseDeal, parentDeal) {
     status: getFieldByPath(expenseDeal, CUSTOM_FIELDS.status),
     category: getFieldByPath(expenseDeal, CUSTOM_FIELDS.category),
     brand: getFieldByPath(expenseDeal, CUSTOM_FIELDS.brand),
-    contractor: expenseDeal.contractor?.name || '',
+    contractor: (() => {
+      if (!expenseDeal.contractor) return '';
+      // For ContractorHuman: combine firstName and lastName
+      if (expenseDeal.contractor.firstName || expenseDeal.contractor.lastName) {
+        const firstName = expenseDeal.contractor.firstName || '';
+        const lastName = expenseDeal.contractor.lastName || '';
+        return `${firstName} ${lastName}`.trim();
+      }
+      // For ContractorCompany: use name
+      return expenseDeal.contractor.name || '';
+    })(),
     paymentType: getFieldByPath(expenseDeal, CUSTOM_FIELDS.paymentType),
     manager: expenseDeal.responsible?.name || '',
     amount: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.amount)) || 0,
@@ -99,7 +109,7 @@ async function mapExpense(expenseDeal, parentDeal) {
     finalCost: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.finalCost)) || 0,
     fairCost: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.fairCost)) || 0,
     description: expenseDeal.name || '',
-    dealLink: `https://${MEGAPLAN_CONFIG.account}.megaplan.ru/deal/${expenseDeal.id}`,
+    dealLink: `https://${MEGAPLAN_CONFIG.account}.megaplan.ru/deals/${expenseDeal.id}/card/`,
     creator: expenseDeal.created?.by?.name || '',
     currency: getFieldByPath(expenseDeal, CUSTOM_FIELDS.currency) || 'RUB',
     deal_name: expenseDeal.name || ''
