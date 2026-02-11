@@ -100,15 +100,15 @@ async function mapExpense(expenseDeal, parentDeal) {
       return expenseDeal.contractor.name || '';
     })(),
     paymentType: getFieldByPath(expenseDeal, CUSTOM_FIELDS.paymentType),
-    manager: expenseDeal.responsible?.name || '',
     amount: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.amount)) || 0,
     additionalCost: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.additionalCost)) || 0,
     finalCost: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.finalCost)) || 0,
     fairCost: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.fairCost)) || 0,
-    description: expenseDeal.name || '',
-    dealLink: `https://${MEGAPLAN_CONFIG.account}.megaplan.ru/deals/${expenseDeal.id}/card/`,
-    creator: expenseDeal.created?.by?.name || '',
     currency: getFieldByPath(expenseDeal, CUSTOM_FIELDS.currency) || 'RUB',
+    description: expenseDeal.description || expenseDeal.name || '',
+    dealLink: `https://${MEGAPLAN_CONFIG.account}.megaplan.ru/deals/${expenseDeal.id}/card/`,
+    manager: expenseDeal.responsible?.name || '',
+    owner: expenseDeal.manager?.name || '',
     deal_name: expenseDeal.name || ''
   };
 }
@@ -134,19 +134,18 @@ function generateCSV(expenses, total) {
   const headers = [
     'deal_id',
     'Название сделки',
+    'Суть',
     'Статус',
     'Статья расходов',
     'Бренд',
     'Контрагент',
     'Тип платежа',
     'Менеджер',
+    'Создатель',
     'Сумма',
     'Доп.стоимость',
     'Финальная стоимость',
-    'Справедливая стоимость',
-    'Суть',
-    'Создатель',
-    'Валюта'
+    'Справедливая стоимость'
   ];
 
   const csvRows = [];
@@ -156,22 +155,22 @@ function generateCSV(expenses, total) {
 
   // Data rows
   expenses.forEach(exp => {
+    const amountWithCurrency = `${exp.amount.toFixed(2)} ${exp.currency}`;
     const row = [
       exp.deal_id,
       exp.dealLink + ' | ' + exp.deal_name,
+      exp.description,
       exp.status,
       exp.category,
       exp.brand,
       exp.contractor,
       exp.paymentType,
       exp.manager,
-      exp.amount.toFixed(2),
+      exp.owner,
+      amountWithCurrency,
       exp.additionalCost.toFixed(2),
       exp.finalCost.toFixed(2),
-      exp.fairCost.toFixed(2),
-      exp.description,
-      exp.creator,
-      exp.currency
+      exp.fairCost.toFixed(2)
     ];
 
     csvRows.push(row.map(v => escapeCSV(v)).join(','));
@@ -179,10 +178,10 @@ function generateCSV(expenses, total) {
 
   // Total row
   const totalRow = [
-    '', '', '', '', '', '', '', '', // Empty columns
+    '', '', '', '', '', '', '', '', '', '', // Empty columns
     'ИТОГО:',
     total.toFixed(2),
-    '', '', '', '' // Rest empty
+    '', '' // Rest empty
   ];
 
   csvRows.push(totalRow.map(v => escapeCSV(v)).join(','));

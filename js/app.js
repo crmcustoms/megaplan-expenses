@@ -84,22 +84,22 @@ function renderTable(expenses) {
   
   expenses.forEach(exp => {
     const row = document.createElement('tr');
+    const amountWithCurrency = `${formatNumber(exp.amount)} ${exp.currency || 'RUB'}`;
     row.innerHTML = `
       <td>${escapeHtml(exp.deal_id || '')}</td>
       <td>${renderDealLink(exp.dealLink, exp.deal_name)}</td>
+      <td class="col-description">${escapeHtml(exp.description || '')}</td>
       <td>${renderStatus(exp.status)}</td>
       <td>${escapeHtml(exp.category || '')}</td>
       <td>${escapeHtml(exp.brand || '')}</td>
       <td>${escapeHtml(exp.contractor || '')}</td>
       <td>${escapeHtml(exp.paymentType || '')}</td>
       <td>${escapeHtml(exp.manager || '')}</td>
-      <td class="col-number">${formatNumber(exp.amount)}</td>
+      <td>${escapeHtml(exp.owner || '')}</td>
+      <td class="col-number">${amountWithCurrency}</td>
       <td class="col-number">${formatNumber(exp.additionalCost)}</td>
       <td class="col-number">${formatNumber(exp.finalCost)}</td>
       <td class="col-number">${formatNumber(exp.fairCost)}</td>
-      <td class="col-description">${escapeHtml(exp.description || '')}</td>
-      <td>${escapeHtml(exp.creator || '')}</td>
-      <td class="text-center">${escapeHtml(exp.currency || '')}</td>
     `;
     tbody.appendChild(row);
   });

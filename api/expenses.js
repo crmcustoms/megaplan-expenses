@@ -103,15 +103,15 @@ async function mapExpense(expenseDeal, parentDeal) {
       return expenseDeal.contractor.name || '';
     })(),
     paymentType: getFieldByPath(expenseDeal, CUSTOM_FIELDS.paymentType),
-    manager: expenseDeal.responsible?.name || '',
     amount: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.amount)) || 0,
     additionalCost: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.additionalCost)) || 0,
     finalCost: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.finalCost)) || 0,
     fairCost: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.fairCost)) || 0,
-    description: expenseDeal.name || '',
-    dealLink: `https://${MEGAPLAN_CONFIG.account}.megaplan.ru/deals/${expenseDeal.id}/card/`,
-    creator: expenseDeal.created?.by?.name || '',
     currency: getFieldByPath(expenseDeal, CUSTOM_FIELDS.currency) || 'RUB',
+    description: expenseDeal.description || expenseDeal.name || '',
+    dealLink: `https://${MEGAPLAN_CONFIG.account}.megaplan.ru/deals/${expenseDeal.id}/card/`,
+    manager: expenseDeal.responsible?.name || '',
+    owner: expenseDeal.manager?.name || '',
     deal_name: expenseDeal.name || ''
   };
 }
