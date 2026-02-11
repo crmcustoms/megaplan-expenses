@@ -126,7 +126,7 @@ function renderDashboard(expenses, total) {
 
   const currencyHtml = Object.entries(currencyMap)
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 5)
+    .slice(0, 3)
     .map(([currency, amount]) => `
       <div class="currency-item">
         <span class="currency-label">${currency}</span>
@@ -150,7 +150,7 @@ function renderDashboard(expenses, total) {
 
   const topCategories = Object.entries(categoryMap)
     .sort((a, b) => b[1].total - a[1].total)
-    .slice(0, 5);
+    .slice(0, 3);
 
   const categoriesHtml = topCategories
     .map(([category, data]) => `

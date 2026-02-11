@@ -93,8 +93,8 @@ body {
    =========================== */
 .dashboard {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
   margin-bottom: 32px;
 }
 
@@ -102,7 +102,7 @@ body {
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
   border-radius: 12px;
-  padding: 24px;
+  padding: 16px;
   transition: all 0.3s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
@@ -132,19 +132,19 @@ body {
 }
 
 .card-header {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--text-muted);
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .card-value {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   letter-spacing: -1px;
 }
 
@@ -157,7 +157,7 @@ body {
 .top-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .currency-item,
@@ -165,8 +165,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
-  font-size: 13px;
+  padding: 6px 0;
+  font-size: 12px;
   border-bottom: 1px solid var(--border-color);
 }
 
