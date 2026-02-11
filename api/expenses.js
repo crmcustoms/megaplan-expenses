@@ -102,7 +102,7 @@ async function mapExpense(expenseDeal, parentDeal) {
     dealLink: `https://${MEGAPLAN_CONFIG.account}.megaplan.ru/deal/${expenseDeal.id}`,
     creator: expenseDeal.created?.by?.name || '',
     currency: getFieldByPath(expenseDeal, CUSTOM_FIELDS.currency) || 'RUB',
-    deal_name: parentDeal.name || ''
+    deal_name: expenseDeal.name || ''
   };
 }
 
