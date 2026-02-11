@@ -31,6 +31,12 @@ module.exports = async (req, res) => {
       });
     }
 
+    // Log configuration for debugging
+    if (!MEGAPLAN_BEARER_TOKEN) {
+      console.warn('⚠️  WARNING: MEGAPLAN_BEARER_TOKEN is not configured!');
+      console.log('Make sure MEGAPLAN_BEARER_TOKEN is set in .env file');
+    }
+
     console.log(`Updating deal ${dealId} with expenses total: ${fieldValue}`);
 
     // Prepare the update payload
