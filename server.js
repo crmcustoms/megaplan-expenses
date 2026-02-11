@@ -75,7 +75,8 @@ app.post('/api/deploy', (req, res) => {
 
   console.log('🚀 Deploy webhook triggered!');
 
-  // Запускаем git pull и docker restart в фоне (не ждем результат)
+  // Запускаем git pull и docker restart в фоне
+  // Deploy будет выполнен в фоне, не ждем результат
   exec(
     'cd /root/megaplan-expenses && git pull origin main && docker restart megaplan-expenses',
     (error, stdout, stderr) => {
