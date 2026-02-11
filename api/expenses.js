@@ -87,7 +87,7 @@ function getFieldByPath(obj, path) {
 // Map linked deal (expense) to expense object
 async function mapExpense(expenseDeal, parentDeal) {
   return {
-    deal_id: parentDeal.id,
+    deal_id: expenseDeal.id,
     status: getFieldByPath(expenseDeal, CUSTOM_FIELDS.status),
     category: getFieldByPath(expenseDeal, CUSTOM_FIELDS.category),
     brand: getFieldByPath(expenseDeal, CUSTOM_FIELDS.brand),
