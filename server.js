@@ -5,6 +5,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const crypto = require('crypto');
+const { exec } = require('child_process');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -39,6 +41,52 @@ const exportHandler = require('./api/export');
 // API endpoints
 app.get('/api/expenses', expensesHandler);
 app.get('/api/export', exportHandler);
+
+// GitHub Webhook для автоматического деплоя
+app.post('/api/deploy', (req, res) => {
+  const secret = process.env.GITHUB_WEBHOOK_SECRET || 'secret';
+  const signature = req.headers['x-hub-signature-256'];
+
+  // Проверяем подпись (опционально)
+  if (signature && secret) {
+    const hash = 'sha256=' + crypto
+      .createHmac('sha256', secret)
+      .update(JSON.stringify(req.body))
+      .digest('hex');
+
+    if (signature !== hash) {
+      console.log('❌ Webhook signature verification failed');
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+  }
+
+  const payload = req.body;
+
+  // Только main ветка
+  if (payload.ref !== 'refs/heads/main') {
+    console.log(`⏭️  Skipping deploy for branch: ${payload.ref}`);
+    return res.status(200).json({ message: 'Ignored (not main branch)' });
+  }
+
+  console.log('🚀 Deploy webhook triggered!');
+
+  // Запускаем git pull и docker restart в фоне (не ждем результат)
+  exec(
+    'cd /root/megaplan-expenses && git pull origin main && docker restart megaplan-expenses',
+    (error, stdout, stderr) => {
+      if (error) {
+        console.error('❌ Deploy failed:', error.message);
+        if (stderr) console.error('STDERR:', stderr);
+      } else {
+        console.log('✅ Deploy completed successfully');
+        if (stdout) console.log('STDOUT:', stdout);
+      }
+    }
+  );
+
+  // Сразу отвечаем GitHub (не ждем выполнения)
+  res.status(200).json({ message: 'Deploy started in background' });
+});
 
 // Health check
 app.get('/api/health', (req, res) => {
