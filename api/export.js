@@ -122,7 +122,6 @@ function escapeCSV(value) {
 
 function generateCSV(expenses, total) {
   const headers = [
-    'Ссылка на сделку',
     'deal_id',
     'Название сделки',
     'Статус',
@@ -148,9 +147,8 @@ function generateCSV(expenses, total) {
   // Data rows
   expenses.forEach(exp => {
     const row = [
-      exp.dealLink,
       exp.deal_id,
-      exp.deal_name,
+      exp.dealLink + ' | ' + exp.deal_name,
       exp.status,
       exp.category,
       exp.brand,
@@ -171,7 +169,7 @@ function generateCSV(expenses, total) {
 
   // Total row
   const totalRow = [
-    '', '', '', '', '', '', '', '', '', // Empty columns
+    '', '', '', '', '', '', '', '', // Empty columns
     'ИТОГО:',
     total.toFixed(2),
     '', '', '', '' // Rest empty

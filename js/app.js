@@ -85,9 +85,8 @@ function renderTable(expenses) {
   expenses.forEach(exp => {
     const row = document.createElement('tr');
     row.innerHTML = `
-      <td>${renderDealLink(exp.dealLink, exp.deal_name)}</td>
       <td>${escapeHtml(exp.deal_id || '')}</td>
-      <td>${escapeHtml(exp.deal_name || '')}</td>
+      <td>${renderDealLink(exp.dealLink, exp.deal_name)}</td>
       <td>${renderStatus(exp.status)}</td>
       <td>${escapeHtml(exp.category || '')}</td>
       <td>${escapeHtml(exp.brand || '')}</td>
