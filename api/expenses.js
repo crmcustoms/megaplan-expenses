@@ -175,12 +175,6 @@ module.exports = async (req, res) => {
 
     console.log(`Fetched ${linkedDeals.length} linked deals with full data`);
 
-    // DEBUG: Log first deal's contractor structure
-    if (linkedDeals.length > 0) {
-      console.log('DEBUG - First deal contractor structure:');
-      console.log(JSON.stringify(linkedDeals[0].contractor, null, 2));
-    }
-
     // 4. Map linked deals to expense objects (await all async operations)
     const mappedExpenses = await Promise.all(
       linkedDeals.map(linkedDeal => mapExpense(linkedDeal, deal.data))
