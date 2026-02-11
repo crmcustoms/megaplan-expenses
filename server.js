@@ -156,6 +156,7 @@ app.listen(PORT, () => {
   console.log(`💚 Health:     http://localhost:${PORT}/api/health`);
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   console.log(`⏰ Deploy timestamp: ${new Date().toISOString()}`);
+  console.log('✅ Webhook deployment system is operational');
   console.log('');
   
   // Check configuration
