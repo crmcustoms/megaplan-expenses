@@ -151,9 +151,13 @@ module.exports = async (req, res) => {
           if (task.program?.id === '36') {
             // Логистика - используем Category1000084CustomFieldFinalnayaStoimost
             finalCostValue = getFieldByPath(task, '$.customFields.Category1000084CustomFieldFinalnayaStoimost.valueInMain');
+            console.log(`[SYNC DEBUG] Task ${task.id} (Логистика 36): finalCost=${finalCostValue}`);
           } else if (task.program?.id === '35') {
             // Прочие поставщики - используем Category1000083CustomFieldFinalnayaStoimost
             finalCostValue = getFieldByPath(task, '$.customFields.Category1000083CustomFieldFinalnayaStoimost.valueInMain');
+            console.log(`[SYNC DEBUG] Task ${task.id} (Прочие 35): finalCost=${finalCostValue}`);
+          } else {
+            console.log(`[SYNC DEBUG] Task ${task.id}: program=${task.program?.id} (unknown)`);
           }
 
           const amount = finalCostValue ? parseFloat(finalCostValue) : 0;

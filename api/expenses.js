@@ -104,24 +104,33 @@ async function mapExpense(expenseDeal, parentDeal) {
   let finalCostValue = 0;
   let fairCostValue = 0;
 
+  // DEBUG: Log program and structure
+  console.log(`[DEBUG] Deal ${expenseDeal.id}: program=${expenseDeal.program?.id}, name=${expenseDeal.name}`);
+  if (expenseDeal.customFields) {
+    console.log(`[DEBUG] Available custom fields:`, Object.keys(expenseDeal.customFields).filter(k => k.includes('1000084') || k.includes('1000083')).slice(0, 10));
+  }
+
   if (expenseDeal.program?.id === '36') {
     // Логистика - используем Category1000084 поля
     amountValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000084CustomFieldSumma.value')) || 0;
     additionalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000084CustomFieldDopStoimost.valueInMain')) || 0;
     finalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000084CustomFieldFinalnayaStoimost.valueInMain')) || 0;
     fairCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000084CustomFieldSpravedlivayaStoimost.valueInMain')) || 0;
+    console.log(`[DEBUG] Логистика (36): amount=${amountValue}, additional=${additionalCostValue}, final=${finalCostValue}, fair=${fairCostValue}`);
   } else if (expenseDeal.program?.id === '35') {
     // Прочие поставщики - используем Category1000083 поля
     amountValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000083CustomFieldSumma.value')) || 0;
     additionalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000083CustomFieldDopStoimost.valueInMain')) || 0;
     finalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000083CustomFieldFinalnayaStoimost.valueInMain')) || 0;
     fairCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000083CustomFieldSpravedlivayaStoimost.valueInMain')) || 0;
+    console.log(`[DEBUG] Прочие (35): amount=${amountValue}, additional=${additionalCostValue}, final=${finalCostValue}, fair=${fairCostValue}`);
   } else {
     // Fallback на стандартные поля если программа неизвестна
     amountValue = parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.amount)) || 0;
     additionalCostValue = parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.additionalCost)) || 0;
     finalCostValue = parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.finalCost)) || 0;
     fairCostValue = parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.fairCost)) || 0;
+    console.log(`[DEBUG] Fallback: amount=${amountValue}, additional=${additionalCostValue}, final=${finalCostValue}, fair=${fairCostValue}`);
   }
 
   return {
