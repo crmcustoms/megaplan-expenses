@@ -145,8 +145,18 @@ module.exports = async (req, res) => {
         const tasks = tasksResponse?.data || [];
 
         for (const task of tasks) {
-          const finalCost = getFieldByPath(task, `$.customFields.${CUSTOM_FIELDS.finalCost}`);
-          const amount = finalCost ? parseFloat(finalCost) : 0;
+          let finalCostValue = 0;
+
+          // Выбираем правильное поле в зависимости от программы
+          if (task.program?.id === '36') {
+            // Логистика - используем Category1000084CustomFieldFinalnayaStoimost
+            finalCostValue = getFieldByPath(task, '$.customFields.Category1000084CustomFieldFinalnayaStoimost');
+          } else if (task.program?.id === '35') {
+            // Прочие поставщики - используем Category1000083CustomFieldFinalnayaStoimost
+            finalCostValue = getFieldByPath(task, '$.customFields.Category1000083CustomFieldFinalnayaStoimost');
+          }
+
+          const amount = finalCostValue ? parseFloat(finalCostValue) : 0;
           if (!isNaN(amount)) {
             totalAmount += amount;
           }

@@ -98,6 +98,20 @@ async function getCreatorName(userCreatedId) {
 
 // Map linked deal (expense) to expense object
 async function mapExpense(expenseDeal, parentDeal) {
+  // Выбираем правильное поле finalCost в зависимости от программы
+  let finalCostValue = 0;
+
+  if (expenseDeal.program?.id === '36') {
+    // Логистика - используем Category1000084CustomFieldFinalnayaStoimost
+    finalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000084CustomFieldFinalnayaStoimost')) || 0;
+  } else if (expenseDeal.program?.id === '35') {
+    // Прочие поставщики - используем Category1000083CustomFieldFinalnayaStoimost
+    finalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000083CustomFieldFinalnayaStoimost')) || 0;
+  } else {
+    // Fallback на стандартное поле если программа неизвестна
+    finalCostValue = parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.finalCost)) || 0;
+  }
+
   return {
     deal_id: expenseDeal.id,
     status: getFieldByPath(expenseDeal, CUSTOM_FIELDS.status),
@@ -117,7 +131,7 @@ async function mapExpense(expenseDeal, parentDeal) {
     paymentType: getFieldByPath(expenseDeal, CUSTOM_FIELDS.paymentType),
     amount: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.amount)) || 0,
     additionalCost: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.additionalCost)) || 0,
-    finalCost: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.finalCost)) || 0,
+    finalCost: finalCostValue,
     fairCost: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.fairCost)) || 0,
     currency: getFieldByPath(expenseDeal, CUSTOM_FIELDS.currency) || 'RUB',
     description: expenseDeal.description || expenseDeal.name || '',
