@@ -1,6 +1,5 @@
 // api/sync.js
 // Синхронизирует расходы: вычисляет сумму и обновляет финальную стоимость в основной сделке
-// Используется для программного обновления, без отрисовки таблицы
 
 const axios = require('axios');
 
@@ -8,11 +7,13 @@ const axios = require('axios');
 // CONFIGURATION
 // ===========================
 
-const MEGAPLAN_ACCOUNT = process.env.MEGAPLAN_ACCOUNT || 'likhtman';
-const MEGAPLAN_API_URL = `https://${MEGAPLAN_ACCOUNT}.megaplan.ru/api/v3`;
-const MEGAPLAN_BEARER_TOKEN = process.env.MEGAPLAN_BEARER_TOKEN || '';
+const MEGAPLAN_CONFIG = {
+  account: process.env.MEGAPLAN_ACCOUNT || 'likhtman',
+  bearerToken: process.env.MEGAPLAN_BEARER_TOKEN || '',
+  apiUrl: process.env.MEGAPLAN_API_URL || 'https://likhtman.megaplan.ru/api/v3'
+};
 
-// Custom fields mapping for tasks (expenses)
+// Custom fields mapping (из .env)
 const CUSTOM_FIELDS = {
   finalCost: process.env.FIELD_FINAL_COST || '1008'
 };
@@ -24,19 +25,26 @@ const FIELD_EXPENSES_TOTAL = 'Category1000061CustomFieldRashodiSummaItogo';
 // HELPER FUNCTIONS
 // ===========================
 
-// Create axios instance with Bearer token auth
-const megaplanAPI = axios.create({
-  baseURL: MEGAPLAN_API_URL,
-  headers: {
-    'Authorization': `Bearer ${MEGAPLAN_BEARER_TOKEN}`,
-    'Content-Type': 'application/json'
-  },
-  timeout: 30000
-});
+// Get Bearer token header
+function getAuthHeader() {
+  if (!MEGAPLAN_CONFIG.bearerToken) {
+    throw new Error('MEGAPLAN_BEARER_TOKEN is not configured');
+  }
+  return `Bearer ${MEGAPLAN_CONFIG.bearerToken}`;
+}
 
+// Make Megaplan API request
 async function megaplanRequest(endpoint, params = {}) {
   try {
-    const response = await megaplanAPI.get(endpoint, { params });
+    const response = await axios.get(`${MEGAPLAN_CONFIG.apiUrl}${endpoint}`, {
+      params,
+      headers: {
+        'Authorization': getAuthHeader(),
+        'Content-Type': 'application/json'
+      },
+      timeout: 30000 // 30 seconds
+    });
+
     return response.data;
   } catch (error) {
     console.error('Megaplan API Error:', error.message);
@@ -44,9 +52,11 @@ async function megaplanRequest(endpoint, params = {}) {
   }
 }
 
+// Get field value by JSON path or direct property
 function getFieldByPath(obj, path) {
   if (!path) return '';
 
+  // Если это JSON path (начинается с $)
   if (path.startsWith('$.')) {
     const pathParts = path.slice(2).split('.');
     let value = obj;
@@ -56,6 +66,7 @@ function getFieldByPath(obj, path) {
       value = value[part];
     }
 
+    // If result is object with 'value' property (like monetary amounts), extract it
     if (value && typeof value === 'object' && 'value' in value) {
       return value.value;
     }
@@ -63,10 +74,11 @@ function getFieldByPath(obj, path) {
     return value || '';
   }
 
+  // Иначе это простой ID кастомного поля
   return obj.customFields?.[path] || '';
 }
 
-// Update deal field via POST request (exact same format as api/update-field.js)
+// Update deal field via POST request
 async function updateDealField(dealId, fieldValue) {
   try {
     const updatePayload = {
@@ -78,7 +90,15 @@ async function updateDealField(dealId, fieldValue) {
       }
     };
 
-    const response = await megaplanAPI.post(`/deal/${dealId}`, updatePayload);
+    const axiosInstance = axios.create({
+      baseURL: MEGAPLAN_CONFIG.apiUrl,
+      headers: {
+        'Authorization': getAuthHeader(),
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const response = await axiosInstance.post(`/deal/${dealId}`, updatePayload);
     return response.data;
   } catch (error) {
     console.error('Update field error:', {
@@ -107,24 +127,26 @@ module.exports = async (req, res) => {
 
     console.log(`Syncing expenses for deal ${dealId}...`);
 
-    // 1. Fetch deal info
-    const dealResponse = await megaplanRequest(`/deal/${dealId}`);
-    const deal = dealResponse?.data;
+    // 1. Get deal info
+    const deal = await megaplanRequest(`/deal/${dealId}`);
 
-    if (!deal) {
+    if (!deal || !deal.data) {
       return res.status(404).json({
         error: 'Deal not found'
       });
     }
 
-    // 2. Fetch linked deals (expenses)
+    // 2. Get linked deals for this deal
+    console.log(`Requesting linked deals for ${dealId}...`);
     const linkedDealsResponse = await megaplanRequest(`/deal/${dealId}/linkedDeals`);
-    const linkedDeals = linkedDealsResponse?.data || [];
 
-    if (linkedDeals.length === 0) {
+    const linkedDealSummaries = linkedDealsResponse?.data || [];
+    console.log(`Found ${linkedDealSummaries.length} linked deals`);
+
+    if (linkedDealSummaries.length === 0) {
       return res.status(200).json({
         dealId,
-        dealName: deal.name,
+        dealName: deal.data.name,
         expensesCount: 0,
         totalAmount: 0,
         message: 'No linked expenses found',
@@ -132,61 +154,46 @@ module.exports = async (req, res) => {
       });
     }
 
-    // 3. Fetch full data for each linked deal and calculate total
-    let totalAmount = 0;
-
-    console.log(`[SYNC DEBUG] Fetching full data for ${linkedDeals.length} linked deals...`);
-
+    // 3. Fetch full data for each linked deal (to get custom fields)
     const linkedDealsFullData = await Promise.all(
-      linkedDeals.map(summary => {
-        console.log(`[SYNC DEBUG]   Requesting deal ${summary.id}...`);
-        return megaplanRequest(`/deal/${summary.id}`);
-      })
+      linkedDealSummaries.map(summary => megaplanRequest(`/deal/${summary.id}`))
     );
 
-    const linkedDealsData = linkedDealsFullData
-      .map((response, index) => {
-        const data = response?.data;
-        if (data && data.customFields) {
-          console.log(`[SYNC DEBUG]   Deal ${data.id}: has ${Object.keys(data.customFields).length} custom fields`);
-        } else {
-          console.log(`[SYNC DEBUG]   Deal ${linkedDeals[index]?.id}: NO customFields in response!`);
-          if (data) {
-            // Log first few keys to understand response structure
-            const keys = Object.keys(data).slice(0, 15);
-            console.log(`[SYNC DEBUG]   Response keys: ${keys.join(', ')}`);
-          }
-        }
-        return data;
-      })
+    const linkedDeals = linkedDealsFullData
+      .map(response => response?.data)
       .filter(d => d !== null && d !== undefined);
 
-    for (const linkedDeal of linkedDealsData) {
+    console.log(`Fetched ${linkedDeals.length} linked deals with full data`);
+
+    // 4. Calculate total from finalCost based on program
+    let totalAmount = 0;
+
+    for (const linkedDeal of linkedDeals) {
       let finalCostValue = 0;
 
       // Выбираем правильное поле в зависимости от программы подсделки
       if (linkedDeal.program?.id === '36') {
         // Логистика - используем Category1000084CustomFieldFinalnayaStoimost
-        finalCostValue = getFieldByPath(linkedDeal, '$.customFields.Category1000084CustomFieldFinalnayaStoimost.valueInMain');
+        finalCostValue = parseFloat(getFieldByPath(linkedDeal, '$.customFields.Category1000084CustomFieldFinalnayaStoimost.valueInMain')) || 0;
         console.log(`[SYNC] Deal ${linkedDeal.id} (Логистика 36): finalCost=${finalCostValue}`);
 
       } else if (linkedDeal.program?.id === '35') {
         // Прочие поставщики - используем Category1000083CustomFieldFinalnayaStoimost
-        finalCostValue = getFieldByPath(linkedDeal, '$.customFields.Category1000083CustomFieldFinalnayaStoimost.valueInMain');
+        finalCostValue = parseFloat(getFieldByPath(linkedDeal, '$.customFields.Category1000083CustomFieldFinalnayaStoimost.valueInMain')) || 0;
         console.log(`[SYNC] Deal ${linkedDeal.id} (Прочие 35): finalCost=${finalCostValue}`);
 
       } else {
-        console.log(`[SYNC] Deal ${linkedDeal.id}: program=${linkedDeal.program?.id} (unknown, skipping)`);
-        continue;
+        // Fallback на стандартное поле если программа неизвестна
+        finalCostValue = parseFloat(getFieldByPath(linkedDeal, CUSTOM_FIELDS.finalCost)) || 0;
+        console.log(`[SYNC] Deal ${linkedDeal.id} (unknown program, fallback): finalCost=${finalCostValue}`);
       }
 
-      const amount = finalCostValue ? parseFloat(finalCostValue) : 0;
-      if (!isNaN(amount) && amount > 0) {
-        totalAmount += amount;
+      if (!isNaN(finalCostValue) && finalCostValue > 0) {
+        totalAmount += finalCostValue;
       }
     }
 
-    // 4. Update main deal field with total amount
+    // 5. Update main deal field with total amount
     const roundedTotal = Math.round(totalAmount * 100) / 100;
 
     try {
@@ -194,7 +201,7 @@ module.exports = async (req, res) => {
 
       return res.status(200).json({
         dealId,
-        dealName: deal.name,
+        dealName: deal.data.name,
         expensesCount: linkedDeals.length,
         totalAmount: roundedTotal,
         updated: true,
@@ -203,7 +210,7 @@ module.exports = async (req, res) => {
     } catch (updateError) {
       return res.status(200).json({
         dealId,
-        dealName: deal.name,
+        dealName: deal.data.name,
         expensesCount: linkedDeals.length,
         totalAmount: roundedTotal,
         updated: false,
