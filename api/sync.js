@@ -132,41 +132,36 @@ module.exports = async (req, res) => {
       });
     }
 
-    // 3. Fetch all tasks for each linked deal and calculate total
+    // 3. Fetch full data for each linked deal and calculate total
     let totalAmount = 0;
 
-    for (const linkedDeal of linkedDeals) {
-      try {
-        const tasksResponse = await megaplanRequest(`/task`, {
-          deal: linkedDeal.id,
-          limit: 1000
-        });
+    const linkedDealsFullData = await Promise.all(
+      linkedDeals.map(summary => megaplanRequest(`/deal/${summary.id}`))
+    );
 
-        const tasks = tasksResponse?.data || [];
+    const linkedDealsData = linkedDealsFullData
+      .map(response => response?.data)
+      .filter(d => d !== null && d !== undefined);
 
-        for (const task of tasks) {
-          let finalCostValue = 0;
+    for (const linkedDeal of linkedDealsData) {
+      let finalCostValue = 0;
 
-          // Выбираем правильное поле в зависимости от программы
-          if (task.program?.id === '36') {
-            // Логистика - используем Category1000084CustomFieldFinalnayaStoimost
-            finalCostValue = getFieldByPath(task, '$.customFields.Category1000084CustomFieldFinalnayaStoimost.valueInMain');
-            console.log(`[SYNC DEBUG] Task ${task.id} (Логистика 36): finalCost=${finalCostValue}`);
-          } else if (task.program?.id === '35') {
-            // Прочие поставщики - используем Category1000083CustomFieldFinalnayaStoimost
-            finalCostValue = getFieldByPath(task, '$.customFields.Category1000083CustomFieldFinalnayaStoimost.valueInMain');
-            console.log(`[SYNC DEBUG] Task ${task.id} (Прочие 35): finalCost=${finalCostValue}`);
-          } else {
-            console.log(`[SYNC DEBUG] Task ${task.id}: program=${task.program?.id} (unknown)`);
-          }
+      // Выбираем правильное поле в зависимости от программы подсделки
+      if (linkedDeal.program?.id === '36') {
+        // Логистика - используем Category1000084CustomFieldFinalnayaStoimost
+        finalCostValue = getFieldByPath(linkedDeal, '$.customFields.Category1000084CustomFieldFinalnayaStoimost.valueInMain');
+        console.log(`[SYNC DEBUG] Deal ${linkedDeal.id} (Логистика 36): finalCost=${finalCostValue}`);
+      } else if (linkedDeal.program?.id === '35') {
+        // Прочие поставщики - используем Category1000083CustomFieldFinalnayaStoimost
+        finalCostValue = getFieldByPath(linkedDeal, '$.customFields.Category1000083CustomFieldFinalnayaStoimost.valueInMain');
+        console.log(`[SYNC DEBUG] Deal ${linkedDeal.id} (Прочие 35): finalCost=${finalCostValue}`);
+      } else {
+        console.log(`[SYNC DEBUG] Deal ${linkedDeal.id}: program=${linkedDeal.program?.id} (unknown)`);
+      }
 
-          const amount = finalCostValue ? parseFloat(finalCostValue) : 0;
-          if (!isNaN(amount)) {
-            totalAmount += amount;
-          }
-        }
-      } catch (error) {
-        console.error(`Failed to fetch tasks for deal ${linkedDeal.id}:`, error.message);
+      const amount = finalCostValue ? parseFloat(finalCostValue) : 0;
+      if (!isNaN(amount)) {
+        totalAmount += amount;
       }
     }
 
