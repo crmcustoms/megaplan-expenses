@@ -39,10 +39,12 @@ app.use((req, res, next) => {
 const expensesHandler = require('./api/expenses');
 const exportHandler = require('./api/export');
 const updateFieldHandler = require('./api/update-field');
+const pdfHandler = require('./api/pdf');
 
 // API endpoints
 app.get('/api/expenses', expensesHandler);
 app.get('/api/export', exportHandler);
+app.get('/api/pdf', pdfHandler);
 app.post('/api/update-deal-field', updateFieldHandler);
 
 // GitHub Webhook для автоматического деплоя
@@ -154,7 +156,8 @@ app.listen(PORT, () => {
   console.log(`📡 Server:     http://localhost:${PORT}`);
   console.log(`📊 Frontend:   http://localhost:${PORT}/`);
   console.log(`🔌 API:        http://localhost:${PORT}/api/expenses`);
-  console.log(`📥 Export:     http://localhost:${PORT}/api/export`);
+  console.log(`📥 Export CSV: http://localhost:${PORT}/api/export`);
+  console.log(`📄 Export PDF: http://localhost:${PORT}/api/pdf`);
   console.log(`💚 Health:     http://localhost:${PORT}/api/health`);
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   console.log(`⏰ Deploy timestamp: ${new Date().toISOString()}`);

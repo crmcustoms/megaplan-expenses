@@ -9,8 +9,13 @@ const API_BASE_URL = '/api'; // Для production
 const API_ENDPOINTS = {
   getExpenses: `${API_BASE_URL}/expenses`,
   exportCSV: `${API_BASE_URL}/export`,
+  exportPDF: `${API_BASE_URL}/pdf`,
   updateDealField: `${API_BASE_URL}/update-deal-field`
 };
+
+// Global data storage
+let expensesData = [];
+let dealsData = {};
 
 // ===========================
 // INITIALIZATION
@@ -45,12 +50,20 @@ async function loadExpenses(dealId) {
     }
     
     const data = await response.json();
-    
+
     // Перевірка структури даних
     if (!data.expenses || !Array.isArray(data.expenses)) {
       throw new Error('Неверный формат данных от API');
     }
-    
+
+    // Save data globally for export functions
+    expensesData = data.expenses;
+    dealsData = {
+      dealId: data.dealId,
+      dealName: data.dealName,
+      total: data.total
+    };
+
     // Відобразити дані
     renderDashboard(data.expenses, data.total);
     renderTable(data.expenses);
@@ -234,51 +247,148 @@ function renderDealLink(url, dealName) {
 async function exportExcel() {
   try {
     // Disable button
-    const btn = document.getElementById('exportBtn');
+    const btn = document.getElementById('exportExcelBtn');
     btn.disabled = true;
     btn.textContent = 'Генерация...';
-    
-    // Request CSV
-    const url = `${API_ENDPOINTS.exportCSV}?dealId=${dealId}`;
-    const response = await fetch(url);
-    
-    if (!response.ok) {
-      throw new Error('Ошибка экспорта');
+
+    if (!expensesData || expensesData.length === 0) {
+      throw new Error('Нет данных для экспорта');
     }
-    
+
+    // Prepare headers
+    const headers = [
+      'deal_id',
+      'Название сделки',
+      'Суть',
+      'Статус',
+      'Статья расходов',
+      'Бренд',
+      'Контрагент',
+      'Тип платежа',
+      'Менеджер',
+      'Создатель',
+      'Сумма',
+      'Доп.стоимость',
+      'Финальная стоимость',
+      'Справедливая стоимость'
+    ];
+
+    // Prepare data rows
+    const rows = expensesData.map(exp => [
+      exp.deal_id || '',
+      exp.deal_name || '',
+      stripHtmlTags(exp.description || ''),
+      exp.status || '',
+      exp.category || '',
+      exp.brand || '',
+      exp.contractor || '',
+      exp.paymentType || '',
+      exp.manager || '',
+      exp.creator || '',
+      exp.amount || 0,
+      exp.additionalCost || 0,
+      exp.finalCost || 0,
+      exp.fairCost || 0
+    ]);
+
+    // Calculate total
+    const total = expensesData.reduce((sum, exp) => sum + (exp.finalCost || 0), 0);
+
+    // Add total row
+    rows.push([
+      '', '', '', '', '', '', '', '', '', 'ИТОГО:',
+      '', '', total, ''
+    ]);
+
+    // Create workbook
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet([headers, ...rows]);
+
+    // Set column widths
+    ws['!cols'] = [
+      { wch: 10 },  // deal_id
+      { wch: 25 },  // Название сделки
+      { wch: 35 },  // Суть
+      { wch: 15 },  // Статус
+      { wch: 18 },  // Статья расходов
+      { wch: 12 },  // Бренд
+      { wch: 18 },  // Контрагент
+      { wch: 15 },  // Тип платежа
+      { wch: 15 },  // Менеджер
+      { wch: 15 },  // Создатель
+      { wch: 14 },  // Сумма
+      { wch: 14 },  // Доп.стоимость
+      { wch: 18 },  // Финальная стоимость
+      { wch: 18 }   // Справедливая стоимость
+    ];
+
+    // Add worksheet to workbook
+    XLSX.utils.book_append_sheet(wb, ws, 'Расходы');
+
+    // Generate filename
+    const filename = `expenses_${dealId}_${new Date().toISOString().split('T')[0]}.xlsx`;
+
+    // Write file
+    XLSX.writeFile(wb, filename);
+
+    // Restore button
+    btn.disabled = false;
+    btn.textContent = 'Скачать Excel';
+
+  } catch (error) {
+    console.error('Ошибка экспорта Excel:', error);
+    alert('Ошибка экспорта файла. Попробуйте еще раз.');
+
+    // Restore button
+    const btn = document.getElementById('exportExcelBtn');
+    btn.disabled = false;
+    btn.textContent = 'Скачать Excel';
+  }
+}
+
+async function exportPDF() {
+  try {
+    // Disable button
+    const btn = document.getElementById('exportPdfBtn');
+    btn.disabled = true;
+    btn.textContent = 'Генерация PDF...';
+
+    const url = `${API_ENDPOINTS.exportPDF}?dealId=${dealId}`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: Ошибка генерации PDF`);
+    }
+
     // Get blob
     const blob = await response.blob();
-    
+
     // Create download link
     const downloadUrl = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = downloadUrl;
-    
-    // Get filename from header or generate
-    const contentDisposition = response.headers.get('Content-Disposition');
-    const filenameMatch = contentDisposition?.match(/filename="(.+)"/);
-    a.download = filenameMatch?.[1] || `expenses_${dealId}_${Date.now()}.csv`;
-    
+    a.download = `expenses_${dealId}_${new Date().toISOString().split('T')[0]}.pdf`;
+
     // Trigger download
     document.body.appendChild(a);
     a.click();
-    
+
     // Cleanup
     window.URL.revokeObjectURL(downloadUrl);
     document.body.removeChild(a);
-    
+
     // Restore button
     btn.disabled = false;
-    btn.innerHTML = 'Скачать Excel';
-    
+    btn.textContent = 'Скачать PDF';
+
   } catch (error) {
-    console.error('Ошибка экспорта:', error);
-    alert('Ошибка экспорта файла. Попробуйте еще раз.');
-    
+    console.error('Ошибка экспорта PDF:', error);
+    alert('Ошибка экспорта PDF. Попробуйте еще раз.');
+
     // Restore button
-    const btn = document.getElementById('exportBtn');
+    const btn = document.getElementById('exportPdfBtn');
     btn.disabled = false;
-    btn.innerHTML = 'Скачать Excel';
+    btn.textContent = 'Скачать PDF';
   }
 }
 

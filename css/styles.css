@@ -442,8 +442,15 @@ tfoot td.total-amount {
 }
 
 /* ===========================
-   EXPORT BUTTON
+   EXPORT BUTTONS
    =========================== */
+.export-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
 .btn-export {
   display: inline-flex;
   align-items: center;
@@ -465,6 +472,15 @@ tfoot td.total-amount {
   box-shadow: var(--shadow-sm);
 }
 
+.btn-excel {
+  background: var(--chart-1);
+  color: var(--primary-foreground);
+}
+
+.btn-pdf {
+  background: var(--destructive);
+  color: var(--destructive-foreground);
+}
 
 .btn-export:hover {
   box-shadow: var(--shadow-lg);

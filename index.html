@@ -11,6 +11,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/styles.css">
+
+  <!-- SheetJS for Excel export -->
+  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
   <div class="container">
@@ -88,10 +91,15 @@
         </table>
       </div>
 
-      <!-- Export Button -->
-      <button id="exportBtn" class="btn-export" onclick="exportExcel()">
-        Скачать Excel
-      </button>
+      <!-- Export Buttons -->
+      <div class="export-buttons">
+        <button id="exportExcelBtn" class="btn-export btn-excel" onclick="exportExcel()">
+          Скачать Excel
+        </button>
+        <button id="exportPdfBtn" class="btn-export btn-pdf" onclick="exportPDF()">
+          Скачать PDF
+        </button>
+      </div>
     </div>
 
     <!-- Error Message -->
