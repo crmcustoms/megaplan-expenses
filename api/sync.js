@@ -168,40 +168,15 @@ module.exports = async (req, res) => {
     // 4. Calculate total from finalCost based on program
     let totalAmount = 0;
 
-    // Выведи первого деала полностью для отладки
-    if (linkedDeals.length > 0 && linkedDeals[0].customFields) {
-      console.log(`\n=== FULL customFields JSON for first deal ${linkedDeals[0].id} ===`);
-      const customFieldsStr = JSON.stringify(linkedDeals[0].customFields, null, 2);
-      // Выведи по частям чтобы не обрезалось
-      console.log(customFieldsStr.substring(0, 10000));
-    }
-
     for (const linkedDeal of linkedDeals) {
       let finalCostValue = 0;
 
-      console.log(`\n[DEBUG DEAL ${linkedDeal.id}]`);
-      console.log(`  Program ID: ${linkedDeal.program?.id}`);
-
-      // Выбираем правильное поле в зависимости от программы подсделки
       if (linkedDeal.program?.id === '36') {
-        // Логистика - используем Category1000084CustomFieldFinalnayaStoimost
-        const fieldValue = linkedDeal.customFields?.Category1000084CustomFieldFinalnayaStoimost;
-        console.log(`  Trying Category1000084CustomFieldFinalnayaStoimost:`, JSON.stringify(fieldValue));
-        finalCostValue = parseFloat(fieldValue?.valueInMain || fieldValue?.value || 0) || 0;
-        console.log(`[SYNC] Deal ${linkedDeal.id} (Логистика 36): finalCost=${finalCostValue}`);
-
+        finalCostValue = parseFloat(getFieldByPath(linkedDeal, '$.customFields.Category1000084CustomFieldFinalnayaStoimost.valueInMain')) || 0;
       } else if (linkedDeal.program?.id === '35') {
-        // Прочие поставщики - используем Category1000083CustomFieldFinalnayaStoimost
-        const fieldValue = linkedDeal.customFields?.Category1000083CustomFieldFinalnayaStoimost;
-        console.log(`  Trying Category1000083CustomFieldFinalnayaStoimost:`, JSON.stringify(fieldValue));
-        finalCostValue = parseFloat(fieldValue?.valueInMain || fieldValue?.value || 0) || 0;
-        console.log(`[SYNC] Deal ${linkedDeal.id} (Прочие 35): finalCost=${finalCostValue}`);
-
+        finalCostValue = parseFloat(getFieldByPath(linkedDeal, '$.customFields.Category1000083CustomFieldFinalnayaStoimost.valueInMain')) || 0;
       } else {
-        // Fallback на стандартное поле если программа неизвестна
-        console.log(`  Unknown program, using fallback field: ${CUSTOM_FIELDS.finalCost}`);
         finalCostValue = parseFloat(getFieldByPath(linkedDeal, CUSTOM_FIELDS.finalCost)) || 0;
-        console.log(`[SYNC] Deal ${linkedDeal.id} (unknown program, fallback): finalCost=${finalCostValue}`);
       }
 
       if (!isNaN(finalCostValue) && finalCostValue > 0) {

@@ -104,74 +104,24 @@ async function mapExpense(expenseDeal, parentDeal) {
   let finalCostValue = 0;
   let fairCostValue = 0;
 
-  // DEBUG: Log program and structure
-  console.log(`[DEBUG] Deal ${expenseDeal.id}: program=${expenseDeal.program?.id}, name=${expenseDeal.name}`);
-  if (expenseDeal.customFields) {
-    console.log(`[DEBUG] Available custom fields:`, Object.keys(expenseDeal.customFields).filter(k => k.includes('1000084') || k.includes('1000083')).slice(0, 10));
-  }
-
-  console.log(`\n[EXPENSE DEAL ${expenseDeal.id}]`);
-  console.log(`  Program ID: ${expenseDeal.program?.id}`);
-  console.log(`  Program Name: ${expenseDeal.program?.name}`);
-
-  // Вывести ВСЕ ключи customFields для отладки
-  if (expenseDeal.customFields) {
-    const allKeys = Object.keys(expenseDeal.customFields);
-    console.log(`  Total customFields keys: ${allKeys.length}`);
-
-    // Ищем поля с названиями затрат
-    const costKeys = allKeys.filter(k => k.includes('1000084') || k.includes('1000083') || k.includes('Stoimost') || k.includes('Summa'));
-    console.log(`  Cost-related keys found: ${costKeys.join(', ')}`);
-
-    // Выводим структуру каждого поля затрат
-    costKeys.forEach(key => {
-      const val = expenseDeal.customFields[key];
-      console.log(`    ${key}:`, typeof val === 'object' ? JSON.stringify(val).substring(0, 100) : val);
-    });
-  }
-
   if (expenseDeal.program?.id === '36') {
     // Логистика - используем Category1000084 поля
-    const summaField = expenseDeal.customFields?.Category1000084CustomFieldSumma;
-    const dopField = expenseDeal.customFields?.Category1000084CustomFieldDopStoimost;
-    const finalField = expenseDeal.customFields?.Category1000084CustomFieldFinalnayaStoimost;
-    const fairField = expenseDeal.customFields?.Category1000084CustomFieldSpravedlivayaStoimost;
-
-    console.log(`  [36] Summa:`, JSON.stringify(summaField).substring(0, 80));
-    console.log(`  [36] DopStoimost:`, JSON.stringify(dopField).substring(0, 80));
-    console.log(`  [36] FinalnayaStoimost:`, JSON.stringify(finalField).substring(0, 80));
-
-    amountValue = parseFloat(summaField?.value || summaField?.valueInMain || 0) || 0;
-    additionalCostValue = parseFloat(dopField?.valueInMain || dopField?.value || 0) || 0;
-    finalCostValue = parseFloat(finalField?.valueInMain || finalField?.value || 0) || 0;
-    fairCostValue = parseFloat(fairField?.valueInMain || fairField?.value || 0) || 0;
-    console.log(`[EXPENSE] Логистика (36): amount=${amountValue}, additional=${additionalCostValue}, final=${finalCostValue}, fair=${fairCostValue}`);
-
+    amountValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000084CustomFieldSumma.value')) || 0;
+    additionalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000084CustomFieldDopStoimost.valueInMain')) || 0;
+    finalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000084CustomFieldFinalnayaStoimost.valueInMain')) || 0;
+    fairCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000084CustomFieldSpravedlivayaStoimost.valueInMain')) || 0;
   } else if (expenseDeal.program?.id === '35') {
     // Прочие поставщики - используем Category1000083 поля
-    const summaField = expenseDeal.customFields?.Category1000083CustomFieldSumma;
-    const dopField = expenseDeal.customFields?.Category1000083CustomFieldDopStoimost;
-    const finalField = expenseDeal.customFields?.Category1000083CustomFieldFinalnayaStoimost;
-    const fairField = expenseDeal.customFields?.Category1000083CustomFieldSpravedlivayaStoimost;
-
-    console.log(`  [35] Summa:`, JSON.stringify(summaField).substring(0, 80));
-    console.log(`  [35] DopStoimost:`, JSON.stringify(dopField).substring(0, 80));
-    console.log(`  [35] FinalnayaStoimost:`, JSON.stringify(finalField).substring(0, 80));
-
-    amountValue = parseFloat(summaField?.value || summaField?.valueInMain || 0) || 0;
-    additionalCostValue = parseFloat(dopField?.valueInMain || dopField?.value || 0) || 0;
-    finalCostValue = parseFloat(finalField?.valueInMain || finalField?.value || 0) || 0;
-    fairCostValue = parseFloat(fairField?.valueInMain || fairField?.value || 0) || 0;
-    console.log(`[EXPENSE] Прочие (35): amount=${amountValue}, additional=${additionalCostValue}, final=${finalCostValue}, fair=${fairCostValue}`);
-
+    amountValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000083CustomFieldSumma.value')) || 0;
+    additionalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000083CustomFieldDopStoimost.valueInMain')) || 0;
+    finalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000083CustomFieldFinalnayaStoimost.valueInMain')) || 0;
+    fairCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000083CustomFieldSpravedlivayaStoimost.valueInMain')) || 0;
   } else {
     // Fallback на стандартные поля если программа неизвестна
-    console.log(`  [FALLBACK] Using standard fields from .env`);
     amountValue = parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.amount)) || 0;
     additionalCostValue = parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.additionalCost)) || 0;
     finalCostValue = parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.finalCost)) || 0;
     fairCostValue = parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.fairCost)) || 0;
-    console.log(`[EXPENSE] Fallback: amount=${amountValue}, additional=${additionalCostValue}, final=${finalCostValue}, fair=${fairCostValue}`);
   }
 
   return {
