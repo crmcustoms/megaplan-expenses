@@ -106,16 +106,16 @@ async function mapExpense(expenseDeal, parentDeal) {
 
   if (expenseDeal.program?.id === '36') {
     // Логистика - используем Category1000084 поля
-    amountValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000084CustomFieldSumma.value')) || 0;
-    additionalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000084CustomFieldDopStoimost.valueInMain')) || 0;
-    finalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000084CustomFieldFinalnayaStoimost.valueInMain')) || 0;
-    fairCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000084CustomFieldSpravedlivayaStoimost.valueInMain')) || 0;
+    amountValue = parseFloat(getFieldByPath(expenseDeal, '$.Category1000084CustomFieldSumma.value')) || 0;
+    additionalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.Category1000084CustomFieldDopStoimost.valueInMain')) || 0;
+    finalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.Category1000084CustomFieldFinalnayaStoimost.valueInMain')) || 0;
+    fairCostValue = parseFloat(getFieldByPath(expenseDeal, '$.Category1000084CustomFieldSpravedlivayaStoimost.valueInMain')) || 0;
   } else if (expenseDeal.program?.id === '35') {
     // Прочие поставщики - используем Category1000083 поля
-    amountValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000083CustomFieldSumma.value')) || 0;
-    additionalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000083CustomFieldDopStoimost.valueInMain')) || 0;
-    finalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000083CustomFieldFinalnayaStoimost.valueInMain')) || 0;
-    fairCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000083CustomFieldSpravedlivayaStoimost.valueInMain')) || 0;
+    amountValue = parseFloat(getFieldByPath(expenseDeal, '$.Category1000083CustomFieldSumma.value')) || 0;
+    additionalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.Category1000083CustomFieldDopStoimost.valueInMain')) || 0;
+    finalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.Category1000083CustomFieldFinalnayaStoimost.valueInMain')) || 0;
+    fairCostValue = parseFloat(getFieldByPath(expenseDeal, '$.Category1000083CustomFieldSpravedlivayaStoimost.valueInMain')) || 0;
   } else {
     // Fallback на стандартные поля если программа неизвестна
     amountValue = parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.amount)) || 0;

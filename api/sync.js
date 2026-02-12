@@ -172,9 +172,9 @@ module.exports = async (req, res) => {
       let finalCostValue = 0;
 
       if (linkedDeal.program?.id === '36') {
-        finalCostValue = parseFloat(getFieldByPath(linkedDeal, '$.customFields.Category1000084CustomFieldFinalnayaStoimost.valueInMain')) || 0;
+        finalCostValue = parseFloat(getFieldByPath(linkedDeal, '$.Category1000084CustomFieldFinalnayaStoimost.valueInMain')) || 0;
       } else if (linkedDeal.program?.id === '35') {
-        finalCostValue = parseFloat(getFieldByPath(linkedDeal, '$.customFields.Category1000083CustomFieldFinalnayaStoimost.valueInMain')) || 0;
+        finalCostValue = parseFloat(getFieldByPath(linkedDeal, '$.Category1000083CustomFieldFinalnayaStoimost.valueInMain')) || 0;
       } else {
         finalCostValue = parseFloat(getFieldByPath(linkedDeal, CUSTOM_FIELDS.finalCost)) || 0;
       }
