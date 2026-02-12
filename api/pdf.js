@@ -2,7 +2,6 @@
 // API endpoint для генерации PDF через Gotenberg
 
 const axios = require('axios');
-const megaplanRequest = require('./megaplan-api');
 
 // ===========================
 // CONFIGURATION
