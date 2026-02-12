@@ -270,10 +270,18 @@ async function exportExcel() {
       'Справедливая стоимость'
     ];
 
-    // Prepare data rows
+    // Prepare data rows with hyperlinks in deal names
     const rows = expensesData.map(exp => [
       exp.deal_id || '',
-      exp.deal_name || '',
+      {
+        // SheetJS hyperlink object
+        v: exp.deal_name || '',           // visible text
+        l: {                              // hyperlink
+          Target: exp.dealLink || '',
+          Tooltip: exp.deal_name || ''
+        },
+        t: 's'                            // text type
+      },
       exp.status || '',
       exp.category || '',
       exp.brand || '',
@@ -317,18 +325,7 @@ async function exportExcel() {
       { wch: 18 }   // Справедливая стоимость
     ];
 
-    // Add HYPERLINK formulas to deal names (column B = column index 1)
-    for (let i = 0; i < expensesData.length; i++) {
-      const exp = expensesData[i];
-      if (exp.dealLink) {
-        const cellRef = XLSX.utils.encode_cell({ r: i + 1, c: 1 }); // row i+1 (skip header), column 1
-        // Create formula cell: =HYPERLINK("url","text")
-        const formula = `HYPERLINK("${exp.dealLink}","${(exp.deal_name || '').replace(/"/g, '""')}")`;
-        ws[cellRef] = { t: 'f', f: formula };
-      }
-    }
-
-    // Add worksheet to workbook
+    // Add worksheet to workbook (hyperlinks already embedded in row objects)
     XLSX.utils.book_append_sheet(wb, ws, 'Расходы');
 
     // Generate filename
