@@ -8,41 +8,35 @@ const axios = require('axios');
 // CONFIGURATION
 // ===========================
 
-const MEGAPLAN_CONFIG = {
-  account: process.env.MEGAPLAN_ACCOUNT || 'likhtman',
-  bearerToken: process.env.MEGAPLAN_BEARER_TOKEN || '',
-  apiUrl: process.env.MEGAPLAN_API_URL || 'https://likhtman.megaplan.ru/api/v3'
-};
+const MEGAPLAN_ACCOUNT = process.env.MEGAPLAN_ACCOUNT || 'likhtman';
+const MEGAPLAN_API_URL = `https://${MEGAPLAN_ACCOUNT}.megaplan.ru/api/v3`;
+const MEGAPLAN_BEARER_TOKEN = process.env.MEGAPLAN_BEARER_TOKEN || '';
 
-// Custom fields mapping
+// Custom fields mapping for tasks (expenses)
 const CUSTOM_FIELDS = {
   finalCost: process.env.FIELD_FINAL_COST || '1008'
 };
 
-// Field ID для обновления финальной стоимости в основной сделке
-const FINAL_COST_FIELD_ID = process.env.MEGAPLAN_FINAL_COST_FIELD_ID || 'final-cost-field-id';
+// Field name for updating main deal (Расходы Сумма Итого)
+const FIELD_EXPENSES_TOTAL = 'Category1000061CustomFieldRashodiSummaItogo';
 
 // ===========================
 // HELPER FUNCTIONS
 // ===========================
 
-function getAuthHeader() {
-  if (!MEGAPLAN_CONFIG.bearerToken) {
-    throw new Error('MEGAPLAN_BEARER_TOKEN is not configured');
-  }
-  return `Bearer ${MEGAPLAN_CONFIG.bearerToken}`;
-}
+// Create axios instance with Bearer token auth
+const megaplanAPI = axios.create({
+  baseURL: MEGAPLAN_API_URL,
+  headers: {
+    'Authorization': `Bearer ${MEGAPLAN_BEARER_TOKEN}`,
+    'Content-Type': 'application/json'
+  },
+  timeout: 30000
+});
 
 async function megaplanRequest(endpoint, params = {}) {
   try {
-    const response = await axios.get(`${MEGAPLAN_CONFIG.apiUrl}${endpoint}`, {
-      params,
-      headers: {
-        'Authorization': getAuthHeader(),
-        'Content-Type': 'application/json'
-      },
-      timeout: 30000
-    });
+    const response = await megaplanAPI.get(endpoint, { params });
     return response.data;
   } catch (error) {
     console.error('Megaplan API Error:', error.message);
@@ -72,27 +66,26 @@ function getFieldByPath(obj, path) {
   return obj.customFields?.[path] || '';
 }
 
-// Update deal field via POST request
+// Update deal field via POST request (exact same format as api/update-field.js)
 async function updateDealField(dealId, fieldValue) {
   try {
-    const response = await axios.post(
-      `${MEGAPLAN_CONFIG.apiUrl}/deal/${dealId}`,
-      {
-        customFields: {
-          [CUSTOM_FIELDS.finalCost]: fieldValue
-        }
-      },
-      {
-        headers: {
-          'Authorization': getAuthHeader(),
-          'Content-Type': 'application/json'
-        },
-        timeout: 30000
+    const updatePayload = {
+      contentType: 'Deal',
+      id: dealId,
+      [FIELD_EXPENSES_TOTAL]: {
+        contentType: 'Money',
+        value: fieldValue
       }
-    );
+    };
+
+    const response = await megaplanAPI.post(`/deal/${dealId}`, updatePayload);
     return response.data;
   } catch (error) {
-    console.error('Update field error:', error.message);
+    console.error('Update field error:', {
+      message: error.message,
+      status: error.response?.status,
+      data: error.response?.data
+    });
     throw error;
   }
 }
