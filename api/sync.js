@@ -146,36 +146,50 @@ module.exports = async (req, res) => {
     for (const linkedDeal of linkedDealsData) {
       let finalCostValue = 0;
 
+      console.log(`[SYNC DEBUG] ========== Deal ${linkedDeal.id} ==========`);
+      console.log(`[SYNC DEBUG] Program: ${linkedDeal.program?.id} (${linkedDeal.program?.name || 'unknown'})`);
+      console.log(`[SYNC DEBUG] Name: ${linkedDeal.name}`);
+
+      // Log available custom fields (first 20 keys)
+      if (linkedDeal.customFields) {
+        const fieldKeys = Object.keys(linkedDeal.customFields).slice(0, 20);
+        console.log(`[SYNC DEBUG] Available fields (${Object.keys(linkedDeal.customFields).length} total):`, fieldKeys.join(', '));
+      } else {
+        console.log(`[SYNC DEBUG] No customFields found!`);
+      }
+
       // Выбираем правильное поле в зависимости от программы подсделки
       if (linkedDeal.program?.id === '36') {
         // Логистика - используем Category1000084CustomFieldFinalnayaStoimost
         finalCostValue = getFieldByPath(linkedDeal, '$.customFields.Category1000084CustomFieldFinalnayaStoimost.valueInMain');
-        console.log(`[SYNC DEBUG] Deal ${linkedDeal.id} (Логистика 36): finalCost=${finalCostValue}`);
+        console.log(`[SYNC DEBUG] Trying Category1000084CustomFieldFinalnayaStoimost.valueInMain: ${finalCostValue}`);
 
         // Если не найдено, попробуем альтернативный path
         if (!finalCostValue) {
           const altValue = getFieldByPath(linkedDeal, '$.customFields.Category1000084CustomFieldFinalnayaStoimost.value');
-          console.log(`[SYNC DEBUG]   Alt path (.value): ${altValue}`);
+          console.log(`[SYNC DEBUG] Trying Category1000084CustomFieldFinalnayaStoimost.value: ${altValue}`);
           finalCostValue = altValue;
         }
 
       } else if (linkedDeal.program?.id === '35') {
         // Прочие поставщики - используем Category1000083CustomFieldFinalnayaStoimost
         finalCostValue = getFieldByPath(linkedDeal, '$.customFields.Category1000083CustomFieldFinalnayaStoimost.valueInMain');
-        console.log(`[SYNC DEBUG] Deal ${linkedDeal.id} (Прочие 35): finalCost=${finalCostValue}`);
+        console.log(`[SYNC DEBUG] Trying Category1000083CustomFieldFinalnayaStoimost.valueInMain: ${finalCostValue}`);
 
         // Если не найдено, попробуем альтернативный path
         if (!finalCostValue) {
           const altValue = getFieldByPath(linkedDeal, '$.customFields.Category1000083CustomFieldFinalnayaStoimost.value');
-          console.log(`[SYNC DEBUG]   Alt path (.value): ${altValue}`);
+          console.log(`[SYNC DEBUG] Trying Category1000083CustomFieldFinalnayaStoimost.value: ${altValue}`);
           finalCostValue = altValue;
         }
 
       } else {
-        console.log(`[SYNC DEBUG] Deal ${linkedDeal.id}: program=${linkedDeal.program?.id} (unknown)`);
+        console.log(`[SYNC DEBUG] Unknown program: ${linkedDeal.program?.id}`);
       }
 
       const amount = finalCostValue ? parseFloat(finalCostValue) : 0;
+      console.log(`[SYNC DEBUG] Final amount: ${amount}`);
+
       if (!isNaN(amount)) {
         totalAmount += amount;
       }
