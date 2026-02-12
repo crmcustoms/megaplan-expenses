@@ -81,6 +81,18 @@ function getFieldByPath(obj, path) {
   return obj.customFields?.[path] || '';
 }
 
+// Get creator name from employee ID
+async function getCreatorName(userCreatedId) {
+  if (!userCreatedId) return '';
+  try {
+    const response = await megaplanRequest(`/employee/${userCreatedId}`);
+    return response?.data?.name || '';
+  } catch (error) {
+    console.error(`Failed to fetch employee ${userCreatedId}:`, error);
+    return '';
+  }
+}
+
 // Map linked deal (expense) to expense object
 async function mapExpense(expenseDeal, parentDeal) {
   return {
@@ -109,7 +121,7 @@ async function mapExpense(expenseDeal, parentDeal) {
     dealLink: `https://${MEGAPLAN_CONFIG.account}.megaplan.ru/deals/${expenseDeal.id}/card/`,
     manager: expenseDeal.manager?.name || expenseDeal.responsible?.name || '',
     owner: expenseDeal.owner?.name || expenseDeal.createdBy?.name || '',
-    creator: expenseDeal.createdBy?.name || '',
+    creator: await getCreatorName(expenseDeal.userCreated?.id),
     deal_name: expenseDeal.name || ''
   };
 }
