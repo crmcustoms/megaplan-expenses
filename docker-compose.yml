@@ -10,8 +10,11 @@ services:
       - "3001:3000"
     environment:
       - NODE_ENV=production
+      - PROJECT_PATH=/app
     env_file: .env
     restart: unless-stopped
+    volumes:
+      - /root/megaplan-expenses:/app
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
       interval: 10s

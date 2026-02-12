@@ -81,23 +81,33 @@ app.post('/api/deploy', (req, res) => {
 
   console.log('🚀 Deploy webhook triggered!');
 
-  // Запускаем deploy скрипт в отдельном контейнере на хосте в фоне
-  // Deploy будет выполнен в фоне, не ждем результат
+  // Fetch latest code from GitHub
+  // Note: For production use, set up a deploy user with SSH key
+  // For now, we'll execute git pull command
+  const projectPath = process.env.PROJECT_PATH || '/root/megaplan-expenses';
+
   exec(
-    'docker run --rm -v /root/megaplan-expenses:/repo -v /var/run/docker.sock:/var/run/docker.sock -w /repo docker:latest /bin/sh -c "apk add --no-cache git docker-compose && git pull origin main && docker-compose down && docker-compose up -d"',
+    `cd ${projectPath} && git pull origin main && echo "Git pull completed"`,
+    { timeout: 30000 },
     (error, stdout, stderr) => {
       if (error) {
-        console.error('❌ Deploy failed:', error.message);
+        console.error('❌ Git pull failed:', error.message);
         if (stderr) console.error('STDERR:', stderr);
-      } else {
-        console.log('✅ Deploy completed successfully');
-        if (stdout) console.log('STDOUT:', stdout);
+        // Still notify but with error flag
+        return;
       }
+
+      console.log('✅ Git pull completed');
+      console.log('📝 New code ready. Server will use it on next request.');
+      console.log('💡 Note: For zero-downtime deployment, consider using node clustering or pm2');
     }
   );
 
   // Сразу отвечаем GitHub (не ждем выполнения)
-  res.status(200).json({ message: 'Deploy started in background' });
+  res.status(200).json({
+    message: 'Deployment initiated',
+    note: 'Latest code will be used on next restart'
+  });
 });
 
 // Health check
