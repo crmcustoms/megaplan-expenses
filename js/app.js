@@ -317,12 +317,14 @@ async function exportExcel() {
       { wch: 18 }   // Справедливая стоимость
     ];
 
-    // Add hyperlinks to deal names (column B = column index 1)
+    // Add HYPERLINK formulas to deal names (column B = column index 1)
     for (let i = 0; i < expensesData.length; i++) {
       const exp = expensesData[i];
       if (exp.dealLink) {
         const cellRef = XLSX.utils.encode_cell({ r: i + 1, c: 1 }); // row i+1 (skip header), column 1
-        ws[cellRef].l = { Target: exp.dealLink, Tooltip: exp.deal_name };
+        // Create formula cell: =HYPERLINK("url","text")
+        const formula = `HYPERLINK("${exp.dealLink}","${(exp.deal_name || '').replace(/"/g, '""')}")`;
+        ws[cellRef] = { t: 'f', f: formula };
       }
     }
 
