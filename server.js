@@ -39,10 +39,12 @@ app.use((req, res, next) => {
 const expensesHandler = require('./api/expenses');
 const exportHandler = require('./api/export');
 const updateFieldHandler = require('./api/update-field');
+const syncHandler = require('./api/sync');
 
 // API endpoints
 app.get('/api/expenses', expensesHandler);
 app.get('/api/export', exportHandler);
+app.get('/api/sync-expenses', syncHandler);
 app.post('/api/update-deal-field', updateFieldHandler);
 
 // GitHub Webhook для автоматического деплоя
