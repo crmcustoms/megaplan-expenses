@@ -173,7 +173,6 @@ function generateCSV(expenses, total) {
   const headers = [
     'deal_id',
     'Название сделки',
-    'Суть',
     'Статус',
     'Статья расходов',
     'Бренд',
@@ -195,10 +194,11 @@ function generateCSV(expenses, total) {
   // Data rows
   expenses.forEach(exp => {
     const amountWithCurrency = `${exp.amount.toFixed(2)} ${exp.currency}`;
+    // Excel HYPERLINK formula for clickable links
+    const dealLinkCell = `=HYPERLINK("${exp.dealLink}","${exp.deal_name}")`;
     const row = [
       exp.deal_id,
-      exp.dealLink + ' | ' + exp.deal_name,
-      exp.description,
+      dealLinkCell,
       exp.status,
       exp.category,
       exp.brand,
@@ -217,7 +217,7 @@ function generateCSV(expenses, total) {
 
   // Total row
   const totalRow = [
-    '', '', '', '', '', '', '', '', '', '', // Empty columns
+    '', '', '', '', '', '', '', '', '', // Empty columns
     'ИТОГО:',
     total.toFixed(2),
     '', ''  // Rest empty
