@@ -135,12 +135,25 @@ module.exports = async (req, res) => {
     // 3. Fetch full data for each linked deal and calculate total
     let totalAmount = 0;
 
+    console.log(`[SYNC DEBUG] Fetching full data for ${linkedDeals.length} linked deals...`);
+
     const linkedDealsFullData = await Promise.all(
-      linkedDeals.map(summary => megaplanRequest(`/deal/${summary.id}`))
+      linkedDeals.map(summary => {
+        console.log(`[SYNC DEBUG]   Requesting deal ${summary.id}...`);
+        return megaplanRequest(`/deal/${summary.id}`);
+      })
     );
 
     const linkedDealsData = linkedDealsFullData
-      .map(response => response?.data)
+      .map((response, index) => {
+        const data = response?.data;
+        if (data && data.customFields) {
+          console.log(`[SYNC DEBUG]   Deal ${data.id}: has ${Object.keys(data.customFields).length} custom fields`);
+        } else {
+          console.log(`[SYNC DEBUG]   Deal ${linkedDeals[index]?.id}: NO customFields in response!`);
+        }
+        return data;
+      })
       .filter(d => d !== null && d !== undefined);
 
     for (const linkedDeal of linkedDealsData) {
