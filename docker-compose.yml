@@ -1,11 +1,32 @@
 version: '3.8'
 
 services:
+  megaplan-expenses:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: megaplan-expenses
+    ports:
+      - "3001:3000"
+    environment:
+      - GOTENBERG_URL=http://gotenberg:3000
+      - NODE_ENV=production
+    env_file: .env
+    depends_on:
+      gotenberg:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - megaplan-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
   gotenberg:
     image: gotenberg/gotenberg:8
     container_name: megaplan-gotenberg
-    ports:
-      - "3001:3000"
     restart: unless-stopped
     command:
       - "gotenberg"
@@ -16,9 +37,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
-      start_period: 10s
-    environment:
-      - GOTENBERG_LOG_LEVEL=info
     networks:
       - megaplan-network
 
