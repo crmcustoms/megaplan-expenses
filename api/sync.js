@@ -168,29 +168,19 @@ module.exports = async (req, res) => {
     // 4. Calculate total from finalCost based on program
     let totalAmount = 0;
 
+    // Выведи первого деала полностью для отладки
+    if (linkedDeals.length > 0 && linkedDeals[0].customFields) {
+      console.log(`\n=== FULL customFields JSON for first deal ${linkedDeals[0].id} ===`);
+      const customFieldsStr = JSON.stringify(linkedDeals[0].customFields, null, 2);
+      // Выведи по частям чтобы не обрезалось
+      console.log(customFieldsStr.substring(0, 10000));
+    }
+
     for (const linkedDeal of linkedDeals) {
       let finalCostValue = 0;
 
       console.log(`\n[DEBUG DEAL ${linkedDeal.id}]`);
       console.log(`  Program ID: ${linkedDeal.program?.id}`);
-      console.log(`  Program Name: ${linkedDeal.program?.name}`);
-
-      // Вывести ВСЕ ключи customFields для отладки
-      if (linkedDeal.customFields) {
-        const allKeys = Object.keys(linkedDeal.customFields);
-        console.log(`  Total customFields keys: ${allKeys.length}`);
-        console.log(`  ALL KEYS:\n${allKeys.join('\n')}`);
-
-        // Ищем поля с названиями затрат
-        const costKeys = allKeys.filter(k => k.includes('1000084') || k.includes('1000083') || k.includes('Stoimost') || k.includes('Summa') || k.includes('Cost') || k.includes('cost'));
-        console.log(`  Cost-related keys: ${costKeys.join(', ')}`);
-
-        // Выводим структуру каждого поля затрат
-        costKeys.forEach(key => {
-          const val = linkedDeal.customFields[key];
-          console.log(`    ${key}:`, typeof val === 'object' ? JSON.stringify(val).substring(0, 150) : val);
-        });
-      }
 
       // Выбираем правильное поле в зависимости от программы подсделки
       if (linkedDeal.program?.id === '36') {
