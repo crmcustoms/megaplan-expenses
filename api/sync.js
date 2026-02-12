@@ -151,6 +151,11 @@ module.exports = async (req, res) => {
           console.log(`[SYNC DEBUG]   Deal ${data.id}: has ${Object.keys(data.customFields).length} custom fields`);
         } else {
           console.log(`[SYNC DEBUG]   Deal ${linkedDeals[index]?.id}: NO customFields in response!`);
+          if (data) {
+            // Log first few keys to understand response structure
+            const keys = Object.keys(data).slice(0, 15);
+            console.log(`[SYNC DEBUG]   Response keys: ${keys.join(', ')}`);
+          }
         }
         return data;
       })
