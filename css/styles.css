@@ -406,20 +406,20 @@ tfoot td.total-amount {
 
 .status-badge.paid,
 .status-badge.оплачено {
-  background: oklch(from var(--chart-1) l c h / 0.15);
-  color: var(--chart-1);
+  background: oklch(from var(--chart-1) l c h / 0.2);
+  color: oklch(0.45 0.13 160.9080);
 }
 
 .status-badge.pending,
 .status-badge.ожидание {
-  background: oklch(from var(--chart-4) l c h / 0.15);
-  color: var(--chart-4);
+  background: oklch(from var(--chart-4) l c h / 0.2);
+  color: oklch(0.55 0.16 70.0804);
 }
 
 .status-badge.cancelled,
 .status-badge.отменено {
-  background: oklch(from var(--destructive) l c h / 0.15);
-  color: var(--destructive);
+  background: oklch(from var(--destructive) l c h / 0.2);
+  color: oklch(0.4 0.19 32.7272);
 }
 
 /* ===========================
