@@ -179,15 +179,16 @@ module.exports = async (req, res) => {
       if (linkedDeal.customFields) {
         const allKeys = Object.keys(linkedDeal.customFields);
         console.log(`  Total customFields keys: ${allKeys.length}`);
+        console.log(`  ALL KEYS:\n${allKeys.join('\n')}`);
 
         // Ищем поля с названиями затрат
-        const costKeys = allKeys.filter(k => k.includes('1000084') || k.includes('1000083') || k.includes('Stoimost') || k.includes('Summa'));
+        const costKeys = allKeys.filter(k => k.includes('1000084') || k.includes('1000083') || k.includes('Stoimost') || k.includes('Summa') || k.includes('Cost') || k.includes('cost'));
         console.log(`  Cost-related keys: ${costKeys.join(', ')}`);
 
         // Выводим структуру каждого поля затрат
         costKeys.forEach(key => {
           const val = linkedDeal.customFields[key];
-          console.log(`    ${key}:`, typeof val === 'object' ? JSON.stringify(val) : val);
+          console.log(`    ${key}:`, typeof val === 'object' ? JSON.stringify(val).substring(0, 150) : val);
         });
       }
 
