@@ -150,10 +150,10 @@ module.exports = async (req, res) => {
           // Выбираем правильное поле в зависимости от программы
           if (task.program?.id === '36') {
             // Логистика - используем Category1000084CustomFieldFinalnayaStoimost
-            finalCostValue = getFieldByPath(task, '$.customFields.Category1000084CustomFieldFinalnayaStoimost');
+            finalCostValue = getFieldByPath(task, '$.customFields.Category1000084CustomFieldFinalnayaStoimost.valueInMain');
           } else if (task.program?.id === '35') {
             // Прочие поставщики - используем Category1000083CustomFieldFinalnayaStoimost
-            finalCostValue = getFieldByPath(task, '$.customFields.Category1000083CustomFieldFinalnayaStoimost');
+            finalCostValue = getFieldByPath(task, '$.customFields.Category1000083CustomFieldFinalnayaStoimost.valueInMain');
           }
 
           const amount = finalCostValue ? parseFloat(finalCostValue) : 0;

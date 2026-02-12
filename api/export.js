@@ -95,18 +95,30 @@ async function getCreatorName(userCreatedId) {
 
 // Map linked deal (expense) to expense object
 async function mapExpense(expenseDeal, parentDeal) {
-  // Выбираем правильное поле finalCost в зависимости от программы
+  // Выбираем правильные поля в зависимости от программы
+  let amountValue = 0;
+  let additionalCostValue = 0;
   let finalCostValue = 0;
+  let fairCostValue = 0;
 
   if (expenseDeal.program?.id === '36') {
-    // Логистика - используем Category1000084CustomFieldFinalnayaStoimost
-    finalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000084CustomFieldFinalnayaStoimost')) || 0;
+    // Логистика - используем Category1000084 поля
+    amountValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000084CustomFieldSumma.value')) || 0;
+    additionalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000084CustomFieldDopStoimost.valueInMain')) || 0;
+    finalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000084CustomFieldFinalnayaStoimost.valueInMain')) || 0;
+    fairCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000084CustomFieldSpravedlivayaStoimost.valueInMain')) || 0;
   } else if (expenseDeal.program?.id === '35') {
-    // Прочие поставщики - используем Category1000083CustomFieldFinalnayaStoimost
-    finalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000083CustomFieldFinalnayaStoimost')) || 0;
+    // Прочие поставщики - используем Category1000083 поля
+    amountValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000083CustomFieldSumma.value')) || 0;
+    additionalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000083CustomFieldDopStoimost.valueInMain')) || 0;
+    finalCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000083CustomFieldFinalnayaStoimost.valueInMain')) || 0;
+    fairCostValue = parseFloat(getFieldByPath(expenseDeal, '$.customFields.Category1000083CustomFieldSpravedlivayaStoimost.valueInMain')) || 0;
   } else {
-    // Fallback на стандартное поле если программа неизвестна
+    // Fallback на стандартные поля если программа неизвестна
+    amountValue = parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.amount)) || 0;
+    additionalCostValue = parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.additionalCost)) || 0;
     finalCostValue = parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.finalCost)) || 0;
+    fairCostValue = parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.fairCost)) || 0;
   }
 
   return {
@@ -126,10 +138,10 @@ async function mapExpense(expenseDeal, parentDeal) {
       return expenseDeal.contractor.name || '';
     })(),
     paymentType: getFieldByPath(expenseDeal, CUSTOM_FIELDS.paymentType),
-    amount: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.amount)) || 0,
-    additionalCost: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.additionalCost)) || 0,
+    amount: amountValue,
+    additionalCost: additionalCostValue,
     finalCost: finalCostValue,
-    fairCost: parseFloat(getFieldByPath(expenseDeal, CUSTOM_FIELDS.fairCost)) || 0,
+    fairCost: fairCostValue,
     currency: getFieldByPath(expenseDeal, CUSTOM_FIELDS.currency) || 'RUB',
     description: expenseDeal.description || expenseDeal.name || '',
     dealLink: `https://${MEGAPLAN_CONFIG.account}.megaplan.ru/deals/${expenseDeal.id}/card/`,
