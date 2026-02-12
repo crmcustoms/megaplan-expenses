@@ -9,6 +9,7 @@ const axios = require('axios');
 
 const MEGAPLAN_CONFIG = {
   account: process.env.MEGAPLAN_ACCOUNT || 'likhtman',
+  bearerToken: process.env.MEGAPLAN_BEARER_TOKEN || '',
   apiUrl: process.env.MEGAPLAN_API_URL || 'https://likhtman.megaplan.ru/api/v3'
 };
 
@@ -31,6 +32,33 @@ const CUSTOM_FIELDS = {
 // ===========================
 // HELPER FUNCTIONS
 // ===========================
+
+// Get Bearer token header
+function getAuthHeader() {
+  if (!MEGAPLAN_CONFIG.bearerToken) {
+    throw new Error('MEGAPLAN_BEARER_TOKEN is not configured');
+  }
+  return `Bearer ${MEGAPLAN_CONFIG.bearerToken}`;
+}
+
+// Make Megaplan API request
+async function megaplanRequest(endpoint, params = {}) {
+  try {
+    const response = await axios.get(`${MEGAPLAN_CONFIG.apiUrl}${endpoint}`, {
+      params,
+      headers: {
+        'Authorization': getAuthHeader(),
+        'Content-Type': 'application/json'
+      },
+      timeout: 30000 // 30 seconds
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Megaplan API Error:', error.message);
+    throw error;
+  }
+}
 
 function formatNumber(num) {
   if (num === null || num === undefined || num === '') return '0.00';
