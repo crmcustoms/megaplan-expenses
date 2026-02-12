@@ -137,7 +137,6 @@ function renderTable(expenses) {
     row.innerHTML = `
       <td>${escapeHtml(exp.deal_id || '')}</td>
       <td>${renderDealLink(exp.dealLink, exp.deal_name)}</td>
-      <td class="col-description">${escapeHtml(stripHtmlTags(exp.description || ''))}</td>
       <td>${renderStatus(exp.status)}</td>
       <td>${escapeHtml(exp.category || '')}</td>
       <td>${escapeHtml(exp.brand || '')}</td>
@@ -258,7 +257,6 @@ async function exportExcel() {
     const headers = [
       'deal_id',
       'Название сделки',
-      'Суть',
       'Статус',
       'Статья расходов',
       'Бренд',
@@ -276,7 +274,6 @@ async function exportExcel() {
     const rows = expensesData.map(exp => [
       exp.deal_id || '',
       exp.deal_name || '',
-      stripHtmlTags(exp.description || ''),
       exp.status || '',
       exp.category || '',
       exp.brand || '',
@@ -295,7 +292,7 @@ async function exportExcel() {
 
     // Add total row
     rows.push([
-      '', '', '', '', '', '', '', '', '', 'ИТОГО:',
+      '', '', '', '', '', '', '', '', 'ИТОГО:',
       '', '', total, ''
     ]);
 
@@ -307,7 +304,6 @@ async function exportExcel() {
     ws['!cols'] = [
       { wch: 10 },  // deal_id
       { wch: 25 },  // Название сделки
-      { wch: 35 },  // Суть
       { wch: 15 },  // Статус
       { wch: 18 },  // Статья расходов
       { wch: 12 },  // Бренд
