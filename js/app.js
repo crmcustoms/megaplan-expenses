@@ -9,7 +9,6 @@ const API_BASE_URL = '/api'; // Для production
 const API_ENDPOINTS = {
   getExpenses: `${API_BASE_URL}/expenses`,
   exportCSV: `${API_BASE_URL}/export`,
-  exportPDF: `${API_BASE_URL}/pdf`,
   updateDealField: `${API_BASE_URL}/update-deal-field`
 };
 
@@ -343,52 +342,6 @@ async function exportExcel() {
     const btn = document.getElementById('exportExcelBtn');
     btn.disabled = false;
     btn.textContent = 'Скачать Excel';
-  }
-}
-
-async function exportPDF() {
-  try {
-    // Disable button
-    const btn = document.getElementById('exportPdfBtn');
-    btn.disabled = true;
-    btn.textContent = 'Генерация PDF...';
-
-    const url = `${API_ENDPOINTS.exportPDF}?dealId=${dealId}`;
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: Ошибка генерации PDF`);
-    }
-
-    // Get blob
-    const blob = await response.blob();
-
-    // Create download link
-    const downloadUrl = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = downloadUrl;
-    a.download = `expenses_${dealId}_${new Date().toISOString().split('T')[0]}.pdf`;
-
-    // Trigger download
-    document.body.appendChild(a);
-    a.click();
-
-    // Cleanup
-    window.URL.revokeObjectURL(downloadUrl);
-    document.body.removeChild(a);
-
-    // Restore button
-    btn.disabled = false;
-    btn.textContent = 'Скачать PDF';
-
-  } catch (error) {
-    console.error('Ошибка экспорта PDF:', error);
-    alert('Ошибка экспорта PDF. Попробуйте еще раз.');
-
-    // Restore button
-    const btn = document.getElementById('exportPdfBtn');
-    btn.disabled = false;
-    btn.textContent = 'Скачать PDF';
   }
 }
 
