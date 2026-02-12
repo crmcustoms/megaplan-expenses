@@ -151,10 +151,26 @@ module.exports = async (req, res) => {
         // Логистика - используем Category1000084CustomFieldFinalnayaStoimost
         finalCostValue = getFieldByPath(linkedDeal, '$.customFields.Category1000084CustomFieldFinalnayaStoimost.valueInMain');
         console.log(`[SYNC DEBUG] Deal ${linkedDeal.id} (Логистика 36): finalCost=${finalCostValue}`);
+
+        // Если не найдено, попробуем альтернативный path
+        if (!finalCostValue) {
+          const altValue = getFieldByPath(linkedDeal, '$.customFields.Category1000084CustomFieldFinalnayaStoimost.value');
+          console.log(`[SYNC DEBUG]   Alt path (.value): ${altValue}`);
+          finalCostValue = altValue;
+        }
+
       } else if (linkedDeal.program?.id === '35') {
         // Прочие поставщики - используем Category1000083CustomFieldFinalnayaStoimost
         finalCostValue = getFieldByPath(linkedDeal, '$.customFields.Category1000083CustomFieldFinalnayaStoimost.valueInMain');
         console.log(`[SYNC DEBUG] Deal ${linkedDeal.id} (Прочие 35): finalCost=${finalCostValue}`);
+
+        // Если не найдено, попробуем альтернативный path
+        if (!finalCostValue) {
+          const altValue = getFieldByPath(linkedDeal, '$.customFields.Category1000083CustomFieldFinalnayaStoimost.value');
+          console.log(`[SYNC DEBUG]   Alt path (.value): ${altValue}`);
+          finalCostValue = altValue;
+        }
+
       } else {
         console.log(`[SYNC DEBUG] Deal ${linkedDeal.id}: program=${linkedDeal.program?.id} (unknown)`);
       }
