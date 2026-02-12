@@ -80,33 +80,20 @@ app.post('/api/deploy', (req, res) => {
   }
 
   console.log('🚀 Deploy webhook triggered!');
+  console.log('📝 Run on server: cd /root/megaplan-expenses && git pull && docker-compose up --build -d');
 
-  // Fetch latest code from GitHub
-  // Note: For production use, set up a deploy user with SSH key
-  // For now, we'll execute git pull command
-  const projectPath = process.env.PROJECT_PATH || '/root/megaplan-expenses';
+  // For webhook deployment in production:
+  // 1. Set up a webhook receiver service on the host (not in container)
+  // 2. Use systemd or supervisor to manage deployment process
+  // 3. Or use Kubernetes/Docker Swarm orchestration
+  //
+  // For now, webhook is just a notification. Manual deployment:
+  // ssh root@server "cd /root/megaplan-expenses && git pull && docker-compose up --build -d"
 
-  exec(
-    `cd ${projectPath} && git pull origin main && echo "Git pull completed"`,
-    { timeout: 30000 },
-    (error, stdout, stderr) => {
-      if (error) {
-        console.error('❌ Git pull failed:', error.message);
-        if (stderr) console.error('STDERR:', stderr);
-        // Still notify but with error flag
-        return;
-      }
-
-      console.log('✅ Git pull completed');
-      console.log('📝 New code ready. Server will use it on next request.');
-      console.log('💡 Note: For zero-downtime deployment, consider using node clustering or pm2');
-    }
-  );
-
-  // Сразу отвечаем GitHub (не ждем выполнения)
   res.status(200).json({
-    message: 'Deployment initiated',
-    note: 'Latest code will be used on next restart'
+    message: 'Webhook received',
+    action: 'Manual deployment required',
+    command: 'cd /root/megaplan-expenses && git pull && docker-compose up --build -d'
   });
 });
 
