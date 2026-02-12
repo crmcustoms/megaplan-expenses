@@ -273,7 +273,7 @@ async function exportExcel() {
     // Prepare data rows
     const rows = expensesData.map(exp => [
       exp.deal_id || '',
-      exp.deal_name || '',
+      exp.dealLink ? `=HYPERLINK("${exp.dealLink}","${exp.deal_name}")` : (exp.deal_name || ''),
       exp.status || '',
       exp.category || '',
       exp.brand || '',
