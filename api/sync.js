@@ -140,7 +140,7 @@ module.exports = async (req, res) => {
     const linkedDealsFullData = await Promise.all(
       linkedDeals.map(summary => {
         console.log(`[SYNC DEBUG]   Requesting deal ${summary.id}...`);
-        return megaplanRequest(`/deal/${summary.id}`);
+        return megaplanRequest(`/deal/${summary.id}`, { with: 'customFields' });
       })
     );
 
