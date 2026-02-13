@@ -123,7 +123,7 @@ function renderTable(expenses) {
   if (expenses.length === 0) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="16" style="text-align: center; padding: 32px; color: #6B6B6B;">
+        <td colspan="15" style="text-align: center; padding: 32px; color: #6B6B6B;">
           Расходов по проекту пока нет
         </td>
       </tr>
@@ -148,6 +148,7 @@ function renderTable(expenses) {
       <td class="col-number">${formatNumber(exp.additionalCost)}</td>
       <td class="col-number">${formatNumber(exp.finalCost)}</td>
       <td class="col-number">${formatNumber(exp.fairCost)}</td>
+      <td><a href="${escapeHtml(exp.dealLink || '')}" target="_blank" style="color: #0563C1; text-decoration: underline;">${escapeHtml(exp.dealLink || '')}</a></td>
     `;
     tbody.appendChild(row);
   });
@@ -267,10 +268,11 @@ async function exportExcel() {
       'Сумма',
       'Доп.стоимость',
       'Финальная стоимость',
-      'Справедливая стоимость'
+      'Справедливая стоимость',
+      'Ссылка'
     ];
 
-    // Prepare data rows (hyperlinks added after sheet creation)
+    // Prepare data rows
     const rows = expensesData.map(exp => [
       exp.deal_id || '',
       exp.deal_name || '',
@@ -284,7 +286,8 @@ async function exportExcel() {
       exp.amount || 0,
       exp.additionalCost || 0,
       exp.finalCost || 0,
-      exp.fairCost || 0
+      exp.fairCost || 0,
+      exp.dealLink || ''
     ]);
 
     // Calculate total
@@ -293,7 +296,7 @@ async function exportExcel() {
     // Add total row
     rows.push([
       '', '', '', '', '', '', '', '', 'ИТОГО:',
-      '', '', total, ''
+      '', '', total, '', ''
     ]);
 
     // Create workbook
@@ -314,22 +317,9 @@ async function exportExcel() {
       { wch: 14 },  // Сумма
       { wch: 14 },  // Доп.стоимость
       { wch: 18 },  // Финальная стоимость
-      { wch: 18 }   // Справедливая стоимость
+      { wch: 18 },  // Справедливая стоимость
+      { wch: 45 }   // Ссылка
     ];
-
-    // Add hyperlinks to deal names (column B = column 1)
-    // SheetJS hyperlinks format: cell.l = { Target: url }
-    for (let i = 0; i < expensesData.length; i++) {
-      const exp = expensesData[i];
-      if (exp.dealLink) {
-        const cellRef = XLSX.utils.encode_cell({ r: i + 1, c: 1 }); // row i+1 (skip header), col 1
-        if (ws[cellRef]) {
-          ws[cellRef].l = { Target: exp.dealLink };
-          // Also set the cell style to indicate it's a link (blue, underline)
-          ws[cellRef].s = { color: { rgb: '0563C1' }, u: 'single' };
-        }
-      }
-    }
 
     // Add worksheet to workbook
     XLSX.utils.book_append_sheet(wb, ws, 'Расходы');
